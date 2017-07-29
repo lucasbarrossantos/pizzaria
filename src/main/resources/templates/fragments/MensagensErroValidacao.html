@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div class="alert bg-red alert-dismissible" role="alert" th:if="${#fields.hasAnyErrors()}" th:fragment="error">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <th:block th:each="detailedError : ${#fields.detailedErrors()}">
+        <div><i class="material-icons">warning</i> [[${detailedError.message}]]</div>
+    </th:block>
+</div>
+
+</html>
