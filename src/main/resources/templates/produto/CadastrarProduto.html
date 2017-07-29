@@ -66,9 +66,9 @@
                             <div class="row clearfix">
                                 <div class="col-sm-12">
                                     <div class="form-group form-float">
-                                        <div class="form-line">
+                                        <div class="form-line" th:classappend="${#fields.hasErrors('descricao')} ? error">
                                             <input class="form-control"
-                                                      required="" th:field="*{descricao}"/>
+                                                   required="" th:field="*{descricao}"/>
                                             <label class="form-label">Descrição</label>
                                         </div>
                                     </div>
@@ -98,18 +98,21 @@
                             </div>
 
                             <div class="row clearfix">
-                                <div class="col-sm-6">
-                                    <select class="form-control show-tick">
+                                <div class="col-sm-4">
+                                    <select class="form-control show-tick select-categoria"
+                                            th:field="*{categoria}">
                                         <option value="">-- Categoria --</option>
-                                        <option value="10">Bebidas</option>
-                                        <option value="20">Comida</option>
+                                        <option th:each="categoria : ${categorias}"
+                                                th:value="${categoria.id}" th:text="${categoria.descricao}">Bebidas</option>
                                     </select>
                                 </div>
-                                <button class="btn bg-deep-purple btn-circle waves-effect waves-circle waves-float btn-salvar"
-                                        data-toggle="tooltip" data-placement="top" title="" data-original-title="Nova categoria">
-                                    <i class="material-icons">save</i>
+                                <button class="btn bg-deep-purple waves-effect btn-abrir-modal"
+                                        data-toggle="modal" data-target="#modalCadastroCategoria">
+                                    Nova
                                 </button>
                             </div>
+
+                            <br/><br/>
 
                             <button class="btn bg-deep-purple btn-circle waves-effect waves-circle waves-float btn-salvar"
                                     data-toggle="tooltip" data-placement="top" title="" data-original-title="Salvar">
@@ -121,7 +124,45 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalCadastroCategoria" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="defaultModalLabel">Nova Categoria</h4>
+                </div>
+                <form th:action="@{/produtos}" method="post" class="js-form-nova-categoria">
+                    <div class="modal-body">
+                        <div class="form-group form-float">
+                            <div class="alert bg-pink alert-dismissible hidden  js-mensagem-cadastro-rapido-categoria"
+                                 role="alert">
+                                <i class="material-icons">warning</i>
+                            </div>
+
+                            <div class="form-line">
+                                <input class="form-control" id="input-nova-categoria" required=""/>
+                                <label class="form-label">Descrição</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn bg-deep-purple waves-effect js-btn-salvar-categoria"
+                                th:attr="data-acao='nova-categoria'">Salvar
+                        </button>
+                        <button type="button" class="btn waves-effect" data-dismiss="modal">Cancelar</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </section>
 
+<th:block layout:fragment="javascript-extra">
+    <script th:src="@{/js/categoria.cadastro-rapido.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+</th:block>
 
 </html>

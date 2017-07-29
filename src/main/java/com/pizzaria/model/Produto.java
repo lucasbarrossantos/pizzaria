@@ -21,9 +21,11 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Descrição não pode estar em branco")
     @Column(length = 100)
     private String descricao;
 
+    @NotNull(message = "Valor unitário deve ser informado")
     @NumberFormat(pattern = "#,##0.00")
     @Column(name = "valor_unitario")
     private BigDecimal valorUnitario;
@@ -31,6 +33,7 @@ public class Produto {
     @Column(length = 60)
     private String unidade;
 
+    @NotNull(message = "Selecione uma categoria")
     @ManyToOne
     private Categoria categoria;
 
@@ -43,7 +46,7 @@ public class Produto {
     @Column
     private String caracteristicas;
 
-    @NumberFormat(pattern = "#,##0.00")
+    @NumberFormat(pattern = "#,##0")
     @NotNull(message = "A quantidade em estoque é obrigatória")
     @Max(value = 9999, message = "A quantidade em estoque deve ser menor que 9.999")
     @Column(name = "quantidade_estoque")

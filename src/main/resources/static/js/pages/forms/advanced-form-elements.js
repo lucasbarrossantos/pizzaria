@@ -38,17 +38,10 @@ $(function () {
     $demoMaskedInput.find('.cep-cidade').inputmask('99999-999', {placeholder: '_____-___'});
 
     //DINHEIRO
-    $demoMaskedInput.find('.js-moeda').maskMoney({
-        decimal: ',',
-        thousands: '.',
-        allowZero: true
-    });
+    $demoMaskedInput.find('.js-moeda').maskMoney({ decimal: ',', thousands: '.' });
 
     //NUMERO
-    $demoMaskedInput.find('.js-numero').maskMoney({
-        thousands : '.',
-        allowZero : false
-    });
+    $demoMaskedInput.find('.js-numero').maskMoney({ precision: 0, thousands: '.' });
 
     //Credit Card
     $demoMaskedInput.find('.credit-card').inputmask('9999 9999 9999 9999', {placeholder: '____ ____ ____ ____'});

@@ -1,5 +1,7 @@
 package com.pizzaria.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 
 /**
@@ -14,6 +16,7 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Descrição deve ser informada!")
     @Column(length = 100)
     private String descricao;
 

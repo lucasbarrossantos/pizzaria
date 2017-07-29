@@ -1,12 +1,15 @@
 package com.pizzaria.controller;
 
+import com.pizzaria.model.Categoria;
 import com.pizzaria.model.Produto;
+import com.pizzaria.repository.Categorias;
 import com.pizzaria.service.ProdutosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,9 +24,14 @@ public class ProdutoController {
     @Autowired
     private ProdutosService produtosService;
 
+    @Autowired
+    private Categorias categorias;
+
     @RequestMapping("/new")
     public ModelAndView novo(Produto produto) {
-        return new ModelAndView(CADASTRO);
+        ModelAndView mv = new ModelAndView(CADASTRO);
+        mv.addObject("categorias", categorias.findAll());
+        return mv;
     }
 
     @PostMapping("/new")
@@ -36,6 +44,19 @@ public class ProdutoController {
         produto = produtosService.salvar(produto);
         attributes.addFlashAttribute("mensagem", "Produto: " + produto.getDescricao() + " salvo com sucesso!");
         return new ModelAndView("redirect:/produtos/new");
+    }
+
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody
+    ResponseEntity<?> novoTipoDePagamento(@RequestBody @Valid Categoria categoria,
+                                          BindingResult result){
+
+        if (result.hasErrors()){
+            return ResponseEntity.badRequest().body(result.getFieldError("descricao").getDefaultMessage());
+        }
+
+        categoria = categorias.saveAndFlush(categoria);
+        return ResponseEntity.ok(categoria);
     }
 
 }
