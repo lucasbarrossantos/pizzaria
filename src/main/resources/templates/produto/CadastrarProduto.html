@@ -64,12 +64,21 @@
                             </div>
 
                             <div class="row clearfix">
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line" th:classappend="${#fields.hasErrors('descricao')} ? error">
                                             <input class="form-control"
                                                    required="" th:field="*{descricao}"/>
                                             <label class="form-label">Descrição</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line" th:classappend="${#fields.hasErrors('valorCompra')} ? error">
+                                            <input class="form-control js-moeda"
+                                                   required="" th:field="*{valorCompra}"/>
+                                            <label class="form-label">Valor da compra</label>
                                         </div>
                                     </div>
                                 </div>

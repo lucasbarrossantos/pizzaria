@@ -30,6 +30,11 @@ public class Produto {
     @Column(name = "valor_unitario")
     private BigDecimal valorUnitario;
 
+    @NotNull(message = "Valor da compra deve ser informado")
+    @NumberFormat(pattern = "#,##0.00")
+    @Column(name = "valor_compra")
+    private BigDecimal valorCompra;
+
     @Column(length = 60)
     private String unidade;
 
@@ -127,15 +132,25 @@ public class Produto {
         this.estabelecimento = estabelecimento;
     }
 
+    public BigDecimal getValorCompra() {
+        return valorCompra;
+    }
+
+    public void setValorCompra(BigDecimal valorCompra) {
+        this.valorCompra = valorCompra;
+    }
+
     @Override
     public String toString() {
         return "Produto{" +
                 "id=" + id +
                 ", descricao='" + descricao + '\'' +
                 ", valorUnitario=" + valorUnitario +
+                ", valorCompra=" + valorCompra +
                 ", unidade='" + unidade + '\'' +
-                ", caracteristicas='" + caracteristicas + '\'' +
+                ", categoria=" + categoria +
                 ", sku='" + sku + '\'' +
+                ", caracteristicas='" + caracteristicas + '\'' +
                 ", quantidadeEstoque=" + quantidadeEstoque +
                 '}';
     }
