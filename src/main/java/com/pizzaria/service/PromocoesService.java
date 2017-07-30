@@ -12,6 +12,7 @@ public class PromocoesService {
     private Promocoes promocoes;
 
     public Promocao salvar(Promocao promocao){
+        promocao.getPizzas().stream().forEach(pizza -> pizza.setPromocao(promocao));
         return promocoes.save(promocao);
     }
 

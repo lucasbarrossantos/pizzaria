@@ -86,10 +86,10 @@
 
                             <div class="row clearfix">
                                 <div class="col-sm-12">
-                                    <h2 class="card-inside-title">Sabores</h2>
+                                    <h2 class="card-inside-title">Sabor</h2>
                                     <div class="demo-checkbox">
                                         <th:block th:each="sabor : ${sabores}">
-                                            <input type="checkbox" class="chk-col-deep-purple"
+                                            <input type="radio" class="with-gap radio-col-deep-purple"
                                                    th:value="${sabor.id}" th:field="*{sabores}"/>
 
                                             <label th:for="${#ids.prev('sabores')}"

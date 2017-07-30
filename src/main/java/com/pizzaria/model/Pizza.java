@@ -1,5 +1,6 @@
 package com.pizzaria.model;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.NumberFormat;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "pizza")
+@DynamicUpdate
 public class Pizza {
 
     @Id
@@ -34,13 +36,18 @@ public class Pizza {
 
     private String adicional;
 
+    @Column(length = 90)
+    private String saborPiza;
+
     @NumberFormat(pattern = "#,##0.00")
     @NotNull(message = "Valor unitário deve ser informado")
     @Column(name = "valor_unitario")
     private BigDecimal valorUnitario;
 
     @Size(min = 1, message = "Selecione pelo menos um sabor")
-    @OneToMany(mappedBy = "pizza", cascade = CascadeType.PERSIST)
+    @ManyToMany
+    @JoinTable(name = "pizza_sabor", joinColumns = @JoinColumn(name = "codigo_pizza")
+            , inverseJoinColumns = @JoinColumn(name = "codigo_sabor"))
     private List<Sabor> sabores = new ArrayList<>();
 
     @ManyToOne
@@ -131,10 +138,18 @@ public class Pizza {
         this.contentType = contentType;
     }
 
+    public String getSaborPiza() {
+        return saborPiza;
+    }
+
+    public void setSaborPiza(String saborPiza) {
+        this.saborPiza = saborPiza;
+    }
+
     @PrePersist
     @PreUpdate
     private void prePersistUpdate() {
-        this.sabores.stream().forEach(sabor -> sabor.setPizza(this));
+        this.sabores.stream().forEach(sabor -> this.setSaborPiza(sabor.getDescricao()));
     }
 
     @Override

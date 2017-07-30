@@ -56,6 +56,21 @@
                                 </div>
                             </div>
 
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <h2 class="card-inside-title">Pizzas</h2>
+                                    <div class="demo-checkbox">
+                                        <th:block th:each="pizza : ${pizzas}">
+                                            <input type="checkbox" class="chk-col-deep-purple"
+                                                   th:value="${pizza.id}" th:field="*{pizzas}"/>
+
+                                            <label th:for="${#ids.prev('pizzas')}"
+                                                   th:text="${pizza.saborPiza}">Queijo</label>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </div>
+
                             <button class="btn bg-deep-purple btn-circle waves-effect waves-circle waves-float btn-salvar"
                                     data-toggle="tooltip" data-placement="top" title="" data-original-title="Salvar">
                                 <i class="material-icons">save</i>

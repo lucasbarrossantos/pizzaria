@@ -1,7 +1,8 @@
 package com.pizzaria.controller;
 
+import com.pizzaria.model.Pizza;
 import com.pizzaria.model.Promocao;
-import com.pizzaria.repository.Promocoes;
+import com.pizzaria.repository.Pizzas;
 import com.pizzaria.service.PromocoesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/promocoes")
@@ -23,9 +25,14 @@ public class PromocaoControler {
     @Autowired
     private PromocoesService promocoesService;
 
+    @Autowired
+    private Pizzas pizzas;
+
     @GetMapping("/new")
     public ModelAndView novo(Promocao promocao){
-        return new ModelAndView(CADASTRO);
+        ModelAndView mv = new ModelAndView(CADASTRO);
+        mv.addObject("pizzas", pizzas.findAll());
+        return mv;
     }
 
     @PostMapping("/new")

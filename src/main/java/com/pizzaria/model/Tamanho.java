@@ -5,10 +5,9 @@ package com.pizzaria.model;
  */
 public enum Tamanho {
 
-    GRANDE("Grande 12 fatias"),
-    PEQUENA("Pequena 9 fatias"),
-    FAMILIA("Família 15 fatias"),
-    MEDIA("Média 4 fatias");
+    PEQUENA("Pequena"),
+    MEDIA("Média"),
+    FAMILIA("Grande");
 
     private String descricao;
 

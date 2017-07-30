@@ -29,7 +29,7 @@ public class Promocao {
     @NotNull(message = "Valor deve ser informado")
     private BigDecimal valor;
 
-    @OneToMany(mappedBy = "promocao", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "promocao", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Pizza> pizzas = new ArrayList<>();
 
     @ManyToOne

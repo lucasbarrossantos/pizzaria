@@ -20,9 +20,6 @@ public class Sabor {
     @Column(length = 60)
     private String descricao;
 
-    @ManyToOne
-    private Pizza pizza;
-
     public Long getId() {
         return id;
     }
@@ -37,14 +34,6 @@ public class Sabor {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public Pizza getPizza() {
-        return pizza;
-    }
-
-    public void setPizza(Pizza pizza) {
-        this.pizza = pizza;
     }
 
     @Override
