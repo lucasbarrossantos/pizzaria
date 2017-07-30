@@ -1,7 +1,11 @@
 package com.pizzaria.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +22,11 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull(message = "Selecione o tamanho")
     @Enumerated(EnumType.STRING)
     private Tamanho tamanho;
 
+    @NotBlank(message = "Descrição não pode estar em branco")
     @Column(length = 60)
     private String descricao;
 
@@ -28,11 +34,13 @@ public class Pizza {
 
     private String adicional;
 
+    @NumberFormat(pattern = "#,##0.00")
+    @NotNull(message = "Valor unitário deve ser informado")
     @Column(name = "valor_unitario")
     private BigDecimal valorUnitario;
 
-    @NotNull
-    @OneToMany(mappedBy = "pizza", fetch = FetchType.LAZY)
+    @Size(min = 1, message = "Selecione pelo menos um sabor")
+    @OneToMany(mappedBy = "pizza", cascade = CascadeType.PERSIST)
     private List<Sabor> sabores = new ArrayList<>();
 
     @ManyToOne
@@ -121,6 +129,12 @@ public class Pizza {
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void prePersistUpdate() {
+        this.sabores.stream().forEach(sabor -> sabor.setPizza(this));
     }
 
     @Override

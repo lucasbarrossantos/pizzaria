@@ -28,7 +28,7 @@
 
                             <h2 class="card-inside-title">Nova pizza</h2>
                             <div class="row clearfix">
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line"
                                              th:classappend="${#fields.hasErrors('descricao')} ? error">
@@ -39,7 +39,70 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-sm-6">
+                                    <select class="form-control show-tick select-categoria"
+                                            th:field="*{tamanho}">
+                                        <option value="">-- Tamanho --</option>
+                                        <option th:each="tamanho : ${tamanhos}"
+                                                th:value="${tamanho}"
+                                                th:text="${tamanho.descricao}">Tamanho
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
+
+                            <div class="row clearfix">
+                                <div class="col-sm-4">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input class="form-control"
+                                                   th:field="*{borda}"/>
+                                            <label class="form-label">Borda</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input class="form-control"
+                                                   th:field="*{adicional}"/>
+                                            <label class="form-label">Adicional</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group form-float">
+                                        <div class="form-line"
+                                             th:classappend="${#fields.hasErrors('valorUnitario')} ? error">
+                                            <input class="form-control js-moeda"
+                                                   required=""
+                                                   th:field="*{valorUnitario}"/>
+                                            <label class="form-label">Valor unitário</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <h2 class="card-inside-title">Sabores</h2>
+                                    <div class="demo-checkbox">
+                                        <th:block th:each="sabor : ${sabores}">
+                                            <input type="checkbox" class="chk-col-deep-purple"
+                                                   th:value="${sabor.id}" th:field="*{sabores}"/>
+
+                                            <label th:for="${#ids.prev('sabores')}"
+                                                   th:text="${sabor.descricao}">Queijo</label>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn bg-deep-purple btn-circle waves-effect waves-circle waves-float btn-salvar"
+                                    data-toggle="tooltip" data-placement="top" title="" data-original-title="Salvar">
+                                <i class="material-icons">save</i>
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -47,6 +110,5 @@
         </div>
     </div>
 </section>
-
 
 </html>
