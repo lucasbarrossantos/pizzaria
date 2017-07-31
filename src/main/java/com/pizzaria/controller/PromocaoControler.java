@@ -1,11 +1,11 @@
 package com.pizzaria.controller;
 
-import com.pizzaria.model.Pizza;
 import com.pizzaria.model.Promocao;
 import com.pizzaria.repository.Pizzas;
 import com.pizzaria.service.PromocoesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,15 +36,19 @@ public class PromocaoControler {
     }
 
     @PostMapping("/new")
-    public ModelAndView salvar(@Valid Promocao promocao, BindingResult result, RedirectAttributes attributes){
-
-        System.out.printf(">> " + promocao.getValor());
+    public ModelAndView salvar(@Valid Promocao promocao, BindingResult result,
+                               RedirectAttributes attributes, Model model){
 
         if (result.hasErrors()){
             return novo(promocao);
         }
 
-        promocao = promocoesService.salvar(promocao);
+        try {
+            promocao = promocoesService.salvar(promocao);
+        }catch (RuntimeException e){
+            model.addAttribute("mensagem" ,e.getMessage());
+            return novo(promocao);
+        }
         attributes.addFlashAttribute("mensagem", "Promocao " + promocao.getId() +" salva com sucesso");
         return new ModelAndView("redirect:/promocoes/new");
     }
