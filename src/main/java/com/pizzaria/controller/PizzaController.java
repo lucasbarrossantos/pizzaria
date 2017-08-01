@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/pizzas")
-public class PizzasController {
+public class PizzaController {
 
     private static final String CADASTRO = "pizza/CadastrarPizza";
 

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+    <title>Fornecedores</title>
+</head>
+
+<section class="content" layout:fragment="conteudo">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>Pesquisa</h2>
+        </div>
+
+        <!-- Exportable Table -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            FORNECEDORES
+                        </h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="javascript:void(0);">Action</a></li>
+                                    <li><a href="javascript:void(0);">Another action</a></li>
+                                    <li><a href="javascript:void(0);">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nome F</th>
+                                    <th>Razão Social</th>
+                                    <th>CNPJ</th>
+                                    <th>Endereço</th>
+                                    <th>Bairro</th>
+                                    <th>Cidade</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="fornecedor : ${fornecedores}">
+                                    <td th:text="${fornecedor.id}"></td>
+                                    <td th:text="${fornecedor.nomeFantasia}"></td>
+                                    <td th:text="${fornecedor.razaoSocial}"></td>
+                                    <td th:text="${fornecedor.cnpj}"></td>
+                                    <td th:text="${fornecedor.endereco.endereco}"></td>
+                                    <td th:text="${fornecedor.endereco.bairro}"></td>
+                                    <td th:text="${fornecedor.endereco.cidade}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Exportable Table -->
+
+    </div>
+</section>
+
+
+</html>

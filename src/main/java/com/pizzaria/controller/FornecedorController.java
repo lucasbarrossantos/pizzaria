@@ -1,6 +1,7 @@
 package com.pizzaria.controller;
 
 import com.pizzaria.model.Fornecedor;
+import com.pizzaria.repository.Fornecedores;
 import com.pizzaria.service.FornecedoresService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,9 @@ public class FornecedorController {
     @Autowired
     private FornecedoresService fornecedoresService;
 
+    @Autowired
+    private Fornecedores fornecedores;
+
     @RequestMapping("/new")
     public ModelAndView novo(Fornecedor fornecedor) {
         return new ModelAndView(CADASTRO);
@@ -35,6 +39,13 @@ public class FornecedorController {
         fornecedoresService.salvar(fornecedor);
         attributes.addFlashAttribute("mensagem", "Fornecedor salvo com sucesso!");
         return new ModelAndView("redirect:/fornecedores/new");
+    }
+
+    @GetMapping
+    public ModelAndView pesquisar(){
+        ModelAndView mv = new ModelAndView("fornecedor/PesquisarFornecedor");
+        mv.addObject("fornecedores", fornecedores.findAll());
+        return mv;
     }
 
 }

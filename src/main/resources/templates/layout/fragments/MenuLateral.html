@@ -42,42 +42,58 @@
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">save</i>
-                        <span>Cadastrar</span>
+                        <span>Cadastros</span>
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <a href="#">Usuário</a>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <span>Básicos</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li>
+                                    <a href="#">Usuário</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/fornecedores/new}">Fornecedor</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/promocoes/new}">Promoção</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/pizzas/new}">Pizza</a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
-                            <a th:href="@{/fornecedores/new}">Fornecedor</a>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <span>Estoque</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li>
+                                    <a th:href="@{/produtos/new}">Produtos</a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
-                            <a th:href="@{/promocoes/new}">Promoção</a>
-                        </li>
-                        <li>
-                            <a th:href="@{/pizzas/new}">Pizza</a>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <span>Financeiro</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li>
+                                    <a th:href="@{/titulos/new}">Contas</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
-                </li>
+
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">save</i>
-                        <span>Estoque</span>
+                        <i class="material-icons">search</i>
+                        <span>Pesquisas</span>
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <a th:href="@{/produtos/new}">Produtos</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">save</i>
-                        <span>Financeiro</span>
-                    </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a th:href="@{/titulos/new}">Contas</a>
+                            <a th:href="@{/fornecedores}">Fornecedores</a>
                         </li>
                     </ul>
                 </li>
