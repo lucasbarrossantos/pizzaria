@@ -1,6 +1,10 @@
 package com.pizzaria.model;
 
+import com.pizzaria.model.enumeration.Situacao;
+import com.pizzaria.model.enumeration.Tipo;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,23 +23,30 @@ public class Titulo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Descrição deve ser informada")
     private String descricao;
 
+    @NumberFormat(pattern = "#,##0.00")
     @Column(name = "valor_original")
     private BigDecimal valorOriginal;
 
+    @NumberFormat(pattern = "#,##0.00")
+    @NotNull(message = "Valor deve ser informado")
     private BigDecimal valor;
 
+    @NumberFormat(pattern = "#,##0.00")
     @Column(name = "valor_pago")
     private BigDecimal valorPago;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "data_de_emissao")
     private LocalDate dataDeEmissao;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "data_de_validade")
     private LocalDate dataDeValidade;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "data_do_pagamento")
     private LocalDate dataDoPagamento;
 
@@ -49,11 +60,20 @@ public class Titulo {
     @ManyToOne
     private CentroDeCusto centroDeCusto;
 
-    @NotNull
+    @NotNull(message = "Informa o fornecedor")
     @ManyToOne
     private Fornecedor fornecedor;
 
-    @NotNull
+    @NotNull(message = "Tipo deve ser informado")
+    @Column(length = 40)
+    @Enumerated(EnumType.STRING)
+    private Tipo tipo;
+
+    @NotNull(message = "Situação deve ser informada")
+    @Column(length = 40)
+    @Enumerated(EnumType.STRING)
+    private Situacao situacao;
+
     @ManyToOne
     private Estabelecimento estabelecimento;
 
@@ -153,6 +173,22 @@ public class Titulo {
         this.estabelecimento = estabelecimento;
     }
 
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    public Situacao getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(Situacao situacao) {
+        this.situacao = situacao;
+    }
+
     @Override
     public String toString() {
         return "Titulo{" +
@@ -166,6 +202,8 @@ public class Titulo {
                 ", dataDoPagamento=" + dataDoPagamento +
                 ", formaDePagamento=" + formaDePagamento +
                 ", centroDeCusto=" + centroDeCusto +
+                ", tipo=" + tipo +
+                ", situacao=" + situacao +
                 ", fornecedor=" + fornecedor +
                 '}';
     }

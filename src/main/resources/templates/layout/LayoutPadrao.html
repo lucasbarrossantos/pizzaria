@@ -25,6 +25,9 @@
     <!-- Animation Css -->
     <link th:href="@{/plugins/animate-css/animate.css}" rel="stylesheet"/>
 
+    <!-- Bootstrap Material Datetime Picker Css -->
+    <link th:href="@{/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css}" rel="stylesheet" />
+
     <link th:href="@{/plugins/bootstrap-select/css/bootstrap-select.css}" rel="stylesheet" />
 
     <!-- Morris Chart Css-->
@@ -39,7 +42,7 @@
     <link th:href="@{/css/themes/all-themes.css}" rel="stylesheet"/>
 </head>
 
-<body class="theme-red">
+<body class="theme-deep-purple">
 
 <!-- Top Bar -->
 <div th:replace="layout/fragments/Cabecalho :: cabecalho"></div>
@@ -86,6 +89,11 @@
 
 <!-- Waves Effect Plugin Js -->
 <script th:src="@{/plugins/node-waves/waves.js}"></script>
+
+<!-- Moment Plugin Js -->
+<script th:src="@{/plugins/momentjs/moment.js}"></script>
+<!-- Bootstrap Material Datetime Picker Plugin Js -->
+<script th:src="@{/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js}"></script>
 
 <!-- Jquery CountTo Plugin Js -->
 <script th:src="@{/plugins/jquery-countto/jquery.countTo.js}"></script>

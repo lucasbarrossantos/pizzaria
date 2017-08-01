@@ -1,5 +1,6 @@
 package com.pizzaria.model;
 
+import com.pizzaria.model.enumeration.StatusPedido;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;

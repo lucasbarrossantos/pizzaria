@@ -1,7 +1,7 @@
 package com.pizzaria.controller;
 
 import com.pizzaria.model.Pizza;
-import com.pizzaria.model.Tamanho;
+import com.pizzaria.model.enumeration.Tamanho;
 import com.pizzaria.repository.Sabores;
 import com.pizzaria.service.PizzasService;
 import org.springframework.beans.factory.annotation.Autowired;

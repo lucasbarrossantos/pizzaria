@@ -1,5 +1,6 @@
 package com.pizzaria.model;
 
+import com.pizzaria.model.enumeration.Tamanho;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.NumberFormat;

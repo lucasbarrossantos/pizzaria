@@ -1,4 +1,4 @@
-package com.pizzaria.model;
+package com.pizzaria.model.enumeration;
 
 /**
  * Created by lucasbarros on 26/07/2017.

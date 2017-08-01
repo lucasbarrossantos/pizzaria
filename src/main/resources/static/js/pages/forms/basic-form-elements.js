@@ -1,24 +1,31 @@
 $(function () {
     //Textare auto growth
-    autosize($('textarea.auto-growth'));
+    //autosize($('textarea.auto-growth'));
 
-    //Datetimepicker plugin
-    $('.datetimepicker').bootstrapMaterialDatePicker({
-        format: 'dddd DD MMMM YYYY - HH:mm',
-        clearButton: true,
-        weekStart: 1
+    $('#dataDeValidade').bootstrapMaterialDatePicker({
+        format: 'DD/MM/YYYY',
+        weekStart: 0,
+        time: false,
+        lang: 'br',
+        cancelText : 'Cancelar'
     });
 
-    $('.datepicker').bootstrapMaterialDatePicker({
-        format: 'dddd DD MMMM YYYY',
-        clearButton: true,
-        weekStart: 1,
-        time: false
+    $('#dataDeEmissao').bootstrapMaterialDatePicker({
+        format: 'DD/MM/YYYY',
+        weekStart: 0,
+        time: false,
+        lang: 'br',
+        cancelText : 'Cancelar'
     });
 
-    $('.timepicker').bootstrapMaterialDatePicker({
-        format: 'HH:mm',
-        clearButton: true,
-        date: false
+    $('#dataDoPagamento').bootstrapMaterialDatePicker({
+        format: 'DD/MM/YYYY',
+        weekStart: 0,
+        time: false,
+        lang: 'br',
+        cancelText : 'Cancelar'
     });
+
+
+
 });
