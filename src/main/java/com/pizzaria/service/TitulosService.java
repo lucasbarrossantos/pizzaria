@@ -5,6 +5,8 @@ import com.pizzaria.repository.Titulos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class TitulosService {
 
@@ -12,6 +14,8 @@ public class TitulosService {
     private Titulos titulos;
 
     public Titulo salvar(Titulo titulo){
+        titulo.setDataDeEmissao(LocalDate.now());
+
         return titulos.saveAndFlush(titulo);
     }
 
