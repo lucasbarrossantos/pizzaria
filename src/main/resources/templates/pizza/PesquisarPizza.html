@@ -5,7 +5,7 @@
       layout:decorate="~{layout/LayoutPadrao}">
 
 <head>
-    <title>Fornecedores</title>
+    <title>Pizzaria</title>
 </head>
 
 <section class="content" layout:fragment="conteudo">
@@ -13,9 +13,9 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-sm-4 text-left">
-                    <a th:href="@{/fornecedores/new}" class="btn btn-default waves-effect">
+                    <a th:href="@{/pizzas/new}" class="btn btn-default waves-effect">
                         <i class="material-icons">add_circle</i>
-                        <span>Novo</span>
+                        <span>Nova</span>
                     </a>
                 </div>
             </div>
@@ -28,23 +28,24 @@
                         <h2>PESQUISAR</h2>
                     </div>
                     <div class="body">
-                        <form id="form_validation" th:object="${fornecedor}" th:action="@{/fornecedores}">
+                        <form id="form_validation" th:object="${pizza}" th:action="@{/pizzas}">
                             <div class="row clearfix">
                                 <div class="col-sm-6">
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <input class="form-control"
-                                                   th:field="*{nomeFantasia}"/>
-                                            <label class="form-label">Nome fantasia</label>
-                                        </div>
-                                    </div>
+                                    <select class="form-control show-tick select-categoria"
+                                            th:field="*{tamanho}">
+                                        <option value="">-- Tamanho --</option>
+                                        <option th:each="tamanho : ${tamanhos}"
+                                                th:value="${tamanho}"
+                                                th:text="${tamanho.descricao}">Tamanho
+                                        </option>
+                                    </select>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             <input class="form-control"
-                                                   th:field="*{razaoSocial}"/>
-                                            <label class="form-label">Razão Social</label>
+                                                   th:field="*{descricao}"/>
+                                            <label class="form-label">Descrição</label>
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +63,7 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            FORNECEDORES
+                            PIZZAS
                         </h2>
                     </div>
                     <div class="body">
@@ -71,24 +72,24 @@
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Nome F</th>
-                                    <th>Razão Social</th>
-                                    <th>CNPJ</th>
-                                    <th>Endereço</th>
-                                    <th>Bairro</th>
-                                    <th>Cidade</th>
+                                    <th>Tamanho</th>
+                                    <th>Descrição</th>
+                                    <th>Sabor</th>
+                                    <th>Valor</th>
+                                    <th>Borda</th>
+                                    <th>Adicional</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="fornecedor : ${pagina.conteudo}">
-                                    <td th:text="${fornecedor.id}"></td>
-                                    <td th:text="${fornecedor.nomeFantasia}"></td>
-                                    <td th:text="${fornecedor.razaoSocial}"></td>
-                                    <td th:text="${fornecedor.cnpj}"></td>
-                                    <td th:text="${fornecedor.endereco.endereco}"></td>
-                                    <td th:text="${fornecedor.endereco.bairro}"></td>
-                                    <td th:text="${fornecedor.endereco.cidade}"></td>
+                                <tr th:each="pizza : ${pagina.conteudo}">
+                                    <td th:text="${pizza.id}"></td>
+                                    <td th:text="${pizza.tamanho.descricao}"></td>
+                                    <td th:text="${pizza.descricao}"></td>
+                                    <td th:text="${pizza.saborPiza}"></td>
+                                    <td th:text="|R$ ${{pizza.valorUnitario}}|"></td>
+                                    <td th:text="${pizza.borda}"></td>
+                                    <td th:text="${pizza.adicional}"></td>
                                     <td>
                                         <div class="demo-google-material-icon">
                                             <a href="#"><i class="material-icons">mode_edit</i></a>

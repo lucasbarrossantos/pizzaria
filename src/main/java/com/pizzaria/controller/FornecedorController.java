@@ -1,15 +1,18 @@
 package com.pizzaria.controller;
 
+import com.pizzaria.controller.page.PageWrapper;
 import com.pizzaria.model.Fornecedor;
 import com.pizzaria.repository.Fornecedores;
 import com.pizzaria.service.FornecedoresService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -42,9 +45,21 @@ public class FornecedorController {
     }
 
     @GetMapping
-    public ModelAndView pesquisar(){
+    public ModelAndView pesquisar(Fornecedor fornecedor, Pageable pageable,
+                                  HttpServletRequest httpServletRequest){
+
         ModelAndView mv = new ModelAndView("fornecedor/PesquisarFornecedor");
-        mv.addObject("fornecedores", fornecedores.findAll());
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("nomeFantasia", where -> where.startsWith().ignoreCase())
+                .withMatcher("razaoSocial",  where -> where.startsWith().ignoreCase());
+
+        Page<Fornecedor> page = fornecedores.findAll(Example.of(fornecedor, matcher), pageable);
+
+        PageWrapper<Fornecedor> paginaWrapper =
+                new PageWrapper<>(page, httpServletRequest);
+
+        mv.addObject("pagina", paginaWrapper);
         return mv;
     }
 
