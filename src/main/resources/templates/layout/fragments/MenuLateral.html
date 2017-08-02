@@ -51,10 +51,10 @@
                             </a>
                             <ul class="ml-menu">
                                 <li>
-                                    <a href="#">Usuário</a>
+                                    <a th:href="@{/usuarios/new}">Usuário</a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/fornecedores/new}">Fornecedor</a>
+                                    <a th:href="@{/fornecedores}">Fornecedor</a>
                                 </li>
                                 <li>
                                     <a th:href="@{/promocoes/new}">Promoção</a>
@@ -85,18 +85,6 @@
                             </ul>
                         </li>
                     </ul>
-
-                <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">search</i>
-                        <span>Pesquisas</span>
-                    </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a th:href="@{/fornecedores}">Fornecedores</a>
-                        </li>
-                    </ul>
-                </li>
             </ul>
         </div>
         <!-- #Menu -->

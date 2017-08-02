@@ -1,10 +1,16 @@
 package com.pizzaria.model;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lucasbarros on 25/07/2017.
@@ -21,25 +27,29 @@ public class Usuario {
     @Column(length = 60)
     private String nome;
 
+    @CPF(message = "CPF inválido")
+    @NotBlank(message = "CPF deve ser informado")
     @Column(length = 14)
     private String cpf;
 
-    @Max(value = 10, message = "Valor máximo é 10 caracteres")
-    @NotBlank(message = "Campo obrigatório")
+    @Size(max = 10, message = "Valor máximo é 10 caracteres")
+    @NotBlank(message = "Senha obrigatória")
     @Column(length = 10)
     private String senha;
 
-    @Max(value = 10, message = "Valor máximo é 10 caracteres")
-    @NotBlank(message = "Campo obrigatório")
+    @Size(max = 10, message = "Valor máximo é 10 caracteres")
+    @NotBlank(message = "Confirme a senha")
     @Column(length = 10)
     private String confirmeSenha;
 
     @Column(length = 20)
     private String telefone;
 
+    @Email(message = "E-mail inválido")
     @Column(length = 60)
     private String email;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "data_nascimento")
     private LocalDate dataDeNascimento;
 
@@ -48,6 +58,15 @@ public class Usuario {
 
     @ManyToOne
     private Estabelecimento estabelecimento;
+
+    @OneToMany(mappedBy = "vendedor")
+    private List<Pedido> pedidos = new ArrayList<>();
+
+    @Size(min = 1, message = "Selecione pelo menos um grupo")
+    @ManyToMany
+    @JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario")
+            , inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
+    private List<Grupo> grupos = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -127,6 +146,22 @@ public class Usuario {
 
     public void setEstabelecimento(Estabelecimento estabelecimento) {
         this.estabelecimento = estabelecimento;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    public List<Grupo> getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(List<Grupo> grupos) {
+        this.grupos = grupos;
     }
 
     @Override

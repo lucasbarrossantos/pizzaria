@@ -11,7 +11,11 @@
 <section class="content" layout:fragment="conteudo">
     <div class="container-fluid">
         <div class="block-header">
-            <h2>Pesquisa</h2>
+            <div class="row clearfix">
+                <div class="col-sm-4 text-left">
+                    <a th:href="@{/fornecedores/new}" class="btn btn-default waves-effect">Novo</a>
+                </div>
+            </div>
         </div>
 
         <!-- Exportable Table -->
@@ -24,7 +28,8 @@
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                   role="button" aria-haspopup="true" aria-expanded="false">
                                     <i class="material-icons">more_vert</i>
                                 </a>
                                 <ul class="dropdown-menu pull-right">
@@ -47,6 +52,7 @@
                                     <th>Endereço</th>
                                     <th>Bairro</th>
                                     <th>Cidade</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -58,6 +64,12 @@
                                     <td th:text="${fornecedor.endereco.endereco}"></td>
                                     <td th:text="${fornecedor.endereco.bairro}"></td>
                                     <td th:text="${fornecedor.endereco.cidade}"></td>
+                                    <td>
+                                        <div class="demo-google-material-icon">
+                                            <a href="#"><i class="material-icons">mode_edit</i></a>
+                                            <a href="#"><i class="material-icons">delete</i></a>
+                                        </div>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>

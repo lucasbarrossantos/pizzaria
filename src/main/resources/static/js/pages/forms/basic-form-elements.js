@@ -21,7 +21,12 @@ $(function () {
     });
 
 
-
-
+    $('#dataDeNascimento').bootstrapMaterialDatePicker({
+        format: 'DD/MM/YYYY',
+        weekStart: 0,
+        time: false,
+        lang: 'br',
+        cancelText : 'Cancelar'
+    });
 
 });

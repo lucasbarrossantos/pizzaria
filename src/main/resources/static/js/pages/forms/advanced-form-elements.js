@@ -34,11 +34,17 @@ $(function () {
     //CNPJ
     $demoMaskedInput.find('.cnpj').inputmask('99.999.999/9999-99', {placeholder: '__.___.___/____-__'});
 
+    //CPF
+    $demoMaskedInput.find('.js-cpf').inputmask('999.999.999-99', {placeholder: '___.___.___-__'});
+
     //CEP
     $demoMaskedInput.find('.cep-cidade').inputmask('99999-999', {placeholder: '_____-___'});
 
     //DINHEIRO
     $demoMaskedInput.find('.js-moeda').maskMoney({ decimal: ',', thousands: '.' });
+
+    //CELULAR
+    $demoMaskedInput.find('.js-celular').inputmask('(99)9 9999-9999', {placeholder: '(__)_ ____-____'});
 
     //NUMERO
     $demoMaskedInput.find('.js-numero').maskMoney({ precision: 0, thousands: '.' });
