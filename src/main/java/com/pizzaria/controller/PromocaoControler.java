@@ -1,9 +1,15 @@
 package com.pizzaria.controller;
 
+import com.pizzaria.controller.page.PageWrapper;
 import com.pizzaria.model.Promocao;
 import com.pizzaria.repository.Pizzas;
+import com.pizzaria.repository.Promocoes;
 import com.pizzaria.service.PromocoesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -27,6 +34,9 @@ public class PromocaoControler {
 
     @Autowired
     private Pizzas pizzas;
+
+    @Autowired
+    private Promocoes promocoes;
 
     @GetMapping("/new")
     public ModelAndView novo(Promocao promocao){
@@ -53,4 +63,23 @@ public class PromocaoControler {
         return new ModelAndView("redirect:/promocoes/new");
     }
 
+
+    @GetMapping
+    public ModelAndView pesquisar(Promocao promocao, Pageable pageable,
+                                  HttpServletRequest httpServletRequest){
+
+        ModelAndView mv = new ModelAndView("promocao/PesquisarPromocao");
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("descricao",  where -> where.contains().ignoreCase());
+
+        Page<Promocao> page = promocoes.findAll(Example.of(promocao, matcher), pageable);
+
+        PageWrapper<Promocao> paginaWrapper =
+                new PageWrapper<>(page, httpServletRequest);
+
+        mv.addObject("pagina", paginaWrapper);
+        return mv;
+
+    }
 }
