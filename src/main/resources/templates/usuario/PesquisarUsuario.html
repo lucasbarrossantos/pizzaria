@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+    <title>Usuário</title>
+</head>
+
+<section class="content" layout:fragment="conteudo">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-sm-4 text-left">
+                    <a th:href="@{/usuarios/new}" class="btn btn-default waves-effect">
+                        <i class="material-icons">add_circle</i>
+                        <span>Novo</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>PESQUISAR</h2>
+                    </div>
+                    <div class="body demo-masked-input">
+                        <form id="form_validation" th:object="${usuario}" th:action="@{/usuarios}">
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input class="form-control"
+                                                   th:field="*{nome}"/>
+                                            <label class="form-label">Nome</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input class="form-control js-cpf"
+                                                   th:field="*{cpf}"/>
+                                            <label class="form-label">CPF</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn bg-deep-purple waves-effect">Pesquisar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exportable Table -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            USUÁRIOS
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nome</th>
+                                    <th>CPF</th>
+                                    <th>Telefone</th>
+                                    <th>E-mail</th>
+                                    <th>Endereço</th>
+                                    <th>Bairro</th>
+                                    <th>Cidade</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="usuario : ${pagina.conteudo}">
+                                    <td th:text="${usuario.id}"></td>
+                                    <td th:text="${usuario.nome}"></td>
+                                    <td th:text="${usuario.cpf}"></td>
+                                    <td th:text="${usuario.telefone}"></td>
+                                    <td th:text="${usuario.email}"></td>
+                                    <td th:text="${usuario.endereco.endereco}"></td>
+                                    <td th:text="${usuario.endereco.bairro}"></td>
+                                    <td th:text="${usuario.endereco.cidade}"></td>
+                                    <td>
+                                        <div class="demo-google-material-icon">
+                                            <a href="#"><i class="material-icons">mode_edit</i></a>
+                                            <a href="#"><i class="material-icons">delete</i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="9" th:if="${pagina.vazia}">Nenhum registro encontrado!</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Exportable Table -->
+    </div>
+</section>
+
+</html>

@@ -11,7 +11,17 @@
 <section class="content" layout:fragment="conteudo">
     <div class="container-fluid">
         <div class="block-header">
-            <h2>Cadastro de usuário</h2>
+            <div class="row clearfix">
+                <div class="col-sm-4 text-left">
+                    <h2>Cadastro de usuário</h2>
+                </div>
+                <div class="col-sm-8 text-right">
+                    <a th:href="@{/usuarios}" class="btn btn-default waves-effect">
+                        <i class="material-icons">add_circle</i>
+                        <span>Pesquisar</span>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="row clearfix">
@@ -158,7 +168,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input class="form-control"
+                                            <input class="form-control cep-cidade"
                                                    th:field="*{endereco.cep}"/>
                                             <label class="form-label">CEP</label>
                                         </div>
