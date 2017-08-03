@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+    <title>Produtos</title>
+</head>
+
+<section class="content" layout:fragment="conteudo">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-sm-4 text-left">
+                    <a th:href="@{/produtos/new}" class="btn btn-default waves-effect">
+                        <i class="material-icons">add_circle</i>
+                        <span>Nova</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>PESQUISAR</h2>
+                    </div>
+                    <div class="body demo-masked-input">
+                        <form id="form_validation" th:object="${filtro}" th:action="@{/produtos}">
+
+                            <div th:replace="fragments/MensagensErroValidacao :: error"></div>
+
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input class="form-control"
+                                                   th:field="*{descricao}"/>
+                                            <label class="form-label">Descrição</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <select class="form-control show-tick select-categoria"
+                                            th:field="*{categoria}">
+                                        <option value="">-- Categoria --</option>
+                                        <option th:each="categoria : ${categorias}"
+                                                th:value="${categoria.id}" th:text="${categoria.descricao}">Bebidas
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <div class="col-sm-4">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input class="form-control"
+                                                   th:field="*{sku}"/>
+                                            <label class="form-label">SKU</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input class="form-control js-moeda"
+                                                   th:field="*{valorDe}"/>
+                                            <label class="form-label">Valor de</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input class="form-control js-moeda"
+                                                   th:field="*{valorAte}"/>
+                                            <label class="form-label">Valor até</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn bg-deep-purple waves-effect">Pesquisar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exportable Table -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            PRODUTOS
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>SKU</th>
+                                    <th>Descrição</th>
+                                    <th>Valor Uni.</th>
+                                    <th>Valor Comp.</th>
+                                    <th>Unidade</th>
+                                    <th>Qtd. Estoque</th>
+                                    <th>Categoria</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="produto : ${pagina.conteudo}">
+                                    <td th:text="${produto.id}"></td>
+                                    <td th:text="${produto.sku}"></td>
+                                    <td th:text="${produto.descricao}"></td>
+                                    <td th:text="|R$ ${{produto.valorUnitario}}|"></td>
+                                    <td th:text="|R$ ${{produto.valorCompra}}|"></td>
+                                    <td th:text="${produto.unidade}"></td>
+                                    <td th:text="${produto.quantidadeEstoque}"></td>
+                                    <td th:text="${produto.categoria.descricao}"></td>
+                                    <td>
+                                        <div class="demo-google-material-icon">
+                                            <a href="#"><i class="material-icons">mode_edit</i></a>
+                                            <a href="#"><i class="material-icons">delete</i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="9" th:if="${pagina.vazia}">Nenhum registro encontrado!</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Exportable Table -->
+
+    </div>
+</section>
+
+
+</html>

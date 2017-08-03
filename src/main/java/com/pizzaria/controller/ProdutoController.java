@@ -1,10 +1,14 @@
 package com.pizzaria.controller;
 
+import com.pizzaria.controller.page.PageWrapper;
 import com.pizzaria.model.Categoria;
 import com.pizzaria.model.Produto;
 import com.pizzaria.repository.Categorias;
+import com.pizzaria.repository.Produtos;
+import com.pizzaria.repository.filter.ProdutoFilter;
 import com.pizzaria.service.ProdutosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -27,6 +32,9 @@ public class ProdutoController {
     @Autowired
     private Categorias categorias;
 
+    @Autowired
+    private Produtos produtos;
+
     @RequestMapping("/new")
     public ModelAndView novo(Produto produto) {
         ModelAndView mv = new ModelAndView(CADASTRO);
@@ -35,9 +43,9 @@ public class ProdutoController {
     }
 
     @PostMapping("/new")
-    public ModelAndView salvar(@Valid Produto produto, BindingResult result, RedirectAttributes attributes){
+    public ModelAndView salvar(@Valid Produto produto, BindingResult result, RedirectAttributes attributes) {
 
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return novo(produto);
         }
 
@@ -46,12 +54,27 @@ public class ProdutoController {
         return new ModelAndView("redirect:/produtos/new");
     }
 
+    @GetMapping
+    public ModelAndView pesquisar(@ModelAttribute("filtro") ProdutoFilter filtro, Pageable pageable,
+                                  HttpServletRequest httpServletRequest, BindingResult result) {
+        ModelAndView mv = new ModelAndView("produto/PesquisarProduto");
+
+        mv.addObject("categorias", categorias.findAll());
+
+        PageWrapper<Produto> paginaWrapper =
+                new PageWrapper<>(produtos.filtrar(filtro, pageable)
+                        , httpServletRequest);
+
+        mv.addObject("pagina", paginaWrapper);
+        return mv;
+    }
+
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
     ResponseEntity<?> novoTipoDePagamento(@RequestBody @Valid Categoria categoria,
-                                          BindingResult result){
+                                          BindingResult result) {
 
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getFieldError("descricao").getDefaultMessage());
         }
 
