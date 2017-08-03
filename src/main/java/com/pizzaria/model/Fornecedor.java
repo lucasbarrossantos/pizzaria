@@ -2,6 +2,7 @@ package com.pizzaria.model;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CNPJ;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class Fornecedor {
     @Column(length = 60)
     private String razaoSocial;
 
-    @CNPJ(message = "CNPJ inválido")
+    @NotBlank(message = "Informe o CNPJ")
     @Column(length = 20)
     private String cnpj;
 

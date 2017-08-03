@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+    <title>Título</title>
+</head>
+
+<section class="content" layout:fragment="conteudo">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row clearfix">
+                <div class="col-sm-4 text-left">
+                    <a th:href="@{/titulos/new}" class="btn btn-default waves-effect">
+                        <i class="material-icons">add_circle</i>
+                        <span>Novo</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>PESQUISAR</h2>
+                    </div>
+                    <div class="body">
+                        <form id="form_validation" th:object="${titulo}" th:action="@{/titulos}">
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input class="form-control"
+                                                   th:field="*{descricao}"/>
+                                            <label class="form-label">Descrição</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn bg-deep-purple waves-effect">Pesquisar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exportable Table -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            TÍTULOS
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Descrição</th>
+                                    <th>Valor</th>
+                                    <th>Valor Orig.</th>
+                                    <th>Valor Pago</th>
+                                    <th>Emissão</th>
+                                    <th>Validade</th>
+                                    <th>Pagamento</th>
+                                    <th>F. Pagamento</th>
+                                    <th>C. Custo</th>
+                                    <th>Fornecedor</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="titulo : ${pagina.conteudo}">
+                                    <td th:text="${titulo.id}"></td>
+                                    <td th:text="${titulo.descricao}"></td>
+                                    <td th:text="|R$ ${{titulo.valor}}|"></td>
+                                    <td th:text="|R$ ${{titulo.valorOriginal}}|"></td>
+                                    <td th:text="|R$ ${{titulo.valorPago}}|"></td>
+                                    <td th:text="${{titulo.dataDeEmissao}}"></td>
+                                    <td th:text="${{titulo.dataDeValidade}}"></td>
+                                    <td th:text="${{titulo.dataDoPagamento}}"></td>
+                                    <td th:text="${titulo.formaDePagamento.descricao}"></td>
+                                    <td th:text="${titulo.centroDeCusto.descricao}"></td>
+                                    <td th:text="${titulo.fornecedor.nomeFantasia}"></td>
+                                    <td>
+                                        <div class="demo-google-material-icon">
+                                            <a href="#"><i class="material-icons">mode_edit</i></a>
+                                            <a href="#"><i class="material-icons">delete</i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="12" th:if="${pagina.vazia}">Nenhum registro encontrado!</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Exportable Table -->
+
+    </div>
+</section>
+
+
+</html>
