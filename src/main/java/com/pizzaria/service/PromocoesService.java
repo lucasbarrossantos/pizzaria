@@ -20,7 +20,7 @@ public class PromocoesService {
     private Pizzas pizzas;
 
     public Promocao salvar(Promocao promocao) {
-        promocao.getPizzas().stream().forEach(pizza -> pizza.setPromocao(promocao));
+        promocao.getPizzas().forEach(pizza -> pizza.setPromocao(promocao));
         List<String> pizzasPromocao = pizzas.pizzasEmPromocao().stream()
                 .filter(pizza -> promocao.getPizzas().contains(pizza))
                     .map(Pizza::getSaborPiza)
