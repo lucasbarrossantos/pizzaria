@@ -28,7 +28,7 @@
                         <h2>PESQUISAR</h2>
                     </div>
                     <div class="body">
-                        <form id="form_validation" th:object="${titulo}" th:action="@{/titulos}">
+                        <form id="form_validation" th:object="${filtro}" th:action="@{/titulos}">
                             <div class="row clearfix">
                                 <div class="col-sm-12">
                                     <div class="form-group form-float">
@@ -38,6 +38,39 @@
                                             <label class="form-label">Descrição</label>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <div class="col-sm-4">
+                                    <select class="form-control show-tick select-categoria"
+                                            th:field="*{fornecedor}">
+                                        <option value="">-- Fornecedor --</option>
+                                        <option th:each="fornecedor : ${fornecedores}"
+                                                th:value="${fornecedor.id}"
+                                                th:text="${fornecedor.nomeFantasia}">Tamanho
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="form-control show-tick select-categoria"
+                                            th:field="*{formaDePagamento}">
+                                        <option value="">-- Forma de pagamento --</option>
+                                        <option th:each="pagamento : ${formasDePagamento}"
+                                                th:value="${pagamento.id}"
+                                                th:text="${pagamento.descricao}">Tamanho
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="form-control show-tick select-categoria"
+                                            th:field="*{centroDeCusto}">
+                                        <option value="">-- Centro de custo --</option>
+                                        <option th:each="centroDeCusto : ${centrosDeCusto}"
+                                                th:value="${centroDeCusto.id}"
+                                                th:text="${centroDeCusto.descricao}">Tamanho
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <button class="btn bg-deep-purple waves-effect">Pesquisar</button>

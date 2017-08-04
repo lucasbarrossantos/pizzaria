@@ -8,6 +8,7 @@ import com.pizzaria.repository.CentrosDeCusto;
 import com.pizzaria.repository.FormasDePagamento;
 import com.pizzaria.repository.Fornecedores;
 import com.pizzaria.repository.Titulos;
+import com.pizzaria.repository.filter.TituloFilter;
 import com.pizzaria.service.TitulosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -75,18 +77,19 @@ public class TituloController {
     }
 
     @GetMapping
-    public ModelAndView pesquisar(Titulo titulo, Pageable pageable,
+    public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro, Pageable pageable,
                                   HttpServletRequest httpServletRequest){
-
         ModelAndView mv = new ModelAndView("titulo/PesquisarTitulo");
 
-        ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("descricao",  where -> where.contains().ignoreCase());
-
-        Page<Titulo> page = titulos.findAll(Example.of(titulo, matcher), pageable);
+        mv.addObject("formasDePagamento", formasDePagamento.findAll());
+        mv.addObject("centrosDeCusto", centrosDeCusto.findAll());
+        mv.addObject("fornecedores", fornecedores.findAll());
+        mv.addObject("tipos", Tipo.values());
+        mv.addObject("situacoes", Situacao.values());
 
         PageWrapper<Titulo> paginaWrapper =
-                new PageWrapper<>(page, httpServletRequest);
+                new PageWrapper<>(titulos.filtrar(filtro, pageable)
+                        , httpServletRequest);
 
         mv.addObject("pagina", paginaWrapper);
         return mv;
