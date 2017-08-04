@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row clearfix">
 
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box-4">
@@ -76,53 +76,71 @@
             </div>
         </div>
 
-        <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <form id="form_validation" class="form-main">
-                    <div class="card">
-                        <div class="body demo-masked-input">
 
-                            <h2 class="card-inside-title">Dados da entrega</h2>
-                            <div class="row clearfix">
-                                <div class="col-sm-6">
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <input class="form-control no-resize js-moeda"/>
-                                            <label class="form-label">Frete</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <input class="form-control no-resize js-moeda"/>
-                                            <label class="form-label">Desconto</label>
-                                        </div>
+        <form id="form_validation" class="form-main" method="post">
+            <div class="row clearfix">
+                <div class="card col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="body demo-masked-input">
+
+                        <h2 class="card-inside-title">Dados da entrega</h2>
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input class="form-control no-resize js-moeda"/>
+                                        <label class="form-label">Frete</label>
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="body demo-masked-input">
-                            <h2 class="card-inside-title">Itens</h2>
-                            <div class="row clearfix">
-
-                                <div class="col-sm-12">
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <input class="form-control no-resize"/>
-                                            <label class="form-label">Pesquise por nome ou SKU</label>
-                                        </div>
+                            <div class="col-sm-6">
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input class="form-control no-resize js-moeda"/>
+                                        <label class="form-label">Desconto</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
+
+            <div class="row clearfix">
+                <div class="card col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="body demo-masked-input">
+                        <h2 class="card-inside-title">Produtos</h2>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input class="form-control"/>
+                                <label class="form-label">Pesquise por nome ou SKU</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="card col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="body demo-masked-input">
+                        <h2 class="card-inside-title">Pizzas</h2>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input class="form-control"/>
+                                <label class="form-label">Pesquise por nome ou sabor</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a th:href="@{/pedidos/new}" class="btn bg-deep-purple waves-effect" style="margin-bottom: 30px">
+                    <span>Salvar</span>
+                </a>
+
+            </div>
+
+        </form>
+
     </div>
 </section>
 
