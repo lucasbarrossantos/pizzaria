@@ -84,7 +84,7 @@ public class ProdutoController {
         return ResponseEntity.ok(categoria);
     }
 
-    @GetMapping("/filtro")
+    @RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<ProdutoDTO> pesquisar(String skuOuNome){
         return produtos.porSkuOuNome(skuOuNome);
     }

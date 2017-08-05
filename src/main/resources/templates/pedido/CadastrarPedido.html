@@ -6,6 +6,9 @@
 
 <head>
     <title>Pedido</title>
+
+    <link rel="stylesheet" th:href="@{/plugins/EasyAutocomplete/css/easy-autocomplete.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/EasyAutocomplete/css/easy-autocomplete.themes.min.css}">
 </head>
 
 <section class="content" layout:fragment="conteudo">
@@ -109,11 +112,13 @@
             <div class="row clearfix">
                 <div class="card col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="body demo-masked-input">
-                        <h2 class="card-inside-title">Produtos</h2>
-                        <div class="form-group form-float">
-                            <div class="form-line">
-                                <input class="form-control"/>
-                                <label class="form-label">Pesquise por nome ou SKU</label>
+                        <div class="col-sm-12 col-md-12">
+                            <h2 class="card-inside-title">Produtos</h2>
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input class="form-control js-sku-nome-produto-input"
+                                           placeholder="Pesquise por nome ou SKU"/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,11 +128,13 @@
             <div class="row clearfix">
                 <div class="card col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="body demo-masked-input">
-                        <h2 class="card-inside-title">Pizzas</h2>
-                        <div class="form-group form-float">
-                            <div class="form-line">
-                                <input class="form-control"/>
-                                <label class="form-label">Pesquise por nome ou sabor</label>
+                        <div class="col-sm-12">
+                            <h2 class="card-inside-title">Pizzas</h2>
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input class="form-control"/>
+                                    <label class="form-label">Pesquise por nome ou sabor</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -142,7 +149,14 @@
         </form>
 
     </div>
+
+    <th:block th:replace="hbs/TemplateAutocompleteProduto"></th:block>
 </section>
 
+<th:block layout:fragment="javascript-extra">
+    <script th:src="@{/plugins/EasyAutocomplete/js/jquery.easy-autocomplete.min.js}"></script>
+    <script th:src="@{/js/pedido.autocomplete-itens.js}"></script>
+    <script th:src="@{/plugins/handlebars/handlebars.min.js}"></script>
+</th:block>
 
 </html>
