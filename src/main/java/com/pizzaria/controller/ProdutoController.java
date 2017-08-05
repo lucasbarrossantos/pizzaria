@@ -7,6 +7,7 @@ import com.pizzaria.repository.Categorias;
 import com.pizzaria.repository.Produtos;
 import com.pizzaria.repository.filter.ProdutoFilter;
 import com.pizzaria.service.ProdutosService;
+import com.pizzaria.service.dto.ProdutoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/produtos")
@@ -80,6 +82,11 @@ public class ProdutoController {
 
         categoria = categorias.saveAndFlush(categoria);
         return ResponseEntity.ok(categoria);
+    }
+
+    @GetMapping("/filtro")
+    public @ResponseBody List<ProdutoDTO> pesquisar(String skuOuNome){
+        return produtos.porSkuOuNome(skuOuNome);
     }
 
 }

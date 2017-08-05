@@ -1,5 +1,6 @@
 package com.pizzaria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pizzaria.validation.SKU;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.NumberFormat;
