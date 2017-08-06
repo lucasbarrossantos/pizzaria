@@ -7,6 +7,7 @@
 <head>
     <title>Pedido</title>
 
+    <link rel="stylesheet" th:href="@{/css/pizzaria.css}">
     <link rel="stylesheet" th:href="@{/plugins/EasyAutocomplete/css/easy-autocomplete.min.css}">
     <link rel="stylesheet" th:href="@{/plugins/EasyAutocomplete/css/easy-autocomplete.themes.min.css}">
 </head>
@@ -112,7 +113,7 @@
             <div class="row clearfix">
                 <div class="card col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="body demo-masked-input">
-                        <div class="col-sm-12 col-md-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <h2 class="card-inside-title">Produtos</h2>
                             <div class="form-group form-float">
                                 <div class="form-line">
@@ -120,6 +121,33 @@
                                            placeholder="Pesquise por nome ou SKU"/>
                                 </div>
                             </div>
+
+                            <!-- Tabela de itens -->
+                            <div class="bw-tabela-produtos">
+                                <div class="bw-tabela-item">
+                                    <div class="bw-tabela-item__coluna  bw-tabela-item__coluna--detalhes">
+                                        <span class="bw-tabela-produto-nome">Vinho</span>
+                                        <span class="label  bg-deep-purple">AA1112</span>
+                                    </div>
+
+                                    <div class="bw-tabela-item__coluna  bw-tabela-item__coluna--valores">
+                                        <div class="bw-tabela-produto-valor-pequeno">
+                                            <input type="text" maxlength="3"
+                                                   class="bw-tabela-produto-campo-quantidade" value="1"/>
+                                            <span>x R$8,90</span>
+                                        </div>
+                                        <div class="bw-tabela-produto-valor-grande">R$8,90</div>
+                                    </div>
+
+                                </div>
+
+                                <!-- <div class="bw-tabela-produtos__vazio">
+                                    <i class="glyphicon  glyphicon-shopping-cart"></i>
+                                    <span>Você ainda não adicionou nenhuma cerveja.</span>
+                                </div> -->
+                            </div>
+
+                            <!-- end tabela itens -->
                         </div>
                     </div>
                 </div>
