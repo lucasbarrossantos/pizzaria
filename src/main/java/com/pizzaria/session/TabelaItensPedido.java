@@ -1,12 +1,20 @@
-package com.pizzaria.pedido;
+package com.pizzaria.session;
 
 import com.pizzaria.model.ItemPedido;
 import com.pizzaria.model.Produto;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @SessionScope para ter uma TabelaItensPedido para cada sessão
+ */
+
+@SessionScope
+@Component
 public class TabelaItensPedido {
 
     private List<ItemPedido> itens = new ArrayList<>();
@@ -27,5 +35,8 @@ public class TabelaItensPedido {
         itens.add(itemPedido);
     }
 
+    public int total(){
+        return itens.size();
+    }
 
 }

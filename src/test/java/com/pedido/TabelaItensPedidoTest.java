@@ -1,7 +1,7 @@
 package com.pedido;
 
 import com.pizzaria.model.Produto;
-import com.pizzaria.pedido.TabelaItensPedido;
+import com.pizzaria.session.TabelaItensPedido;
 import org.junit.Before;
 import org.junit.Test;
 
