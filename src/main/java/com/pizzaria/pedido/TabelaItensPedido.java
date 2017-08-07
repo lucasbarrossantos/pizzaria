@@ -11,7 +11,6 @@ public class TabelaItensPedido {
 
     private List<ItemPedido> itens = new ArrayList<>();
 
-
     public BigDecimal getValorTotal() {
         return itens.stream()
                 .map(ItemPedido::getValorTotal)
