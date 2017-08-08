@@ -1,7 +1,5 @@
 package com.pizzaria.service.dto;
 
-import com.pizzaria.model.Categoria;
-
 import java.math.BigDecimal;
 
 public class ProdutoDTO {

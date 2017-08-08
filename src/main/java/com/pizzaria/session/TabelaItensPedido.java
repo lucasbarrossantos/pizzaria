@@ -1,6 +1,7 @@
 package com.pizzaria.session;
 
 import com.pizzaria.model.ItemPedido;
+import com.pizzaria.model.Pizza;
 import com.pizzaria.model.Produto;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
@@ -31,6 +32,15 @@ public class TabelaItensPedido {
         itemPedido.setProduto(produto);
         itemPedido.setQuantidade(quantidade);
         itemPedido.setValorUnitario(produto.getValorUnitario());
+
+        itens.add(itemPedido);
+    }
+
+    public void adicionarItemPizza(Pizza pizza, Integer quantidade){
+        ItemPedido itemPedido = new ItemPedido();
+        itemPedido.setPizza(pizza);
+        itemPedido.setQuantidade(quantidade);
+        itemPedido.setValorUnitario(pizza.getValorUnitario());
 
         itens.add(itemPedido);
     }

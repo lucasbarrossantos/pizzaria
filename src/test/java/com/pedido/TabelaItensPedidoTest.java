@@ -1,5 +1,6 @@
 package com.pedido;
 
+import com.pizzaria.model.Pizza;
 import com.pizzaria.model.Produto;
 import com.pizzaria.session.TabelaItensPedido;
 import org.junit.Before;
@@ -49,4 +50,15 @@ public class TabelaItensPedidoTest {
         assertEquals(new BigDecimal("15.50"), tabelaItensPedido.getValorTotal());
     }
 
+    // Pizzas
+
+    @Test
+    public void calcularValorTotalComUmItemPizza() throws Exception {
+        Pizza pizza = new Pizza();
+        BigDecimal valor = new BigDecimal("25.00");
+        pizza.setValorUnitario(valor);
+
+        tabelaItensPedido.adicionarItemPizza(pizza, 1);
+        assertEquals(valor, tabelaItensPedido.getValorTotal());
+    }
 }
