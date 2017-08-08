@@ -142,6 +142,21 @@ public class Produto {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Produto)) return false;
+
+        Produto produto = (Produto) o;
+
+        return getId().equals(produto.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
+
+    @Override
     public String toString() {
         return "Produto{" +
                 "id=" + id +

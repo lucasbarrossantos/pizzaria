@@ -37,10 +37,12 @@ public class TabelaItensPedidoTest {
     @Test
     public void calcularValorTotalComVariosItens() throws Exception {
         Produto p1 = new Produto();
+        p1.setId(1L);
         BigDecimal v1 = new BigDecimal("4.50");
         p1.setValorUnitario(v1);
 
         Produto p2 = new Produto();
+        p2.setId(2L);
         BigDecimal v2 = new BigDecimal("5.50");
         p2.setValorUnitario(v2);
 
@@ -60,5 +62,20 @@ public class TabelaItensPedidoTest {
 
         tabelaItensPedido.adicionarItemPizza(pizza, 1);
         assertEquals(valor, tabelaItensPedido.getValorTotal());
+    }
+
+    @Test
+    public void deveManterTamanhoDaListaParaMesmosItens() throws Exception {
+        Produto p1 = new Produto();
+        p1.setId(1L);
+        p1.setValorUnitario(new BigDecimal("4.50"));
+
+        tabelaItensPedido.adicionarItem(p1, 1);
+        tabelaItensPedido.adicionarItem(p1, 2);
+        tabelaItensPedido.adicionarItem(p1, 3);
+        tabelaItensPedido.adicionarItem(p1, 5);
+
+        assertEquals(1, tabelaItensPedido.total());
+        assertEquals(new BigDecimal("49.50"), tabelaItensPedido.getValorTotal());
     }
 }

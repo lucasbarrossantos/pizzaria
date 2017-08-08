@@ -15,8 +15,8 @@ Pizzaria.AutoComplete = (function () {
     AutoComplete.prototype.iniciar = function () {
         var opcoes = {
             url: function (skuOuNome) {
-                return '/produtos?skuOuNome=' + skuOuNome
-            },
+                return this.skuOuNomeInput.data('url') + '?skuOuNome=' + skuOuNome
+            }.bind(this),
             getValue: 'descricao',
             minCharNumber: 3,
             requestDelay: 500,
@@ -40,6 +40,8 @@ Pizzaria.AutoComplete = (function () {
          * item-selecionado: Nome do evento
          */
         this.emitter.trigger('item-selecionado', this.skuOuNomeInput.getSelectedItemData())
+        this.skuOuNomeInput.val('');
+        this.skuOuNomeInput.focus();
         //console.log('Selecionou o item:', this.skuOuNomeInput.getSelectedItemData());
     }
     
