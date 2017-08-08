@@ -39,4 +39,7 @@ public class TabelaItensPedido {
         return itens.size();
     }
 
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
 }

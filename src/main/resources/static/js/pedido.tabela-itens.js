@@ -2,6 +2,7 @@ Pizzaria.TabelaItens = (function () {
 
     function TabelaItens(autocomplete) {
         this.autocomplete = autocomplete;
+        this.tabelaProdutosContainer = $('.js-tabela-produtos-container');
     }
 
     TabelaItens.prototype.iniciar = function () {
@@ -17,9 +18,11 @@ Pizzaria.TabelaItens = (function () {
             }
         });
 
-        response.done(function (data) {
-            console.log('retorno', data)
-        })
+        response.done(onItemAdicionadoNoServidor.bind(this))
+    }
+    
+    function onItemAdicionadoNoServidor(html) {
+        this.tabelaProdutosContainer.html(html);
     }
 
     return TabelaItens;
