@@ -6,21 +6,22 @@ import com.pizzaria.model.enumeration.Tamanho;
 import com.pizzaria.repository.Pizzas;
 import com.pizzaria.repository.Sabores;
 import com.pizzaria.service.PizzasService;
+import com.pizzaria.service.dto.PizzaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/pizzas")
@@ -75,6 +76,11 @@ public class PizzaController {
 
         mv.addObject("pagina", paginaWrapper);
         return mv;
+    }
+
+    @RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<PizzaDTO> pesquisar(String saborOuTamanho){
+        return pizzas.porSaborOuTamanho(saborOuTamanho);
     }
 
 }

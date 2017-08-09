@@ -23,7 +23,7 @@ public class PromocoesService {
         promocao.getPizzas().forEach(pizza -> pizza.setPromocao(promocao));
         List<String> pizzasPromocao = pizzas.pizzasEmPromocao().stream()
                 .filter(pizza -> promocao.getPizzas().contains(pizza))
-                    .map(Pizza::getSaborPiza)
+                    .map(Pizza::getSaborPizza)
                 .collect(Collectors.toList());
 
         if (pizzasPromocao.size() > 0) {

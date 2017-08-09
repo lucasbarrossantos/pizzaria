@@ -144,13 +144,14 @@
                             <h2 class="card-inside-title">Pizzas</h2>
                             <div class="form-group form-float">
                                 <div class="form-line">
-                                    <input class="form-control"/>
-                                    <label class="form-label">Pesquise por nome ou sabor</label>
+                                    <input class="form-control js-sabor-tamanho-input"
+                                           placeholder="Pesquise por tamanho ou sabor"
+                                           th:attr="data-url=@{/pizzas}"/>
                                 </div>
                             </div>
 
                             <!-- Tabela de itens -->
-                            <div class="bw-tabela-produtos">
+                            <div class="bw-tabela-produtos js-tabela-pizzas-container">
                                 <div class="bw-tabela-produtos__vazio">
                                     <i class="glyphicon  glyphicon-shopping-cart col-deep-purple"></i>
                                     <span>Você ainda não adicionou nenhuma pizza.</span>
@@ -172,12 +173,15 @@
     </div>
 
     <th:block th:replace="hbs/TemplateAutocompleteProduto"></th:block>
+    <th:block th:replace="hbs/TemplateAutocompletePizza"></th:block>
 </section>
 
 <th:block layout:fragment="javascript-extra">
     <script th:src="@{/plugins/EasyAutocomplete/js/jquery.easy-autocomplete.min.js}"></script>
     <script th:src="@{/js/pedido.autocomplete-itens.js}"></script>
+    <script th:src="@{/js/pedido.autocomplete-itens-pizzas.js}"></script>
     <script th:src="@{/js/pedido.tabela-itens.js}"></script>
+    <script th:src="@{/js/pedido.tabela-itens-pizzas.js}"></script>
     <script th:src="@{/plugins/handlebars/handlebars.min.js}"></script>
 </th:block>
 

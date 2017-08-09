@@ -53,12 +53,14 @@ public class TabelaItensPedido {
 
         ItemPedido itemPedido = null;
         if (itemPedidoOptional.isPresent()) {
+            itemPedido = itemPedidoOptional.get();
             itemPedido.setQuantidade(itemPedido.getQuantidade() + quantidade);
         } else {
             itemPedido = new ItemPedido();
             itemPedido.setPizza(pizza);
             itemPedido.setQuantidade(quantidade);
             itemPedido.setValorUnitario(pizza.getValorUnitario());
+            itemPedido.setProduto(null);
             itens.add(itemPedido);
         }
     }

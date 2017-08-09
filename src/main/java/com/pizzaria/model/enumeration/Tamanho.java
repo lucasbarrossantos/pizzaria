@@ -7,7 +7,7 @@ public enum Tamanho {
 
     PEQUENA("Pequena"),
     MEDIA("Média"),
-    FAMILIA("Grande");
+    FAMILIA("Família");
 
     private String descricao;
 

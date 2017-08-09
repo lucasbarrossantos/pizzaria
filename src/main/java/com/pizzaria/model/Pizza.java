@@ -38,7 +38,7 @@ public class Pizza {
     private String adicional;
 
     @Column(length = 90)
-    private String saborPiza;
+    private String saborPizza;
 
     @NumberFormat(pattern = "#,##0.00")
     @NotNull(message = "Valor unitário deve ser informado")
@@ -139,18 +139,18 @@ public class Pizza {
         this.contentType = contentType;
     }
 
-    public String getSaborPiza() {
-        return saborPiza;
+    public String getSaborPizza() {
+        return saborPizza;
     }
 
-    public void setSaborPiza(String saborPiza) {
-        this.saborPiza = saborPiza;
+    public void setSaborPizza(String saborPizza) {
+        this.saborPizza = saborPizza;
     }
 
     @PrePersist
     @PreUpdate
     private void prePersistUpdate() {
-        this.sabores.stream().forEach(sabor -> this.setSaborPiza(sabor.getDescricao()));
+        this.sabores.forEach(sabor -> this.setSaborPizza(sabor.getDescricao()));
     }
 
     @Override

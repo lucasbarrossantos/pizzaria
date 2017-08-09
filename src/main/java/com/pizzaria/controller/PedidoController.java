@@ -1,7 +1,9 @@
 package com.pizzaria.controller;
 
 import com.pizzaria.model.Pedido;
+import com.pizzaria.model.Pizza;
 import com.pizzaria.model.Produto;
+import com.pizzaria.repository.Pizzas;
 import com.pizzaria.repository.Produtos;
 import com.pizzaria.session.TabelaItensPedido;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class PedidoController {
     private Produtos produtos;
 
     @Autowired
+    private Pizzas pizzas;
+
+    @Autowired
     private TabelaItensPedido tabelaItensPedido;
 
     @GetMapping("/new")
@@ -35,6 +40,15 @@ public class PedidoController {
         tabelaItensPedido.adicionarItem(produto, 1);
         //System.out.printf(">> total de itens " + tabelaItensPedido.total());
         ModelAndView mv = new ModelAndView("pedido/TabelaItensProduto");
+        mv.addObject("itens", tabelaItensPedido.getItens());
+        return mv;
+    }
+
+    @PostMapping("/itemPizza")
+    public ModelAndView adicionarItemPizza(Long codigoPizza){
+        Pizza pizza = pizzas.findOne(codigoPizza);
+        tabelaItensPedido.adicionarItemPizza(pizza, 1);
+        ModelAndView mv = new ModelAndView("pedido/TabelaItensPizza");
         mv.addObject("itens", tabelaItensPedido.getItens());
         return mv;
     }
