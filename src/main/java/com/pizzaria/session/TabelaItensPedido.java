@@ -19,6 +19,8 @@ import java.util.Optional;
 @Component
 public class TabelaItensPedido {
 
+    private List<ItemPedido> itensProdutos = new ArrayList<>();
+    private List<ItemPedido> itensPizzas = new ArrayList<>();
     private List<ItemPedido> itens = new ArrayList<>();
 
     public BigDecimal getValorTotal() {
@@ -29,7 +31,7 @@ public class TabelaItensPedido {
     }
 
     public void adicionarItem(Produto produto, Integer quantidade) {
-        Optional<ItemPedido> itemPedidoOptional = itens.stream()
+        Optional<ItemPedido> itemPedidoOptional = itensProdutos.stream()
                 .filter(i -> i.getProduto().equals(produto))
                 .findAny();
 
@@ -42,12 +44,13 @@ public class TabelaItensPedido {
             itemPedido.setProduto(produto);
             itemPedido.setQuantidade(quantidade);
             itemPedido.setValorUnitario(produto.getValorUnitario());
-            itens.add(0, itemPedido); // Para ser sempre a primeira da lista
+            itensProdutos.add(0, itemPedido);
+            itens.add(itemPedido); // Para ser sempre a primeira da lista
         }
     }
 
     public void adicionarItemPizza(Pizza pizza, Integer quantidade) {
-        Optional<ItemPedido> itemPedidoOptional = itens.stream()
+        Optional<ItemPedido> itemPedidoOptional = itensPizzas.stream()
                 .filter(i -> i.getPizza().equals(pizza))
                 .findAny();
 
@@ -61,6 +64,7 @@ public class TabelaItensPedido {
             itemPedido.setQuantidade(quantidade);
             itemPedido.setValorUnitario(pizza.getValorUnitario());
             itemPedido.setProduto(null);
+            itensPizzas.add(0, itemPedido);
             itens.add(itemPedido);
         }
     }
@@ -71,5 +75,13 @@ public class TabelaItensPedido {
 
     public List<ItemPedido> getItens() {
         return itens;
+    }
+
+    public List<ItemPedido> getItensProdutos() {
+        return itensProdutos;
+    }
+
+    public List<ItemPedido> getItensPizzas() {
+        return itensPizzas;
     }
 }

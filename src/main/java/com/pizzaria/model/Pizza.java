@@ -154,6 +154,21 @@ public class Pizza {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pizza)) return false;
+
+        Pizza pizza = (Pizza) o;
+
+        return getId().equals(pizza.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
+
+    @Override
     public String toString() {
         return "Pizza{" +
                 "id=" + id +

@@ -40,7 +40,7 @@ public class PedidoController {
         tabelaItensPedido.adicionarItem(produto, 1);
         //System.out.printf(">> total de itens " + tabelaItensPedido.total());
         ModelAndView mv = new ModelAndView("pedido/TabelaItensProduto");
-        mv.addObject("itens", tabelaItensPedido.getItens());
+        mv.addObject("itens", tabelaItensPedido.getItensProdutos());
         return mv;
     }
 
@@ -49,7 +49,7 @@ public class PedidoController {
         Pizza pizza = pizzas.findOne(codigoPizza);
         tabelaItensPedido.adicionarItemPizza(pizza, 1);
         ModelAndView mv = new ModelAndView("pedido/TabelaItensPizza");
-        mv.addObject("itens", tabelaItensPedido.getItens());
+        mv.addObject("itens", tabelaItensPedido.getItensPizzas());
         return mv;
     }
 
