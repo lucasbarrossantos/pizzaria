@@ -31,9 +31,7 @@ public class TabelaItensPedido {
     }
 
     public void adicionarItem(Produto produto, Integer quantidade) {
-        Optional<ItemPedido> itemPedidoOptional = itensProdutos.stream()
-                .filter(i -> i.getProduto().equals(produto))
-                .findAny();
+        Optional<ItemPedido> itemPedidoOptional = buscarItemPorProduto(produto);
 
         ItemPedido itemPedido = null;
         if (itemPedidoOptional.isPresent()) {
@@ -50,9 +48,7 @@ public class TabelaItensPedido {
     }
 
     public void adicionarItemPizza(Pizza pizza, Integer quantidade) {
-        Optional<ItemPedido> itemPedidoOptional = itensPizzas.stream()
-                .filter(i -> i.getPizza().equals(pizza))
-                .findAny();
+        Optional<ItemPedido> itemPedidoOptional = buscarItemPorPizza(pizza);
 
         ItemPedido itemPedido = null;
         if (itemPedidoOptional.isPresent()) {
@@ -69,6 +65,16 @@ public class TabelaItensPedido {
         }
     }
 
+    public void alterarQuantidadeItensProduto(Produto produto, Integer quantidade){
+        ItemPedido itemPedido = buscarItemPorProduto(produto).get();
+        itemPedido.setQuantidade(quantidade);
+    }
+
+    public void alterarQuantidadeItensPizza(Pizza pizza, Integer quantidade){
+        ItemPedido itemPedido = buscarItemPorPizza(pizza).get();
+        itemPedido.setQuantidade(quantidade);
+    }
+
     public int total() {
         return itens.size();
     }
@@ -83,5 +89,17 @@ public class TabelaItensPedido {
 
     public List<ItemPedido> getItensPizzas() {
         return itensPizzas;
+    }
+
+    private Optional<ItemPedido> buscarItemPorProduto(Produto produto) {
+        return itensProdutos.stream()
+                .filter(i -> i.getProduto().equals(produto))
+                .findAny();
+    }
+
+    private Optional<ItemPedido> buscarItemPorPizza(Pizza pizza) {
+        return itensPizzas.stream()
+                .filter(i -> i.getPizza().equals(pizza))
+                .findAny();
     }
 }

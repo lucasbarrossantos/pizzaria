@@ -18,11 +18,28 @@ Pizzaria.TabelaItensPizzas = (function () {
             }
         });
 
-        response.done(onItemAdicionadoNoServidor.bind(this))
+        response.done(onItemAtualizadoNoNoServidor.bind(this))
     }
     
-    function onItemAdicionadoNoServidor(html) {
+    function onItemAtualizadoNoNoServidor(html) {
         this.tabelaProdutosContainer.html(html);
+        $('.js-tabela-pizza-quantidade-item').on('change', onQuantidadeItemPizzaAlterada.bind(this))
+    }
+
+    function onQuantidadeItemPizzaAlterada(evento) {
+        var input = $(evento.target);
+        var quantidade = input.val();
+        var codigoPizza = input.data('codigo-pizza');
+
+        var response = $.ajax({
+            url: 'itemPizza/'+codigoPizza,
+            method: 'PUT',
+            data: {
+                quantidade: quantidade
+            }
+        });
+
+        response.done(onItemAtualizadoNoNoServidor.bind(this))
     }
 
     return TabelaItensPizzas;

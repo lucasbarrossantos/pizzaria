@@ -18,11 +18,30 @@ Pizzaria.TabelaItens = (function () {
             }
         });
 
-        response.done(onItemAdicionadoNoServidor.bind(this))
+        response.done(onItemAtualizadoNoServidor.bind(this))
     }
-    
-    function onItemAdicionadoNoServidor(html) {
+
+    function onItemAtualizadoNoServidor(html) {
         this.tabelaProdutosContainer.html(html);
+        $('.js-tabela-produto-quantidade-item').on('change', onQuantidadeItemProdutoAlterada.bind(this))
+    }
+
+    function onQuantidadeItemProdutoAlterada(evento) {
+        var input = $(evento.target);
+        var quantidade = input.val();
+        var codigoProduto = input.data('codigo-produto');
+
+        console.log('Quantidade', quantidade);
+
+        var response = $.ajax({
+            url: 'itemProduto/' + codigoProduto,
+            method: 'PUT',
+            data: {
+                quantidade: quantidade
+            }
+        });
+
+        response.done(onItemAtualizadoNoServidor.bind(this))
     }
 
     return TabelaItens;
