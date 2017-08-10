@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 /**
  * @SessionScope para ter uma TabelaItensPedido para cada sessão
@@ -59,20 +60,35 @@ public class TabelaItensPedido {
             itemPedido.setPizza(pizza);
             itemPedido.setQuantidade(quantidade);
             itemPedido.setValorUnitario(pizza.getValorUnitario());
-            itemPedido.setProduto(null);
             itensPizzas.add(0, itemPedido);
             itens.add(itemPedido);
         }
     }
 
-    public void alterarQuantidadeItensProduto(Produto produto, Integer quantidade){
+    public void alterarQuantidadeItensProduto(Produto produto, Integer quantidade) {
         ItemPedido itemPedido = buscarItemPorProduto(produto).get();
         itemPedido.setQuantidade(quantidade);
     }
 
-    public void alterarQuantidadeItensPizza(Pizza pizza, Integer quantidade){
+    public void alterarQuantidadeItensPizza(Pizza pizza, Integer quantidade) {
         ItemPedido itemPedido = buscarItemPorPizza(pizza).get();
         itemPedido.setQuantidade(quantidade);
+    }
+
+    public void excluirItemProduto(Produto produto) {
+        int indice = IntStream.range(0, itensProdutos.size())
+                .filter(i -> itensProdutos.get(i).getProduto().equals(produto))
+                .findAny().getAsInt();
+
+        itensProdutos.remove(indice); // Indice onde o produto está
+    }
+
+    public void excluirItemPizza(Pizza pizza) {
+        int indice = IntStream.range(0, itensPizzas.size())
+                .filter(i -> itensPizzas.get(i).getPizza().equals(pizza))
+                .findAny().getAsInt();
+
+        itensPizzas.remove(indice);
     }
 
     public int total() {

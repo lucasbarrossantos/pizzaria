@@ -18,13 +18,14 @@ Pizzaria.TabelaItensPizzas = (function () {
             }
         });
 
-        response.done(onItemAtualizadoNoNoServidor.bind(this))
+        response.done(onItemAtualizadoNoServidor.bind(this))
     }
     
-    function onItemAtualizadoNoNoServidor(html) {
+    function onItemAtualizadoNoServidor(html) {
         this.tabelaProdutosContainer.html(html);
-        $('.js-tabela-pizza-quantidade-item').on('change', onQuantidadeItemPizzaAlterada.bind(this))
+        $('.js-tabela-pizza-quantidade-item').on('change', onQuantidadeItemPizzaAlterada.bind(this));
         $('.js-tabela-itens-pizzas').on('dblclick', onDoubleClick);
+        $('.js-exluir-item-pizza-btn').on('click', onExcluirItemPizzaClick.bind(this));
     }
 
     function onQuantidadeItemPizzaAlterada(evento) {
@@ -40,11 +41,22 @@ Pizzaria.TabelaItensPizzas = (function () {
             }
         });
 
-        response.done(onItemAtualizadoNoNoServidor.bind(this))
+        response.done(onItemAtualizadoNoServidor.bind(this))
     }
 
     function onDoubleClick(evento) {
         $(this).toggleClass('solicitando-exclusao');
+    }
+
+    function onExcluirItemPizzaClick(evento) {
+        var codigoPizza = $(evento.target).data('codigo-pizza');
+
+        var response = $.ajax({
+            url: 'itemPizza/' + codigoPizza,
+            method: 'DELETE'
+        });
+
+        response.done(onItemAtualizadoNoServidor.bind(this));
     }
 
     return TabelaItensPizzas;

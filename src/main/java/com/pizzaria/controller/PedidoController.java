@@ -36,33 +36,50 @@ public class PedidoController {
         Produto produto = produtos.findOne(codigoProduto);
         tabelaItensPedido.adicionarItem(produto, 1);
         //System.out.printf(">> total de itens " + tabelaItensPedido.total());
-        ModelAndView mv = new ModelAndView("pedido/TabelaItensProduto");
-        mv.addObject("itens", tabelaItensPedido.getItensProdutos());
-        return mv;
+        return mvTabelaItensProduto();
     }
 
     @PostMapping("/itemPizza")
     public ModelAndView adicionarItemPizza(Long codigoPizza) {
         Pizza pizza = pizzas.findOne(codigoPizza);
         tabelaItensPedido.adicionarItemPizza(pizza, 1);
-        ModelAndView mv = new ModelAndView("pedido/TabelaItensPizza");
-        mv.addObject("itens", tabelaItensPedido.getItensPizzas());
-        return mv;
+        return mvTabelaItensPizza();
     }
 
     @PutMapping("/itemProduto/{codigoProduto}")
-    public ModelAndView alterarQuantidadeItemProduto(@PathVariable Long codigoProduto, Integer quantidade) {
-        Produto produto = produtos.findOne(codigoProduto);
+    public ModelAndView alterarQuantidadeItemProduto(@PathVariable("codigoProduto") Produto produto,
+                                                     Integer quantidade) {
         tabelaItensPedido.alterarQuantidadeItensProduto(produto, quantidade);
+        return mvTabelaItensProduto();
+    }
+
+    @PutMapping("/itemPizza/{codigoPizza}")
+    public ModelAndView alterarQuantidadeItemPizza(@PathVariable("codigoPizza") Pizza pizza,
+                                                   Integer quantidade) {
+
+        tabelaItensPedido.alterarQuantidadeItensPizza(pizza, quantidade);
+        return mvTabelaItensPizza();
+    }
+
+    @DeleteMapping("/itemProduto/{codigoProduto}")
+    public ModelAndView excluirItemProduto(@PathVariable("codigoProduto") Produto produto){
+        tabelaItensPedido.excluirItemProduto(produto);
+        return mvTabelaItensProduto();
+    }
+
+    @DeleteMapping("/itemPizza/{codigoPizza}")
+    public ModelAndView excluirItemPizza(@PathVariable("codigoPizza") Pizza pizza){
+        tabelaItensPedido.excluirItemPizza(pizza);
+        return mvTabelaItensProduto();
+    }
+
+    private ModelAndView mvTabelaItensProduto() {
         ModelAndView mv = new ModelAndView("pedido/TabelaItensProduto");
         mv.addObject("itens", tabelaItensPedido.getItensProdutos());
         return mv;
     }
 
-    @PutMapping("/itemPizza/{codigoPizza}")
-    public ModelAndView alterarQuantidadeItemPizza(@PathVariable Long codigoPizza, Integer quantidade) {
-        Pizza pizza = pizzas.findOne(codigoPizza);
-        tabelaItensPedido.alterarQuantidadeItensPizza(pizza, quantidade);
+    private ModelAndView mvTabelaItensPizza() {
         ModelAndView mv = new ModelAndView("pedido/TabelaItensPizza");
         mv.addObject("itens", tabelaItensPedido.getItensPizzas());
         return mv;

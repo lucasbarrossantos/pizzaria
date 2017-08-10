@@ -21,7 +21,9 @@
 
     <div class="bw-tabela-item__painel-exclusao">
         <span class="bw-tabela-item__titulo-exclusao">Excluir este item do pedido?</span>
-        <button type="button" class="btn  btn-danger waves-effect">Sim, excluir!</button>
+        <button type="button" class="btn  btn-danger waves-effect js-exluir-item-pizza-btn"
+                th:attr="data-codigo-pizza=${item.pizza.id}">Sim, excluir!
+        </button>
     </div>
 
 </div>
