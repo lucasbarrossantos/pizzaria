@@ -17,12 +17,8 @@
             <span>x R$[[${item.valorUnitario}]]</span>
         </div>
         <div class="bw-tabela-produto-valor-grande">R$[[${item.valorTotal}]]</div>
-    </div>
-
-    <div class="bw-tabela-item__painel-exclusao">
-        <span class="bw-tabela-item__titulo-exclusao">Excluir este item do pedido?</span>
-        <button type="button" class="btn  btn-danger waves-effect js-exluir-item-produto-btn"
-                th:attr="data-codigo-produto=${item.produto.id}">Sim, excluir!</button>
+        <button type="button" class="btn  btn-danger waves-effect js-excluir-item-produto-btn"
+                th:attr="data-codigo-produto=${item.produto.id}">Excluir</button>
     </div>
 
 </div>

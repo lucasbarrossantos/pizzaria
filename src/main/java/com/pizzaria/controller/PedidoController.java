@@ -70,7 +70,7 @@ public class PedidoController {
     @DeleteMapping("/itemPizza/{codigoPizza}")
     public ModelAndView excluirItemPizza(@PathVariable("codigoPizza") Pizza pizza){
         tabelaItensPedido.excluirItemPizza(pizza);
-        return mvTabelaItensProduto();
+        return mvTabelaItensPizza();
     }
 
     private ModelAndView mvTabelaItensProduto() {

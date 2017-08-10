@@ -24,8 +24,7 @@ Pizzaria.TabelaItensPizzas = (function () {
     function onItemAtualizadoNoServidor(html) {
         this.tabelaProdutosContainer.html(html);
         $('.js-tabela-pizza-quantidade-item').on('change', onQuantidadeItemPizzaAlterada.bind(this));
-        $('.js-tabela-itens-pizzas').on('dblclick', onDoubleClick);
-        $('.js-exluir-item-pizza-btn').on('click', onExcluirItemPizzaClick.bind(this));
+        $('.js-excluir-item-pizza-btn').on('click', onExcluirItemPizzaClick.bind(this));
     }
 
     function onQuantidadeItemPizzaAlterada(evento) {
