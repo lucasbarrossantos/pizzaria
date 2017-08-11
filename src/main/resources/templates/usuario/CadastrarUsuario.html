@@ -214,6 +214,9 @@
 
 <th:block layout:fragment="javascript-extra">
     <script th:src="@{/js/pages/forms/basic-form-elements.js}"></script>
+    <script>
+        $('input[type=hidden]').remove();
+    </script>
 </th:block>
 
 </html>
