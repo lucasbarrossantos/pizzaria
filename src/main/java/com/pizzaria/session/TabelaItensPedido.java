@@ -3,8 +3,6 @@ package com.pizzaria.session;
 import com.pizzaria.model.ItemPedido;
 import com.pizzaria.model.Pizza;
 import com.pizzaria.model.Produto;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.SessionScope;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -16,13 +14,16 @@ import java.util.stream.IntStream;
  * @SessionScope para ter uma TabelaItensPedido para cada sessão
  */
 
-@SessionScope
-@Component
-public class TabelaItensPedido {
+class TabelaItensPedido {
 
+    private String uuid;
     private List<ItemPedido> itensProdutos = new ArrayList<>();
     private List<ItemPedido> itensPizzas = new ArrayList<>();
     private List<ItemPedido> itens = new ArrayList<>();
+
+    public TabelaItensPedido(String uuid) {
+        this.uuid = uuid;
+    }
 
     public BigDecimal getValorTotal() {
         return itens.stream()
@@ -117,5 +118,24 @@ public class TabelaItensPedido {
         return itensPizzas.stream()
                 .filter(i -> i.getPizza().equals(pizza))
                 .findAny();
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TabelaItensPedido)) return false;
+
+        TabelaItensPedido that = (TabelaItensPedido) o;
+
+        return getUuid().equals(that.getUuid());
+    }
+
+    @Override
+    public int hashCode() {
+        return getUuid().hashCode();
     }
 }

@@ -3,6 +3,7 @@ Pizzaria.TabelaItens = (function () {
     function TabelaItens(autocomplete) {
         this.autocomplete = autocomplete;
         this.tabelaProdutosContainer = $('.js-tabela-produtos-container');
+        this.uuid = $('#uuid').val();
     }
 
     TabelaItens.prototype.iniciar = function () {
@@ -10,11 +11,13 @@ Pizzaria.TabelaItens = (function () {
     };
 
     function onItemSelecionado(evento, item) {
+        console.log('uuid', this.uuid);
         var response = $.ajax({
             url: 'item',
             method: 'POST',
             data: {
-                codigoProduto: item.id
+                codigoProduto: item.id,
+                uuid: this.uuid
             }
         });
 
@@ -32,13 +35,12 @@ Pizzaria.TabelaItens = (function () {
         var quantidade = input.val();
         var codigoProduto = input.data('codigo-produto');
 
-        console.log('Quantidade', quantidade);
-
         var response = $.ajax({
             url: 'itemProduto/' + codigoProduto,
             method: 'PUT',
             data: {
-                quantidade: quantidade
+                quantidade: quantidade,
+                uuid: this.uuid
             }
         });
 
@@ -53,7 +55,7 @@ Pizzaria.TabelaItens = (function () {
         var codigoProduto = $(evento.target).data('codigo-produto');
 
         var response = $.ajax({
-            url: 'itemProduto/' + codigoProduto,
+            url: 'itemProduto/'+this.uuid+'/'+ codigoProduto,
             method: 'DELETE'
         });
 

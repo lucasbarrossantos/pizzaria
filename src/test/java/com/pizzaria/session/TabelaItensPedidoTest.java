@@ -1,8 +1,7 @@
-package com.pedido;
+package com.pizzaria.session;
 
 import com.pizzaria.model.Pizza;
 import com.pizzaria.model.Produto;
-import com.pizzaria.session.TabelaItensPedido;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +15,7 @@ public class TabelaItensPedidoTest {
 
     @Before
     public void setUp() {
-        this.tabelaItensPedido = new TabelaItensPedido();
+        this.tabelaItensPedido = new TabelaItensPedido("1");
     }
 
     @Test
