@@ -29,6 +29,9 @@
                     </div>
                     <div class="body demo-masked-input">
                         <form id="form_validation" th:object="${usuario}" th:action="@{/usuarios}">
+
+                            <input type="hidden" th:field="*{id}"/>
+
                             <div class="row clearfix">
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
@@ -93,8 +96,9 @@
                                     <td th:text="${usuario.endereco.cidade}"></td>
                                     <td>
                                         <div class="demo-google-material-icon">
-                                            <a href="#"><i class="material-icons">mode_edit</i></a>
-                                            <a href="#"><i class="material-icons">delete</i></a>
+                                            <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"
+                                               th:href="@{usuarios/{id}(id=${usuario.id})}"><i class="material-icons">mode_edit</i></a>
+                                            <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Excluir"><i class="material-icons">delete</i></a>
                                         </div>
                                     </td>
                                 </tr>

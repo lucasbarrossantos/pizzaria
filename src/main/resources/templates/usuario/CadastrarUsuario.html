@@ -215,7 +215,7 @@
 <th:block layout:fragment="javascript-extra">
     <script th:src="@{/js/pages/forms/basic-form-elements.js}"></script>
     <script>
-        $('input[type=hidden]').remove();
+        $('input[type=hidden][name="_grupos"]').remove();
     </script>
 </th:block>
 
