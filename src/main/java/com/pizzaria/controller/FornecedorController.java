@@ -7,7 +7,6 @@ import com.pizzaria.service.FornecedoresService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -61,6 +60,13 @@ public class FornecedorController {
                 new PageWrapper<>(page, httpServletRequest);
 
         mv.addObject("pagina", paginaWrapper);
+        return mv;
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView editar(@PathVariable("id") Fornecedor fornecedor){
+        ModelAndView mv = novo(fornecedor);
+        mv.addObject(fornecedor);
         return mv;
     }
 
