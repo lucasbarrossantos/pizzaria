@@ -15,9 +15,6 @@ $(function () {
         time: false,
         lang: 'br',
         cancelText : 'Cancelar'
-    }).on('change', function(e, date)
-    {
-        $('#dataDoPagamento').bootstrapMaterialDatePicker('setMinDate', date);
     });
 
 

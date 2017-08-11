@@ -99,7 +99,6 @@
                                     <th>Valor</th>
                                     <th>Valor Orig.</th>
                                     <th>Valor Pago</th>
-                                    <th>Emissão</th>
                                     <th>Validade</th>
                                     <th>Pagamento</th>
                                     <th>F. Pagamento</th>
@@ -115,7 +114,6 @@
                                     <td th:text="|R$ ${{titulo.valor}}|"></td>
                                     <td th:text="|R$ ${{titulo.valorOriginal}}|"></td>
                                     <td th:text="|R$ ${{titulo.valorPago}}|"></td>
-                                    <td th:text="${{titulo.dataDeEmissao}}"></td>
                                     <td th:text="${{titulo.dataDeValidade}}"></td>
                                     <td th:text="${{titulo.dataDoPagamento}}"></td>
                                     <td th:text="${titulo.formaDePagamento.descricao}"></td>
