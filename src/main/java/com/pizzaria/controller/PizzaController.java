@@ -83,4 +83,11 @@ public class PizzaController {
         return pizzas.porSaborOuTamanho(saborOuTamanho);
     }
 
+    @GetMapping("/{id}")
+    public ModelAndView editar(@PathVariable("id") Pizza pizza){
+        ModelAndView mv = nova(pizza);
+        mv.addObject(pizza);
+        return mv;
+    }
+
 }
