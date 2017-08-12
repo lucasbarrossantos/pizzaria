@@ -26,24 +26,30 @@ Pizzaria.TabelaItensPizzas = (function () {
 
         response.done(onItemAtualizadoNoServidor.bind(this))
     }
-    
+
     function onItemAtualizadoNoServidor(html) {
         this.tabelaProdutosContainer.html(html);
         var quantidadeItensPizzas = $('.js-tabela-pizza-quantidade-item');
         quantidadeItensPizzas.on('change', onQuantidadeItemPizzaAlterada.bind(this));
-        quantidadeItensPizzas.maskMoney({ precision: 0, thousands: '' });
+        quantidadeItensPizzas.maskMoney({precision: 0, thousands: ''});
 
-        var tabelaItemPizza = $('.js-tabela-itens-pizzas');
         $('.js-excluir-item-pizza-btn').on('click', onExcluirItemPizzaClick.bind(this));
+        var valorPizzas = $('.js-tabela-itens-pizzas').data('valor-total');
+        $('.js-valor-itens-pedido').html(Pizzaria.formatarMoeda(parseFloat(valorPizzas)));
 
-        this.emitter.trigger('tabela-itens-atualizada', tabelaItemPizza.data('valor-total'));
+        var valorProdutos = $('.js-tabela-itens-produtos').data('valor-total-produtos');
+        if (valorPizzas == undefined) {
+            console.log('undefined o valor');
+            $('.js-valor-itens-pedido').html(Pizzaria.formatarMoeda(parseFloat(valorProdutos)));
+        }
+
     }
 
     function onQuantidadeItemPizzaAlterada(evento) {
         var input = $(evento.target);
         var quantidade = input.val();
 
-        if(quantidade <= 0){
+        if (quantidade <= 0) {
             input.val(1);
             quantidade = 1;
         }
@@ -51,7 +57,7 @@ Pizzaria.TabelaItensPizzas = (function () {
         var codigoPizza = input.data('codigo-pizza');
 
         var response = $.ajax({
-            url: 'itemPizza/'+codigoPizza,
+            url: 'itemPizza/' + codigoPizza,
             method: 'PUT',
             data: {
                 quantidade: quantidade,
@@ -76,3 +82,13 @@ Pizzaria.TabelaItensPizzas = (function () {
     return TabelaItensPizzas;
 
 }());
+
+$(function () {
+
+    var autocomplete = new Pizzaria.AutoCompletePizza();
+    autocomplete.iniciar();
+
+    var tabelaItens = new Pizzaria.TabelaItensPizzas(autocomplete);
+    tabelaItens.iniciar();
+
+});
