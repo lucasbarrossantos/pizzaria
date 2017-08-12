@@ -1,5 +1,7 @@
 package com.pizzaria.model;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -17,6 +19,7 @@ public class ItemPedido {
 
     private Integer quantidade;
 
+    @NumberFormat(pattern = "#,##0.00")
     @Column(name = "valor_unitario")
     private BigDecimal valorUnitario;
 
@@ -77,6 +80,7 @@ public class ItemPedido {
         this.produto = produto;
     }
 
+    @NumberFormat(pattern = "#,##0.00")
     public BigDecimal getValorTotal(){
         return valorUnitario.multiply(new BigDecimal(quantidade));
     }

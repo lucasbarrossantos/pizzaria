@@ -8,9 +8,11 @@ import com.pizzaria.repository.Produtos;
 import com.pizzaria.session.TabelasItensSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -80,12 +82,14 @@ public class PedidoController {
     private ModelAndView mvTabelaItensProduto(String uuid) {
         ModelAndView mv = new ModelAndView("pedido/TabelaItensProduto");
         mv.addObject("itens", tabelaItens.getItensProdutos(uuid));
+        mv.addObject("valorTotal", tabelaItens.getValoresProdutosPizzas(uuid));
         return mv;
     }
 
     private ModelAndView mvTabelaItensPizza(String uuid) {
         ModelAndView mv = new ModelAndView("pedido/TabelaItensPizza");
         mv.addObject("itens", tabelaItens.getItensPizzas(uuid));
+        mv.addObject("valorTotal", tabelaItens.getValoresProdutosPizzas(uuid));
         return mv;
     }
 

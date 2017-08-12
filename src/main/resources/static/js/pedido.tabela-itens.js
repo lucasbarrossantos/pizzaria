@@ -11,7 +11,6 @@ Pizzaria.TabelaItens = (function () {
     };
 
     function onItemSelecionado(evento, item) {
-        console.log('uuid', this.uuid);
         var response = $.ajax({
             url: 'item',
             method: 'POST',
@@ -26,13 +25,26 @@ Pizzaria.TabelaItens = (function () {
 
     function onItemAtualizadoNoServidor(html) {
         this.tabelaProdutosContainer.html(html);
-        $('.js-tabela-produto-quantidade-item').on('change', onQuantidadeItemProdutoAlterada.bind(this));
+        var quantidadeItemInput = $('.js-tabela-produto-quantidade-item');
+        quantidadeItemInput.on('change', onQuantidadeItemProdutoAlterada.bind(this));
+        quantidadeItemInput.maskMoney({ precision: 0, thousands: '' });
+
+        var valorProdutos = $('.js-tabela-itens-produtos').data('valor-total-produtos');
         $('.js-excluir-item-produto-btn').on('click', onExcluirItemProdutoClick.bind(this));
+
+        // Itens
+        $('.js-valor-itens-pedido').html(Pizzaria.formatarMoeda(valorProdutos));
     }
 
     function onQuantidadeItemProdutoAlterada(evento) {
         var input = $(evento.target);
         var quantidade = input.val();
+
+        if(quantidade <= 0){
+            input.val(1);
+            quantidade = 1;
+        }
+
         var codigoProduto = input.data('codigo-produto');
 
         var response = $.ajax({

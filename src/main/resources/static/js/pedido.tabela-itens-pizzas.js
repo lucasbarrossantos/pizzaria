@@ -4,6 +4,10 @@ Pizzaria.TabelaItensPizzas = (function () {
         this.autocomplete = autocomplete;
         this.tabelaProdutosContainer = $('.js-tabela-pizzas-container');
         this.uuid = $('#uuid').val();
+
+        // Emitir eventos
+        this.emitter = $({});
+        this.on = this.emitter.on.bind(this.emitter);
     }
 
     TabelaItensPizzas.prototype.iniciar = function () {
@@ -25,13 +29,25 @@ Pizzaria.TabelaItensPizzas = (function () {
     
     function onItemAtualizadoNoServidor(html) {
         this.tabelaProdutosContainer.html(html);
-        $('.js-tabela-pizza-quantidade-item').on('change', onQuantidadeItemPizzaAlterada.bind(this));
+        var quantidadeItensPizzas = $('.js-tabela-pizza-quantidade-item');
+        quantidadeItensPizzas.on('change', onQuantidadeItemPizzaAlterada.bind(this));
+        quantidadeItensPizzas.maskMoney({ precision: 0, thousands: '' });
+
+        var tabelaItemPizza = $('.js-tabela-itens-pizzas');
         $('.js-excluir-item-pizza-btn').on('click', onExcluirItemPizzaClick.bind(this));
+
+        this.emitter.trigger('tabela-itens-atualizada', tabelaItemPizza.data('valor-total'));
     }
 
     function onQuantidadeItemPizzaAlterada(evento) {
         var input = $(evento.target);
         var quantidade = input.val();
+
+        if(quantidade <= 0){
+            input.val(1);
+            quantidade = 1;
+        }
+
         var codigoPizza = input.data('codigo-pizza');
 
         var response = $.ajax({
@@ -44,10 +60,6 @@ Pizzaria.TabelaItensPizzas = (function () {
         });
 
         response.done(onItemAtualizadoNoServidor.bind(this))
-    }
-
-    function onDoubleClick(evento) {
-        $(this).toggleClass('solicitando-exclusao');
     }
 
     function onExcluirItemPizzaClick(evento) {
@@ -64,13 +76,3 @@ Pizzaria.TabelaItensPizzas = (function () {
     return TabelaItensPizzas;
 
 }());
-
-$(function () {
-
-    var autocomplete = new Pizzaria.AutoCompletePizza();
-    autocomplete.iniciar();
-
-    var tabelaItens = new Pizzaria.TabelaItensPizzas(autocomplete);
-    tabelaItens.iniciar();
-
-});

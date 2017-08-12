@@ -81,7 +81,12 @@ class TabelaItensPedido {
                 .filter(i -> itensProdutos.get(i).getProduto().equals(produto))
                 .findAny().getAsInt();
 
+        int indiceP = IntStream.range(0, itens.size())
+                .filter(i -> itens.get(i).getProduto() != null && itens.get(i).getProduto().equals(produto))
+                .findAny().getAsInt();
+
         itensProdutos.remove(indice); // Indice onde o produto está
+        itens.remove(indiceP);
     }
 
     public void excluirItemPizza(Pizza pizza) {
@@ -89,7 +94,12 @@ class TabelaItensPedido {
                 .filter(i -> itensPizzas.get(i).getPizza().equals(pizza))
                 .findAny().getAsInt();
 
+        int indicePi = IntStream.range(0, itens.size())
+                .filter(i -> itens.get(i).getPizza() != null && itens.get(i).getPizza().equals(pizza))
+                .findAny().getAsInt();
+
         itensPizzas.remove(indice);
+        itens.remove(indicePi);
     }
 
     public int total() {

@@ -4,9 +4,11 @@ package com.pizzaria.session;
 import com.pizzaria.model.ItemPedido;
 import com.pizzaria.model.Pizza;
 import com.pizzaria.model.Produto;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -72,5 +74,18 @@ public class TabelasItensSession {
                 .filter(t -> t.getUuid().equals(uuid))
                 .findAny()
                 .orElse(new TabelaItensPedido(uuid));
+    }
+
+    private BigDecimal getValorTotalProdutos(String uuid) {
+        return buscarTabelaProdutoPorUUID(uuid).getValorTotal();
+    }
+
+    private BigDecimal getValorTotalPizzas(String uuid) {
+        return buscarTabelaPizzaPorUUID(uuid).getValorTotal();
+    }
+
+    @NumberFormat(pattern = "#,##0.00")
+    public BigDecimal getValoresProdutosPizzas(String uuid){
+        return getValorTotalProdutos(uuid).add(getValorTotalPizzas(uuid)).divide(new BigDecimal(2));
     }
 }
