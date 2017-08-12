@@ -32,8 +32,6 @@ Pizzaria.TabelaItens = (function () {
         var valorProdutos = $('.js-tabela-itens-produtos').data('valor-total-produtos');
         $('.js-excluir-item-produto-btn').on('click', onExcluirItemProdutoClick.bind(this));
 
-        console.log('valor depois', valorProdutos);
-
         // Itens
         $('.js-valor-itens-pedido').html(Pizzaria.formatarMoeda(parseFloat(valorProdutos)));
     }
