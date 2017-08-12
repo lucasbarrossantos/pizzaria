@@ -59,10 +59,6 @@ Pizzaria.TabelaItens = (function () {
         response.done(onItemAtualizadoNoServidor.bind(this))
     }
 
-    function onDoubleClick(evento) {
-        $(this).toggleClass('solicitando-exclusao');
-    }
-
     function onExcluirItemProdutoClick(evento) {
         var codigoProduto = $(evento.target).data('codigo-produto');
 
