@@ -15,9 +15,9 @@
                    class="bw-tabela-produto-campo-quantidade js-tabela-pizza-quantidade-item"
                    th:attr="data-codigo-pizza=${item.pizza.id}"
                    th:value="${item.quantidade}"/>
-            <span>x R$[[${item.valorUnitario}]]</span>
+            <span>x R$[[${{item.valorUnitario}}]]</span>
         </div>
-        <div class="bw-tabela-produto-valor-grande">R$[[${item.valorTotal}]]</div>
+        <div class="bw-tabela-produto-valor-grande">R$[[${{item.valorTotal}}]]</div>
         <button type="button" class="btn  btn-danger waves-effect js-excluir-item-pizza-btn"
                 th:attr="data-codigo-pizza=${item.pizza.id}">Excluir
         </button>
