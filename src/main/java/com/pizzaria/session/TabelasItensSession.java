@@ -84,7 +84,6 @@ public class TabelasItensSession {
         return buscarTabelaPizzaPorUUID(uuid).getValorTotal();
     }
 
-    @NumberFormat(pattern = "#,##0.00")
     public BigDecimal getValoresProdutosPizzas(String uuid){
         return getValorTotalProdutos(uuid).add(getValorTotalPizzas(uuid)).divide(new BigDecimal(2));
     }

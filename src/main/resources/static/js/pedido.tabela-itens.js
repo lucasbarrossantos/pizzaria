@@ -27,20 +27,22 @@ Pizzaria.TabelaItens = (function () {
         this.tabelaProdutosContainer.html(html);
         var quantidadeItemInput = $('.js-tabela-produto-quantidade-item');
         quantidadeItemInput.on('change', onQuantidadeItemProdutoAlterada.bind(this));
-        quantidadeItemInput.maskMoney({ precision: 0, thousands: '' });
+        quantidadeItemInput.maskMoney({precision: 0, thousands: ''});
 
         var valorProdutos = $('.js-tabela-itens-produtos').data('valor-total-produtos');
         $('.js-excluir-item-produto-btn').on('click', onExcluirItemProdutoClick.bind(this));
 
+        console.log('valor depois', valorProdutos);
+
         // Itens
-        $('.js-valor-itens-pedido').html(Pizzaria.formatarMoeda(valorProdutos));
+        $('.js-valor-itens-pedido').html(Pizzaria.formatarMoeda(parseFloat(valorProdutos)));
     }
 
     function onQuantidadeItemProdutoAlterada(evento) {
         var input = $(evento.target);
         var quantidade = input.val();
 
-        if(quantidade <= 0){
+        if (quantidade <= 0) {
             input.val(1);
             quantidade = 1;
         }
@@ -62,12 +64,12 @@ Pizzaria.TabelaItens = (function () {
     function onDoubleClick(evento) {
         $(this).toggleClass('solicitando-exclusao');
     }
-    
+
     function onExcluirItemProdutoClick(evento) {
         var codigoProduto = $(evento.target).data('codigo-produto');
 
         var response = $.ajax({
-            url: 'itemProduto/'+this.uuid+'/'+ codigoProduto,
+            url: 'itemProduto/' + this.uuid + '/' + codigoProduto,
             method: 'DELETE'
         });
 
