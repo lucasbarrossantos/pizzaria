@@ -35,11 +35,6 @@ Pizzaria.TabelaItens = (function () {
         var valorPizzas = $('.js-tabela-itens-pizzas').data('valor-total');
         // Itens
         $('.js-valor-itens-pedido').html(Pizzaria.formatarMoeda(parseFloat(valorProdutos)));
-
-        if(valorProdutos == undefined){
-            console.log('valor produto é undefined', valorPizzas);
-            $('.js-valor-itens-pedido').html(Pizzaria.formatarMoeda(parseFloat(valorPizzas)));
-        }
     }
 
     function onQuantidadeItemProdutoAlterada(evento) {
