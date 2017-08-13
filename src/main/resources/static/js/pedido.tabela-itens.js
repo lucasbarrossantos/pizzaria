@@ -36,9 +36,6 @@ Pizzaria.TabelaItens = (function () {
         // Itens
         $('.js-valor-itens-pedido').html(Pizzaria.formatarMoeda(parseFloat(valorProdutos)));
 
-        console.log('produtos', valorProdutos);
-        console.log('pizzas', valorPizzas);
-
         var valorPizzasProdutos = 0;
         if(valorProdutos != undefined && valorPizzas != undefined){
             valorPizzasProdutos = parseFloat(valorProdutos) + parseFloat(valorPizzas);
