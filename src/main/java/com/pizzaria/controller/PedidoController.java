@@ -1,5 +1,6 @@
 package com.pizzaria.controller;
 
+import com.pizzaria.model.ItemPedido;
 import com.pizzaria.model.Pedido;
 import com.pizzaria.model.Pizza;
 import com.pizzaria.model.Produto;
@@ -13,7 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Controller
@@ -98,13 +101,19 @@ public class PedidoController {
     }
 
     @PostMapping("/new")
-    public ModelAndView salvar(@Valid Pedido pedido, BindingResult result, RedirectAttributes attributes){
+    public ModelAndView salvar(@Valid Pedido pedido, BindingResult result, RedirectAttributes attributes) {
 
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return novo(pedido);
         }
 
         pedido.setItens(tabelaItens.getItens(pedido.getUuid()));
+        pedido.setValorTotal(tabelaItens.getItens(pedido.getUuid())
+                .stream()
+                .filter(i -> i.getValorTotal() != null)
+                .map(ItemPedido::getValorTotal)
+                .reduce(BigDecimal::add)
+                .orElse(BigDecimal.ZERO));
 
         pedido = pedidosService.salvar(pedido);
         attributes.addFlashAttribute("mensagem", "Pedido: " + pedido.getId() + " salvo com sucesso!");

@@ -50,7 +50,7 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private StatusPedido status = StatusPedido.ANDAMENTO;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedido> itens = new ArrayList<>();
 
     @Transient
@@ -155,7 +155,7 @@ public class Pedido {
     @PrePersist
     @PreUpdate
     private void prePersistUpdate() {
-        this.itens.forEach(i -> i.setPedido(this));
+        this.itens.forEach(item -> item.setPedido(this));
     }
 
     @Override

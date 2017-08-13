@@ -97,10 +97,14 @@
 
                         <h2 class="card-inside-title">Dados da compra</h2>
                         <div class="row clearfix">
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input class="form-control no-resize " th:field="*{observacao}"/>
+                                        <textarea class="form-control no-resize"
+                                                  rows="4" required=""
+                                                  th:field="*{observacao}">
+
+                                            </textarea>
                                         <label class="form-label">Observação</label>
                                     </div>
                                 </div>
