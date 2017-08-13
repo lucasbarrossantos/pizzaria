@@ -32,6 +32,22 @@ class TabelaItensPedido {
                 .orElse(BigDecimal.ZERO);  //  Se não tiver nada, retorna zero
     }
 
+    public BigDecimal getValorTotalProdutos(){
+        return itens.stream()
+                .filter(i -> i.getProduto() != null)
+                .map(ItemPedido::getValorTotal)
+                .reduce(BigDecimal::add)
+                .orElse(BigDecimal.ZERO);
+    }
+
+    public BigDecimal getValorTotalPizzas(){
+        return itens.stream()
+                .filter(i -> i.getPizza() != null)
+                .map(ItemPedido::getValorTotal)
+                .reduce(BigDecimal::add)
+                .orElse(BigDecimal.ZERO);
+    }
+
     public void adicionarItem(Produto produto, Integer quantidade) {
         Optional<ItemPedido> itemPedidoOptional = buscarItemPorProduto(produto);
 

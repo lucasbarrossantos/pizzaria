@@ -75,12 +75,12 @@ public class TabelasItensSession {
                 .orElse(new TabelaItensPedido(uuid));
     }
 
-    private BigDecimal getValorTotalProdutos(String uuid) {
-        return buscarTabelaProdutoPorUUID(uuid).getValorTotal();
+    public BigDecimal getValorTotalProdutos(String uuid) {
+        return buscarTabelaProdutoPorUUID(uuid).getValorTotalProdutos();
     }
 
-    private BigDecimal getValorTotalPizzas(String uuid) {
-        return buscarTabelaPizzaPorUUID(uuid).getValorTotal();
+    public BigDecimal getValorTotalPizzas(String uuid) {
+        return buscarTabelaPizzaPorUUID(uuid).getValorTotalPizzas();
     }
 
     public BigDecimal getValoresProdutosPizzas(String uuid){
