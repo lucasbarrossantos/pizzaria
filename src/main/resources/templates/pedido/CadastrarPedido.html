@@ -82,9 +82,13 @@
 
 
         <form id="form_validation" class="form-main" method="post"
-              th:attr="data-valor-total=${valorTotal}">
+              th:action="@{/pedidos/new}"
+              th:object="${pedido}">
 
-            <input type="hidden" id="uuid" th:value="*{uuid}"
+            <div th:replace="fragments/MensagensErroValidacao :: error"></div>
+            <div th:replace="fragments/MensagemSucesso :: alert"></div>
+
+            <input type="hidden" id="uuid" th:field="*{uuid}"
                    th:attr="data-valor-total=${valorTotal}"/>
 
             <div class="row clearfix">
@@ -96,8 +100,8 @@
                             <div class="col-sm-6">
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input class="form-control no-resize js-moeda"/>
-                                        <label class="form-label">Desconto</label>
+                                        <input class="form-control no-resize " th:field="*{observacao}"/>
+                                        <label class="form-label">Observação</label>
                                     </div>
                                 </div>
                             </div>
@@ -159,9 +163,9 @@
                     </div>
                 </div>
 
-                <a th:href="@{/pedidos/new}" class="btn bg-deep-purple waves-effect" style="margin-bottom: 30px">
-                    <span>Salvar</span>
-                </a>
+                <button class="btn bg-deep-purple waves-effect" style="margin-bottom: 20px">
+                    Salvar
+                </button>
 
             </div>
 

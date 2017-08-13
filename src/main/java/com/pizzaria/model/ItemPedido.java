@@ -23,7 +23,7 @@ public class ItemPedido {
     @Column(name = "valor_unitario")
     private BigDecimal valorUnitario;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Pedido pedido;
 
     @ManyToOne

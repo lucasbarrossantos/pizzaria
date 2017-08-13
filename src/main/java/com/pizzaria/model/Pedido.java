@@ -50,8 +50,11 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private StatusPedido status = StatusPedido.ANDAMENTO;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens = new ArrayList<>();
+
+    @Transient
+    private String uuid;
 
     public Long getId() {
         return id;
@@ -139,6 +142,20 @@ public class Pedido {
 
     public void setItens(List<ItemPedido> itens) {
         this.itens = itens;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void prePersistUpdate() {
+        this.itens.forEach(i -> i.setPedido(this));
     }
 
     @Override

@@ -5,14 +5,15 @@ import com.pizzaria.model.Pizza;
 import com.pizzaria.model.Produto;
 import com.pizzaria.repository.Pizzas;
 import com.pizzaria.repository.Produtos;
+import com.pizzaria.service.PedidosService;
 import com.pizzaria.session.TabelasItensSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Map;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import javax.validation.Valid;
 import java.util.UUID;
 
 @Controller
@@ -30,10 +31,13 @@ public class PedidoController {
     @Autowired
     private TabelasItensSession tabelaItens;
 
+    @Autowired
+    private PedidosService pedidosService;
+
     @GetMapping("/new")
     public ModelAndView novo(Pedido pedido) {
         ModelAndView mv = new ModelAndView(CADASTRO);
-        mv.addObject("uuid", UUID.randomUUID().toString());
+        pedido.setUuid(UUID.randomUUID().toString());
         return mv;
     }
 
@@ -93,6 +97,18 @@ public class PedidoController {
         return mv;
     }
 
+    @PostMapping("/new")
+    public ModelAndView salvar(@Valid Pedido pedido, BindingResult result, RedirectAttributes attributes){
 
+        if (result.hasErrors()){
+            return novo(pedido);
+        }
+
+        pedido.setItens(tabelaItens.getItens(pedido.getUuid()));
+
+        pedido = pedidosService.salvar(pedido);
+        attributes.addFlashAttribute("mensagem", "Pedido: " + pedido.getId() + " salvo com sucesso!");
+        return new ModelAndView("redirect:/pedidos/new");
+    }
 
 }

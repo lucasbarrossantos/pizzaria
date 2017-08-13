@@ -85,4 +85,16 @@ public class TabelasItensSession {
         System.out.println("Valor total dos itens: " + getValorTotalProdutos(uuid).add(getValorTotalPizzas(uuid)).divide(new BigDecimal(2)));
         return getValorTotalProdutos(uuid).add(getValorTotalPizzas(uuid)).divide(new BigDecimal(2));
     }
+
+    public List<ItemPedido> getItens(String uuid) {
+        return buscarTabelaPorUuid(uuid).getItens();
+    }
+
+    private TabelaItensPedido buscarTabelaPorUuid(String uuid) {
+        TabelaItensPedido tabela = tabelas.stream()
+                .filter(t -> t.getUuid().equals(uuid))
+                .findAny()
+                .orElse(new TabelaItensPedido(uuid));
+        return tabela;
+    }
 }
