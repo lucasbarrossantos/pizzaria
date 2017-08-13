@@ -35,6 +35,21 @@ Pizzaria.TabelaItens = (function () {
         var valorPizzas = $('.js-tabela-itens-pizzas').data('valor-total');
         // Itens
         $('.js-valor-itens-pedido').html(Pizzaria.formatarMoeda(parseFloat(valorProdutos)));
+
+        console.log('produtos', valorProdutos);
+        console.log('pizzas', valorPizzas);
+
+        var valorPizzasProdutos = 0;
+        if(valorProdutos != undefined && valorPizzas != undefined){
+            valorPizzasProdutos = parseFloat(valorProdutos) + parseFloat(valorPizzas);
+            $('.js-valor-total-itens').html(Pizzaria.formatarMoeda(parseFloat(valorPizzasProdutos)));
+        }else if(valorProdutos == undefined){
+            valorPizzasProdutos = parseFloat(valorPizzas);
+            $('.js-valor-total-itens').html(Pizzaria.formatarMoeda(parseFloat(valorPizzasProdutos)));
+        }else if(valorProdutos != undefined){
+            valorPizzasProdutos = parseFloat(valorProdutos);
+            $('.js-valor-total-itens').html(Pizzaria.formatarMoeda(parseFloat(valorPizzasProdutos)));
+        }
     }
 
     function onQuantidadeItemProdutoAlterada(evento) {
