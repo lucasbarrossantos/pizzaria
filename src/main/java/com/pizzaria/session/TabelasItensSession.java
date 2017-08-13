@@ -4,7 +4,6 @@ package com.pizzaria.session;
 import com.pizzaria.model.ItemPedido;
 import com.pizzaria.model.Pizza;
 import com.pizzaria.model.Produto;
-import org.springframework.format.annotation.NumberFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -85,6 +84,7 @@ public class TabelasItensSession {
     }
 
     public BigDecimal getValoresProdutosPizzas(String uuid){
+        System.out.println("Valor total dos itens: " + getValorTotalProdutos(uuid).add(getValorTotalPizzas(uuid)).divide(new BigDecimal(2)));
         return getValorTotalProdutos(uuid).add(getValorTotalPizzas(uuid)).divide(new BigDecimal(2));
     }
 }

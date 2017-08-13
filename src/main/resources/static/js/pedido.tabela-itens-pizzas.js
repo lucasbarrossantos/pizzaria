@@ -4,7 +4,6 @@ Pizzaria.TabelaItensPizzas = (function () {
         this.autocomplete = autocomplete;
         this.tabelaProdutosContainer = $('.js-tabela-pizzas-container');
         this.uuid = $('#uuid').val();
-
         // Emitir eventos
         this.emitter = $({});
         this.on = this.emitter.on.bind(this.emitter);
