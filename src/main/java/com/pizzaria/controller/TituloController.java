@@ -17,10 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -94,6 +91,13 @@ public class TituloController {
         mv.addObject("pagina", paginaWrapper);
         return mv;
 
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView editar(@PathVariable("id") Titulo titulo){
+        ModelAndView mv = novo(titulo);
+        mv.addObject(titulo);
+        return mv;
     }
 
 }
