@@ -1,15 +1,9 @@
 package com.pizzaria.controller;
 
-import com.pizzaria.controller.page.PageWrapper;
 import com.pizzaria.model.Mesa;
-import com.pizzaria.model.enumeration.StatusMesa;
 import com.pizzaria.repository.Mesas;
 import com.pizzaria.service.MesasService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
