@@ -110,7 +110,6 @@ public class PedidoController {
         pedido.setItens(tabelaItens.getItens(pedido.getUuid()));
         pedido.setValorTotal(tabelaItens.getItens(pedido.getUuid())
                 .stream()
-                .filter(i -> i.getValorTotal() != null)
                 .map(ItemPedido::getValorTotal)
                 .reduce(BigDecimal::add)
                 .orElse(BigDecimal.ZERO));
