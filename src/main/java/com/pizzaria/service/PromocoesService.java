@@ -20,13 +20,12 @@ public class PromocoesService {
     private Pizzas pizzas;
 
     public Promocao salvar(Promocao promocao) {
-        promocao.getPizzas().forEach(pizza -> pizza.setPromocao(promocao));
         List<String> pizzasPromocao = pizzas.pizzasEmPromocao().stream()
                 .filter(pizza -> promocao.getPizzas().contains(pizza))
                     .map(Pizza::getSaborPizza)
                 .collect(Collectors.toList());
 
-        if (pizzasPromocao.size() > 0) {
+        if (pizzasPromocao.size() > 0 && promocao.getId() != null) {
             throw new RuntimeException("Já existe promoção para: " + pizzasPromocao);
         }
 

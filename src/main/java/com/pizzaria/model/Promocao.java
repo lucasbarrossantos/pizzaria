@@ -31,7 +31,7 @@ public class Promocao {
     private BigDecimal valor;
 
     @Size(min = 1, message = "Selecione pelo menos uma pizza")
-    @OneToMany(mappedBy = "promocao", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "promocao", fetch = FetchType.LAZY)
     private List<Pizza> pizzas = new ArrayList<>();
 
     @ManyToOne
@@ -75,6 +75,12 @@ public class Promocao {
 
     public void setEstabelecimento(Estabelecimento estabelecimento) {
         this.estabelecimento = estabelecimento;
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void prePersistPreUpdate(){
+        this.pizzas.forEach(pizza -> pizza.setPromocao(this));
     }
 
     @Override
