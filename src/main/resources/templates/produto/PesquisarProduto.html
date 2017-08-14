@@ -127,8 +127,9 @@
                                     <td th:text="${produto.categoria.descricao}"></td>
                                     <td>
                                         <div class="demo-google-material-icon">
-                                            <a href="#"><i class="material-icons">mode_edit</i></a>
-                                            <a href="#"><i class="material-icons">delete</i></a>
+                                            <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"
+                                               th:href="@{produtos/{id}(id=${produto.id})}"><i class="material-icons">mode_edit</i></a>
+                                            <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Excluir"><i class="material-icons">delete</i></a>
                                         </div>
                                     </td>
                                 </tr>

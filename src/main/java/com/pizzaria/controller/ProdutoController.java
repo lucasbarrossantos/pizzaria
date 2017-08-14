@@ -71,6 +71,13 @@ public class ProdutoController {
         return mv;
     }
 
+    @GetMapping("/{id}")
+    public ModelAndView editar(@PathVariable("id") Produto produto){
+        ModelAndView mv = novo(produto);
+        mv.addObject(produto);
+        return mv;
+    }
+
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
     ResponseEntity<?> novoTipoDePagamento(@RequestBody @Valid Categoria categoria,
