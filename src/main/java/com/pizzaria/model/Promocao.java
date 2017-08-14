@@ -1,5 +1,6 @@
 package com.pizzaria.model;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.NumberFormat;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "promocao")
+@DynamicUpdate
 public class Promocao {
 
     @Id
@@ -31,7 +33,7 @@ public class Promocao {
     private BigDecimal valor;
 
     @Size(min = 1, message = "Selecione pelo menos uma pizza")
-    @OneToMany(mappedBy = "promocao", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "promocao", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Pizza> pizzas = new ArrayList<>();
 
     @ManyToOne

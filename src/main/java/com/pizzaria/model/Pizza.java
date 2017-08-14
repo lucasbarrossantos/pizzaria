@@ -51,7 +51,7 @@ public class Pizza {
             , inverseJoinColumns = @JoinColumn(name = "codigo_sabor"))
     private List<Sabor> sabores = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Promocao promocao;
 
     private String foto;
