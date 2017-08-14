@@ -24,22 +24,11 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String observacao;
 
     @Column(name = "data_pedido")
     private LocalDate dataPedido;
-
-    @Column(name = "hora_pedido")
-    private LocalTime horaPedido;
-
-    @Column(name = "data_hora_entrega")
-    private LocalDateTime dataHoraEntrega;
-
-    @Column(name = "valor_frete")
-    private BigDecimal valorFrete;
-
-    @Column(name = "valor_desconto")
-    private BigDecimal valorDesconto;
 
     @Column(name = "valor_total")
     private BigDecimal valorTotal = BigDecimal.ZERO;
@@ -54,6 +43,9 @@ public class Pedido {
     @Size(min = 1, message = "Adicione pelo menos um item ao pedido")
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedido> itens = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Mesa mesa;
 
     @Transient
     private String uuid;
@@ -80,38 +72,6 @@ public class Pedido {
 
     public void setDataPedido(LocalDate dataPedido) {
         this.dataPedido = dataPedido;
-    }
-
-    public LocalTime getHoraPedido() {
-        return horaPedido;
-    }
-
-    public void setHoraPedido(LocalTime horaPedido) {
-        this.horaPedido = horaPedido;
-    }
-
-    public LocalDateTime getDataHoraEntrega() {
-        return dataHoraEntrega;
-    }
-
-    public void setDataHoraEntrega(LocalDateTime dataHoraEntrega) {
-        this.dataHoraEntrega = dataHoraEntrega;
-    }
-
-    public BigDecimal getValorFrete() {
-        return valorFrete;
-    }
-
-    public void setValorFrete(BigDecimal valorFrete) {
-        this.valorFrete = valorFrete;
-    }
-
-    public BigDecimal getValorDesconto() {
-        return valorDesconto;
-    }
-
-    public void setValorDesconto(BigDecimal valorDesconto) {
-        this.valorDesconto = valorDesconto;
     }
 
     public BigDecimal getValorTotal() {
@@ -154,6 +114,14 @@ public class Pedido {
         this.uuid = uuid;
     }
 
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
+    }
+
     @PrePersist
     @PreUpdate
     private void prePersistUpdate() {
@@ -166,10 +134,6 @@ public class Pedido {
                 "id=" + id +
                 ", observacao='" + observacao + '\'' +
                 ", dataPedido=" + dataPedido +
-                ", horaPedido=" + horaPedido +
-                ", dataHoraEntrega=" + dataHoraEntrega +
-                ", valorFrete=" + valorFrete +
-                ", valorDesconto=" + valorDesconto +
                 ", valorTotal=" + valorTotal +
                 ", vendedor=" + vendedor +
                 ", status=" + status +
