@@ -28,12 +28,12 @@ public class PromocoesService {
             throw new RuntimeException("Já existe promoção para: " + promocaoExistente);
         }
 
-        removendoPizzaDaPromocao(promocao);
+        removendoPizzasDaPromocao(promocao);
         promocao.getPizzas().forEach(pizza -> pizza.setPromocao(promocao));
         return promocoes.save(promocao);
     }
 
-    private void removendoPizzaDaPromocao(Promocao promocao) {
+    private void removendoPizzasDaPromocao(Promocao promocao) {
         pizzas.pizzasEmPromocao()
                 .stream()
                 .filter(pizza -> pizza.getPromocao().getId().equals(promocao.getId()))
