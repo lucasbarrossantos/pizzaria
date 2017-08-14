@@ -19,13 +19,13 @@ public class PromocoesService {
     private Pizzas pizzas;
 
     public Promocao salvar(Promocao promocao) {
-        List<String> pizzasPromocao = pizzas.pizzasEmPromocao().stream()
+        List<String> promocaoExistente = pizzas.pizzasEmPromocao().stream()
                 .filter(pizza -> promocao.getPizzas().contains(pizza))
                 .map(Pizza::getSaborPizza)
                 .collect(Collectors.toList());
 
-        if (pizzasPromocao.size() > 0 && promocao.getId() == null) {
-            throw new RuntimeException("Já existe promoção para: " + pizzasPromocao);
+        if (promocaoExistente.size() > 0 && promocao.getId() == null) {
+            throw new RuntimeException("Já existe promoção para: " + promocaoExistente);
         }
 
         removendoPizzaDaPromocao(promocao);
