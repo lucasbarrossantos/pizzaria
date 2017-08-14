@@ -66,6 +66,21 @@ public class Mesa {
         this.pedidos = pedidos;
     }
 
+    @Transient
+    public String getCorCard() {
+        if (this.status != null) {
+            switch (this.status) {
+                case LIVRE:
+                    return "bg-green";
+                case RESERVADA:
+                    return "bg-cyan";
+                case MANUTENCAO:
+                    return "bg-red";
+            }
+        }
+        return "";
+    }
+
     @Override
     public String toString() {
         return "Mesa{" +
