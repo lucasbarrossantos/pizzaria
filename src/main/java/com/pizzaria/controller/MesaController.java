@@ -1,6 +1,7 @@
 package com.pizzaria.controller;
 
 import com.pizzaria.model.Mesa;
+import com.pizzaria.model.enumeration.StatusMesa;
 import com.pizzaria.repository.Mesas;
 import com.pizzaria.service.MesasService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class MesaController {
     @RequestMapping("/new")
     public ModelAndView nova(Mesa mesa){
         ModelAndView mv = new ModelAndView(CADASTRO);
+        mesa.setNumero(String.valueOf(mesas.findAll().size() + 1));
+        mv.addObject(mesa);
+        mv.addObject("status", StatusMesa.values());
         return mv;
     }
 

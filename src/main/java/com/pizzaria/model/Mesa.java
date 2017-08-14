@@ -1,6 +1,8 @@
 package com.pizzaria.model;
 
 import com.pizzaria.model.enumeration.StatusMesa;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -17,11 +19,15 @@ public class Mesa {
 
     private String observacao;
 
+    @NotBlank(message = "Informe o número da mesa")
+    private String numero;
+
     @Enumerated(EnumType.STRING)
     private StatusMesa status = StatusMesa.LIVRE;
 
+    @NumberFormat(pattern = "#,##0.00")
     @Transient
-    private BigDecimal valorItens;
+    private BigDecimal valorItens = BigDecimal.ZERO;
 
     @OneToMany(mappedBy = "mesa")
     private List<Pedido> pedidos = new ArrayList<>();
@@ -64,6 +70,14 @@ public class Mesa {
 
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     @Transient

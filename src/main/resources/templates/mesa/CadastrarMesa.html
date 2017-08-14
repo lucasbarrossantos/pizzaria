@@ -38,19 +38,27 @@
 
                             <h2 class="card-inside-title">Nova mesa</h2>
                             <div class="row clearfix">
-
-                                <div class="col-sm-12">
+                                <div class="col-sm-8">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <textarea class="form-control no-resize"
-                                                      rows="4"
-                                                      th:field="*{observacao}">
-
-                                            </textarea>
+                                            <input class="form-control"
+                                                      th:field="*{observacao}"/>
                                             <label class="form-label">Observação</label>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input class="form-control"
+                                                   required=""
+                                                   th:field="*{numero}"/>
+                                            <label class="form-label">Número</label>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                             </div>
 
