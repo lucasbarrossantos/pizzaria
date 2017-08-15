@@ -4,7 +4,8 @@ public enum StatusMesa {
 
     RESERVADA("Reservada"),
     LIVRE("Livre"),
-    MANUTENCAO("Em manutenção");
+    MANUTENCAO("Em manutenção"),
+    OCUPADA("Ocupada");
 
     private String descricao;
 

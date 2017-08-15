@@ -32,7 +32,7 @@ public class PedidosService {
     private void atualizarMesaDoPedido(Pedido pedido) {
         pedido.getMesa().setValorItens(pedido.getValorTotal());
         pedido.getMesa().setHoraCadastro(LocalDate.now());
-        pedido.getMesa().setStatus(StatusMesa.RESERVADA);
+        pedido.getMesa().setStatus(StatusMesa.OCUPADA);
         pedido.getMesa().setObservacao(pedido.getObservacao());
         mesas.saveAndFlush(pedido.getMesa());
     }

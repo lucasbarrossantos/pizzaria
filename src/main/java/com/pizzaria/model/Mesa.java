@@ -100,6 +100,8 @@ public class Mesa {
                     return "bg-cyan";
                 case MANUTENCAO:
                     return "bg-red";
+                case OCUPADA:
+                    return "bg-blue-grey";
             }
         }
         return "";

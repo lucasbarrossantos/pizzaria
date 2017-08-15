@@ -118,7 +118,7 @@ public class PedidoController {
             return novo(pedido);
         }
         attributes.addFlashAttribute("mensagem", "Pedido: " + pedido.getId() + " salvo com sucesso!");
-        return new ModelAndView("redirect:/pedidos/new");
+        return new ModelAndView("redirect:/mesas");
     }
 
 }
