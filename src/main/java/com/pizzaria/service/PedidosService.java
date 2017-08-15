@@ -24,6 +24,10 @@ public class PedidosService {
             throw new RuntimeException("Adicione pelo menos um item ao pedido");
         }
 
+        if(pedido.getMesa() == null){
+            throw new RuntimeException("Pedido sem mesa. Selecione a mesa para o pedido");
+        }
+
         pedido.setDataPedido(LocalDate.now());
         atualizarMesaDoPedido(pedido);
         return pedidos.saveAndFlush(pedido);
