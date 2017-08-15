@@ -87,6 +87,7 @@
 
             <div th:replace="fragments/MensagensErroValidacao :: error"></div>
             <div th:replace="fragments/MensagemSucesso :: alert"></div>
+            <div th:replace="fragments/MensagemErro :: danger"></div>
 
             <input type="hidden" id="uuid" th:field="*{uuid}"
                    th:attr="data-valor-total=${valorTotal}"/>

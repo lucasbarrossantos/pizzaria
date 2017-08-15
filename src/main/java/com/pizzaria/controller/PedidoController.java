@@ -114,7 +114,7 @@ public class PedidoController {
         try {
             pedido = pedidosService.salvar(pedido);
         }catch (RuntimeException e){
-            model.addAttribute("mensagem", e.getMessage());
+            model.addAttribute("mensagemErro", e.getMessage());
             return novo(pedido);
         }
         attributes.addFlashAttribute("mensagem", "Pedido: " + pedido.getId() + " salvo com sucesso!");
