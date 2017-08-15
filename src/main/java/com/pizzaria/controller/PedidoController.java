@@ -10,6 +10,7 @@ import com.pizzaria.service.PedidosService;
 import com.pizzaria.session.TabelasItensSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -101,11 +102,7 @@ public class PedidoController {
     }
 
     @PostMapping("/new")
-    public ModelAndView salvar(@Valid Pedido pedido, BindingResult result, RedirectAttributes attributes) {
-
-        if (result.hasErrors()) {
-            return novo(pedido);
-        }
+    public ModelAndView salvar(@Valid Pedido pedido, RedirectAttributes attributes, Model model) {
 
         pedido.setItens(tabelaItens.getItens(pedido.getUuid()));
         pedido.setValorTotal(tabelaItens.getItens(pedido.getUuid())
@@ -114,7 +111,12 @@ public class PedidoController {
                 .reduce(BigDecimal::add)
                 .orElse(BigDecimal.ZERO));
 
-        pedido = pedidosService.salvar(pedido);
+        try {
+            pedido = pedidosService.salvar(pedido);
+        }catch (RuntimeException e){
+            model.addAttribute("mensagem", e.getMessage());
+            return novo(pedido);
+        }
         attributes.addFlashAttribute("mensagem", "Pedido: " + pedido.getId() + " salvo com sucesso!");
         return new ModelAndView("redirect:/pedidos/new");
     }

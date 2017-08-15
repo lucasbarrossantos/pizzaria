@@ -6,6 +6,7 @@ import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,8 @@ public class Mesa {
 
     private String observacao;
 
+    private LocalDate horaCadastro;
+
     @NotBlank(message = "Informe o número da mesa")
     private String numero;
 
@@ -26,10 +29,9 @@ public class Mesa {
     private StatusMesa status = StatusMesa.LIVRE;
 
     @NumberFormat(pattern = "#,##0.00")
-    @Transient
     private BigDecimal valorItens = BigDecimal.ZERO;
 
-    @OneToMany(mappedBy = "mesa")
+    @OneToMany(mappedBy = "mesa", fetch = FetchType.LAZY)
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Long getId() {
@@ -78,6 +80,14 @@ public class Mesa {
 
     public void setNumero(String numero) {
         this.numero = numero;
+    }
+
+    public LocalDate getHoraCadastro() {
+        return horaCadastro;
+    }
+
+    public void setHoraCadastro(LocalDate horaCadastro) {
+        this.horaCadastro = horaCadastro;
     }
 
     @Transient

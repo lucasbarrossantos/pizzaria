@@ -1,6 +1,7 @@
 package com.pizzaria.controller;
 
 import com.pizzaria.model.Mesa;
+import com.pizzaria.model.Pedido;
 import com.pizzaria.model.enumeration.StatusMesa;
 import com.pizzaria.repository.Mesas;
 import com.pizzaria.service.MesasService;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,12 +18,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/mesas")
 public class MesaController {
 
     private static final String CADASTRO = "mesa/CadastrarMesa";
+    private static final String CADASTROPEDIDO = "pedido/CadastrarPedido";
 
     @Autowired
     private MesasService mesasService;
@@ -35,6 +39,17 @@ public class MesaController {
         mesa.setNumero(String.valueOf(mesas.findAll().size() + 1));
         mv.addObject(mesa);
         mv.addObject("status", StatusMesa.values());
+        return mv;
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView novo(@PathVariable("id") Long id, RedirectAttributes attributes) {
+        ModelAndView mv = new ModelAndView("redirect:/pedidos/new");
+        Mesa mesa = mesas.findOne(id);
+        Pedido pedido = new Pedido();
+        pedido.setMesa(mesa);
+        //pedido.setUuid(UUID.randomUUID().toString());
+        attributes.addFlashAttribute(pedido);
         return mv;
     }
 

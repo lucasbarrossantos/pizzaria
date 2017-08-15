@@ -61,7 +61,7 @@
                     </div>
                     <div class="content">
                         <div class="text">MESA</div>
-                        <div class="number">01
+                        <div class="number">[[${{pedido.mesa.numero}}]]
                         </div>
                     </div>
                 </div>
@@ -90,6 +90,8 @@
 
             <input type="hidden" id="uuid" th:field="*{uuid}"
                    th:attr="data-valor-total=${valorTotal}"/>
+
+            <input type="hidden" th:field="*{mesa}"/>
 
             <div class="row clearfix">
                 <div class="card col-lg-12 col-md-12 col-sm-12 col-xs-12">

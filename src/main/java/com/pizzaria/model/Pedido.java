@@ -40,11 +40,10 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private StatusPedido status = StatusPedido.ANDAMENTO;
 
-    @Size(min = 1, message = "Adicione pelo menos um item ao pedido")
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedido> itens = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Mesa mesa;
 
     @Transient
