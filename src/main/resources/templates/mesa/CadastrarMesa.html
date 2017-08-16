@@ -35,6 +35,9 @@
                             <div th:replace="fragments/MensagemSucesso :: alert"></div>
 
                             <input type="hidden" th:field="*{id}"/>
+                            <input type="hidden" th:field="*{pedido}"/>
+                            <input type="hidden" th:field="*{valorItens}"/>
+                            <input type="hidden" th:field="*{horaCadastro}"/>
 
                             <h2 class="card-inside-title">Nova mesa</h2>
                             <div class="row clearfix">

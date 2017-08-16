@@ -48,9 +48,13 @@
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a th:href="@{mesas/{id}(id=${mesa.id})}">Novo pedido</a></li>
+                                <li><a th:href="@{mesas/{id}(id=${mesa.id})}">Editar</a></li>
+                                <li><a th:href="@{mesas/pedidos/{id}(id=${mesa.id})}">Novo pedido</a></li>
                                 <li th:if="${mesa.pedidoExistente}">
                                     <a th:href="@{pedidos/{id}(id=${mesa.pedido.id})}">Ver pedidos</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{pedidos/{id}(id=${mesa.pedido.id})}">Fechar pedido</a>
                                 </li>
                             </ul>
                         </li>

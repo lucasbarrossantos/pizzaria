@@ -8,6 +8,7 @@ import com.pizzaria.service.MesasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +26,6 @@ import java.util.UUID;
 public class MesaController {
 
     private static final String CADASTRO = "mesa/CadastrarMesa";
-    private static final String CADASTROPEDIDO = "pedido/CadastrarPedido";
 
     @Autowired
     private MesasService mesasService;
@@ -36,19 +36,21 @@ public class MesaController {
     @RequestMapping("/new")
     public ModelAndView nova(Mesa mesa){
         ModelAndView mv = new ModelAndView(CADASTRO);
-        mesa.setNumero(String.valueOf(mesas.findAll().size() + 1));
-        mv.addObject(mesa);
+        if (StringUtils.isEmpty(mesa.getNumero())){
+            mesa.setNumero(String.valueOf(mesas.findAll().size() + 1));
+            mv.addObject(mesa);
+        }
         mv.addObject("status", StatusMesa.values());
         return mv;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("pedidos/{id}")
     public ModelAndView novo(@PathVariable("id") Long id, RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView("redirect:/pedidos/new");
         Mesa mesa = mesas.findOne(id);
         Pedido pedido = new Pedido();
         pedido.setMesa(mesa);
-        //pedido.setUuid(UUID.randomUUID().toString());
+        pedido.setUuid(UUID.randomUUID().toString());
         attributes.addFlashAttribute(pedido);
         return mv;
     }
@@ -70,6 +72,14 @@ public class MesaController {
     public ModelAndView pesquisar(Mesa mesa){
         ModelAndView mv = new ModelAndView("mesa/Mesas");
         mv.addObject("mesas", mesas.findAll());
+        return mv;
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView editar(@PathVariable("id") Mesa mesa){
+        ModelAndView mv = new ModelAndView(CADASTRO);
+        mv.addObject("status", StatusMesa.values());
+        mv.addObject(mesa);
         return mv;
     }
 

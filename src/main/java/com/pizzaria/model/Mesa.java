@@ -33,7 +33,7 @@ public class Mesa {
     @NumberFormat(pattern = "#,##0.00")
     private BigDecimal valorItens = BigDecimal.ZERO;
 
-    @OneToOne(orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private Pedido pedido;
 
     public Long getId() {
