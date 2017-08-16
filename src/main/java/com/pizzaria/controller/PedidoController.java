@@ -138,14 +138,14 @@ public class PedidoController {
     private ModelAndView mvTabelaItensProduto(String uuid) {
         ModelAndView mv = new ModelAndView("pedido/TabelaItensProduto");
         mv.addObject("itensProdutos", tabelaItens.getItensProdutos(uuid));
-        mv.addObject("valorTotal", tabelaItens.getValorTotalProdutos(uuid));
+        mv.addObject("valorTotalProdutos", tabelaItens.getValorTotalProdutos(uuid));
         return mv;
     }
 
     private ModelAndView mvTabelaItensPizza(String uuid) {
         ModelAndView mv = new ModelAndView("pedido/TabelaItensPizza");
         mv.addObject("itensPizzas", tabelaItens.getItensPizzas(uuid));
-        mv.addObject("valorTotal", tabelaItens.getValorTotalPizzas(uuid));
+        mv.addObject("valorTotalPizzas", tabelaItens.getValorTotalPizzas(uuid));
         return mv;
     }
 
