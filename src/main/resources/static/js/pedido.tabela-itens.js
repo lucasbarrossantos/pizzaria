@@ -40,7 +40,7 @@ Pizzaria.TabelaItens = (function () {
 
         onAtualizarValores();
     }
-    
+
     function onAtualizarValores() {
         var valorProdutos = $('.js-tabela-itens-produtos').data('valor-total-produtos');
         var valorPizzas = $('.js-tabela-itens-pizzas').data('valor-total');
@@ -48,13 +48,13 @@ Pizzaria.TabelaItens = (function () {
         $('.js-valor-itens-pedido').html(Pizzaria.formatarMoeda(parseFloat(valorProdutos)));
 
         var valorPizzasProdutos = 0;
-        if(valorProdutos != undefined && valorPizzas != undefined){
+        if (valorProdutos != undefined && valorPizzas != undefined) {
             valorPizzasProdutos = parseFloat(valorProdutos) + parseFloat(valorPizzas);
             $('.js-valor-total-itens').html(Pizzaria.formatarMoeda(parseFloat(valorPizzasProdutos)));
-        }else if(valorProdutos == undefined){
+        } else if (valorProdutos == undefined) {
             valorPizzasProdutos = parseFloat(valorPizzas);
             $('.js-valor-total-itens').html(Pizzaria.formatarMoeda(parseFloat(valorPizzasProdutos)));
-        }else if(valorProdutos != undefined){
+        } else if (valorProdutos != undefined) {
             valorPizzasProdutos = parseFloat(valorProdutos);
             $('.js-valor-total-itens').html(Pizzaria.formatarMoeda(parseFloat(valorPizzasProdutos)));
         }
@@ -94,7 +94,7 @@ Pizzaria.TabelaItens = (function () {
 
         response.done(onItemAtualizadoNoServidor.bind(this))
     }
-    
+
     function bindTabelaItem() {
         var tabelaItem = $('.js-tabela-itens-produtos');
         $('.js-excluir-item-produto-btn').on('click', onExcluirItemProdutoClick.bind(this));
@@ -104,7 +104,7 @@ Pizzaria.TabelaItens = (function () {
     function bindQuantidade() {
         var quantidadeItemInput = $('.js-tabela-produto-quantidade-item');
         quantidadeItemInput.on('change', onQuantidadeItemProdutoAlterada.bind(this));
-        quantidadeItemInput.maskMoney({ precision: 0, thousands: '' });
+        quantidadeItemInput.maskMoney({precision: 0, thousands: ''});
     }
 
     return TabelaItens;
