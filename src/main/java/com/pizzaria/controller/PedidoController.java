@@ -4,6 +4,7 @@ import com.pizzaria.model.ItemPedido;
 import com.pizzaria.model.Pedido;
 import com.pizzaria.model.Pizza;
 import com.pizzaria.model.Produto;
+import com.pizzaria.repository.Pedidos;
 import com.pizzaria.repository.Pizzas;
 import com.pizzaria.repository.Produtos;
 import com.pizzaria.service.PedidosService;
@@ -11,14 +12,17 @@ import com.pizzaria.session.TabelasItensSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/pedidos")
@@ -38,10 +42,53 @@ public class PedidoController {
     @Autowired
     private PedidosService pedidosService;
 
+    @Autowired
+    private Pedidos pedidos;
+
     @GetMapping("/new")
     public ModelAndView novo(Pedido pedido) {
         ModelAndView mv = new ModelAndView(CADASTRO);
-        pedido.setUuid(UUID.randomUUID().toString());
+
+        setUuid(pedido);
+        BigDecimal valorProdutos;
+        valorProdutos = tabelaItens.getValorTotalProdutos(pedido.getUuid());
+
+        BigDecimal valorPizzas;
+        valorPizzas = tabelaItens.getValorTotalPizzas(pedido.getUuid());
+
+        List<ItemPedido> itemProdutos = pedido.getItens()
+                .stream()
+                .filter(item -> item.getProduto() != null)
+                .collect(Collectors.toList());
+
+        List<ItemPedido> itemPizzas = pedido.getItens()
+                .stream()
+                .filter(item -> item.getPizza() != null)
+                .collect(Collectors.toList());
+
+        mv.addObject("itensProdutos", itemProdutos);
+        mv.addObject("itensPizzas", itemPizzas);
+        mv.addObject("valorTotalProdutos",  valorProdutos);
+        mv.addObject("valorTotalPizzas", valorPizzas);
+        mv.addObject("valorTotal", valorProdutos.add(valorPizzas));
+        return mv;
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView editar(@PathVariable("id") Long id) {
+        Pedido pedido = pedidos.findOne(id);
+        setUuid(pedido);
+
+        for (ItemPedido item : pedido.getItens()) {
+            if (item.getProduto() != null)
+                tabelaItens.adicionarItem(pedido.getUuid(), item.getProduto(), item.getQuantidade());
+
+            if (item.getPizza() != null)
+                tabelaItens.adicionarItemPizza(pedido.getUuid(), item.getPizza(), item.getQuantidade());
+        }
+
+        ModelAndView mv = novo(pedido);
+        mv.addObject(pedido);
         return mv;
     }
 
@@ -89,14 +136,14 @@ public class PedidoController {
 
     private ModelAndView mvTabelaItensProduto(String uuid) {
         ModelAndView mv = new ModelAndView("pedido/TabelaItensProduto");
-        mv.addObject("itens", tabelaItens.getItensProdutos(uuid));
+        mv.addObject("itensProdutos", tabelaItens.getItensProdutos(uuid));
         mv.addObject("valorTotal", tabelaItens.getValorTotalProdutos(uuid));
         return mv;
     }
 
     private ModelAndView mvTabelaItensPizza(String uuid) {
         ModelAndView mv = new ModelAndView("pedido/TabelaItensPizza");
-        mv.addObject("itens", tabelaItens.getItensPizzas(uuid));
+        mv.addObject("itensPizzas", tabelaItens.getItensPizzas(uuid));
         mv.addObject("valorTotal", tabelaItens.getValorTotalPizzas(uuid));
         return mv;
     }
@@ -113,7 +160,7 @@ public class PedidoController {
 
         try {
             pedido = pedidosService.salvar(pedido);
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             model.addAttribute("mensagemErro", e.getMessage());
             return novo(pedido);
         }
@@ -121,4 +168,9 @@ public class PedidoController {
         return new ModelAndView("redirect:/mesas");
     }
 
+    public void setUuid(Pedido pedido) {
+        if (StringUtils.isEmpty(pedido.getUuid())) {
+            pedido.setUuid(UUID.randomUUID().toString());
+        }
+    }
 }

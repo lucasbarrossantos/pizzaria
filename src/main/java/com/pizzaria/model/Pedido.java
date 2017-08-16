@@ -40,7 +40,7 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private StatusPedido status = StatusPedido.ANDAMENTO;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ItemPedido> itens = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)

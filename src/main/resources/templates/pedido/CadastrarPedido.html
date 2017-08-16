@@ -28,59 +28,6 @@
             </div>
         </div>
 
-        <div class="row clearfix">
-
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box-4">
-                    <div class="icon">
-                        <i class="material-icons" style="color: #af1456 !important">shopping_cart</i>
-                    </div>
-                    <div class="content">
-                        <div class="text">VALOR DOS PRODUTOS</div>
-                        <div class="number">R$ <span class="js-valor-itens-pedido">0,00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box-4">
-                    <div class="icon">
-                        <i class="material-icons" style="color: #af1456 !important">shopping_cart</i>
-                    </div>
-                    <div class="content">
-                        <div class="text">VALOR DAS PIZZAS</div>
-                        <div class="number">R$ <span class="js-valor-itens-pizzas">0,00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box-4">
-                    <div class="icon">
-                        <i class="material-icons" style="color: #af1456 !important">equalizer</i>
-                    </div>
-                    <div class="content">
-                        <div class="text">MESA</div>
-                        <div class="number">[[${{pedido.mesa.numero}}]]
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box-4">
-                    <div class="icon">
-                        <i class="material-icons" style="color: #af1456 !important">attach_money</i>
-                    </div>
-                    <div class="content">
-                        <div class="text">TOTAL</div>
-                        <div class="number">R$ <span class="js-valor-total-itens">0,00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
         <form id="form_validation" class="form-main" method="post"
               th:action="@{/pedidos/new}"
               th:object="${pedido}">
@@ -88,6 +35,60 @@
             <div th:replace="fragments/MensagensErroValidacao :: error"></div>
             <div th:replace="fragments/MensagemSucesso :: alert"></div>
             <div th:replace="fragments/MensagemErro :: danger"></div>
+
+            <div class="row clearfix">
+
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box-4">
+                        <div class="icon">
+                            <i class="material-icons" style="color: #af1456 !important">shopping_cart</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">VALOR DOS PRODUTOS</div>
+                            <div class="number">R$ <span
+                                    class="js-valor-itens-pedido">[[${{valorTotalProdutos}}]]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box-4">
+                        <div class="icon">
+                            <i class="material-icons" style="color: #af1456 !important">shopping_cart</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">VALOR DAS PIZZAS</div>
+                            <div class="number">R$ <span
+                                    class="js-valor-itens-pizzas">[[${{{valorTotalPizzas}}}]]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box-4">
+                        <div class="icon">
+                            <i class="material-icons" style="color: #af1456 !important">equalizer</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">MESA</div>
+                            <div class="number">[[${{pedido.mesa.numero}}]]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box-4">
+                        <div class="icon">
+                            <i class="material-icons" style="color: #af1456 !important">attach_money</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">TOTAL</div>
+                            <div class="number">R$ <span class="js-valor-total-itens">[[${{valorTotal}}]]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <input type="hidden" id="uuid" th:field="*{uuid}"
                    th:attr="data-valor-total=${valorTotal}"/>
@@ -133,10 +134,7 @@
 
                             <!-- Tabela de itens -->
                             <div class="bw-tabela-produtos js-tabela-produtos-container">
-                                <div class="bw-tabela-produtos__vazio">
-                                    <i class="glyphicon  glyphicon-shopping-cart" style="color: #af1456 !important"></i>
-                                    <span>Você ainda não adicionou nenhum produto.</span>
-                                </div>
+                                <th:block th:replace="pedido/TabelaItensProduto"/>
                             </div>
 
                             <!-- end tabela itens -->
@@ -160,10 +158,7 @@
 
                             <!-- Tabela de itens -->
                             <div class="bw-tabela-produtos js-tabela-pizzas-container">
-                                <div class="bw-tabela-produtos__vazio">
-                                    <i class="glyphicon  glyphicon-shopping-cart" style="color: #af1456 !important"></i>
-                                    <span>Você ainda não adicionou nenhuma pizza.</span>
-                                </div>
+                                <th:block th:replace="pedido/TabelaItensPizza"/>
                             </div>
 
                         </div>

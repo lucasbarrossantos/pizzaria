@@ -2,7 +2,7 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<div class="bw-tabela-item js-tabela-itens-produtos" th:each="item : ${itens}"
+<div class="bw-tabela-item js-tabela-itens-produtos" th:each="item : ${itensProdutos}"
      th:attr="data-valor-total-produtos=${{valorTotal}}">
     <div class="bw-tabela-item__coluna  bw-tabela-item__coluna--detalhes">
         <span class="bw-tabela-produto-nome" th:text="${item.produto.descricao}">Vinho</span>
@@ -25,7 +25,7 @@
 
 </div>
 
-<div class="bw-tabela-produtos__vazio" th:if="${itens.empty}">
+<div class="bw-tabela-produtos__vazio" th:if="${itensProdutos.empty}">
     <i class="glyphicon  glyphicon-shopping-cart" style="color: #af1456 !important"></i>
     <span>Você ainda não adicionou nenhum produto.</span>
 </div>
