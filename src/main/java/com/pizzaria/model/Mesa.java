@@ -1,6 +1,7 @@
 package com.pizzaria.model;
 
 import com.pizzaria.model.enumeration.StatusMesa;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.NumberFormat;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "mesa")
+@DynamicUpdate
 public class Mesa {
 
     @Id
@@ -31,8 +33,8 @@ public class Mesa {
     @NumberFormat(pattern = "#,##0.00")
     private BigDecimal valorItens = BigDecimal.ZERO;
 
-    @OneToMany(mappedBy = "mesa", fetch = FetchType.LAZY)
-    private List<Pedido> pedidos = new ArrayList<>();
+    @OneToOne(orphanRemoval = true, fetch = FetchType.LAZY)
+    private Pedido pedido;
 
     public Long getId() {
         return id;
@@ -66,12 +68,12 @@ public class Mesa {
         this.valorItens = valorItens;
     }
 
-    public List<Pedido> getPedidos() {
-        return pedidos;
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     public String getNumero() {
@@ -88,6 +90,10 @@ public class Mesa {
 
     public void setHoraCadastro(LocalDate horaCadastro) {
         this.horaCadastro = horaCadastro;
+    }
+
+    public boolean isPedidoExistente() {
+        return this.pedido != null && this.pedido.getId() != null;
     }
 
     @Transient

@@ -43,7 +43,7 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ItemPedido> itens = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "pedido", cascade = CascadeType.PERSIST)
     private Mesa mesa;
 
     @Transient
@@ -125,6 +125,7 @@ public class Pedido {
     @PreUpdate
     private void prePersistUpdate() {
         this.itens.forEach(item -> item.setPedido(this));
+        this.mesa.setPedido(this);
     }
 
     @Override
