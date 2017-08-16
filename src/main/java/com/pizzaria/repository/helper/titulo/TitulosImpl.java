@@ -27,9 +27,7 @@ public class TitulosImpl implements TitulosQueries {
         Root<Titulo> tituloRoot = criteriaQuery.from(Titulo.class);
 
         // Inner Join Para evitar o problema do n + 1
-        tituloRoot.fetch("formaDePagamento", JoinType.INNER);
-        tituloRoot.fetch("centroDeCusto", JoinType.INNER);
-        tituloRoot.fetch("fornecedor", JoinType.INNER);
+        tituloRoot.fetch("fornecedor", JoinType.LEFT);
 
         adicionarFiltro(filtro, builder, predicates, tituloRoot);
 

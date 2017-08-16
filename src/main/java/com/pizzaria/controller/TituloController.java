@@ -2,18 +2,15 @@ package com.pizzaria.controller;
 
 import com.pizzaria.controller.page.PageWrapper;
 import com.pizzaria.model.Titulo;
+import com.pizzaria.model.enumeration.CentroDeCusto;
+import com.pizzaria.model.enumeration.FormaDePagamento;
 import com.pizzaria.model.enumeration.Situacao;
 import com.pizzaria.model.enumeration.Tipo;
-import com.pizzaria.repository.CentrosDeCusto;
-import com.pizzaria.repository.FormasDePagamento;
 import com.pizzaria.repository.Fornecedores;
 import com.pizzaria.repository.Titulos;
 import com.pizzaria.repository.filter.TituloFilter;
 import com.pizzaria.service.TitulosService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -29,12 +26,6 @@ import javax.validation.Valid;
 public class TituloController {
 
     private static final String CADASTRO = "titulo/CadastrarTitulo";
-
-    @Autowired
-    private FormasDePagamento formasDePagamento;
-
-    @Autowired
-    private CentrosDeCusto centrosDeCusto;
 
     @Autowired
     private Fornecedores fornecedores;
@@ -66,8 +57,8 @@ public class TituloController {
     }
 
     private void inicializarCadastroNovoTitulo(ModelAndView mv) {
-        mv.addObject("formasDePagamento", formasDePagamento.findAll());
-        mv.addObject("centrosDeCusto", centrosDeCusto.findAll());
+        mv.addObject("formasDePagamento", FormaDePagamento.values());
+        mv.addObject("centrosDeCusto", CentroDeCusto.values());
         mv.addObject("fornecedores", fornecedores.findAll());
         mv.addObject("tipos", Tipo.values());
         mv.addObject("situacoes", Situacao.values());
@@ -78,8 +69,8 @@ public class TituloController {
                                   HttpServletRequest httpServletRequest){
         ModelAndView mv = new ModelAndView("titulo/PesquisarTitulo");
 
-        mv.addObject("formasDePagamento", formasDePagamento.findAll());
-        mv.addObject("centrosDeCusto", centrosDeCusto.findAll());
+        mv.addObject("formasDePagamento", FormaDePagamento.values());
+        mv.addObject("centrosDeCusto", CentroDeCusto.values());
         mv.addObject("fornecedores", fornecedores.findAll());
         mv.addObject("tipos", Tipo.values());
         mv.addObject("situacoes", Situacao.values());

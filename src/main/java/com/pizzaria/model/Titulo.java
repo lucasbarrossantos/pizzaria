@@ -1,5 +1,7 @@
 package com.pizzaria.model;
 
+import com.pizzaria.model.enumeration.CentroDeCusto;
+import com.pizzaria.model.enumeration.FormaDePagamento;
 import com.pizzaria.model.enumeration.Situacao;
 import com.pizzaria.model.enumeration.Tipo;
 import org.hibernate.validator.constraints.NotBlank;
@@ -50,17 +52,14 @@ public class Titulo {
     @Column(name = "data_do_pagamento")
     private LocalDate dataDoPagamento;
 
-    @NotNull
-    @JoinColumn(name = "pagamento_id")
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
     private FormaDePagamento formaDePagamento;
 
     @NotNull
-    @JoinColumn(name = "centro_de_custo_id")
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
     private CentroDeCusto centroDeCusto;
 
-    @NotNull(message = "Informa o fornecedor")
+    //@NotNull(message = "Informa o fornecedor")
     @ManyToOne
     private Fornecedor fornecedor;
 

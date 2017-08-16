@@ -1,8 +1,8 @@
 package com.pizzaria.repository.filter;
 
-import com.pizzaria.model.CentroDeCusto;
-import com.pizzaria.model.FormaDePagamento;
 import com.pizzaria.model.Fornecedor;
+import com.pizzaria.model.enumeration.CentroDeCusto;
+import com.pizzaria.model.enumeration.FormaDePagamento;
 
 import java.math.BigDecimal;
 

@@ -118,7 +118,7 @@
                                             th:field="*{formaDePagamento}">
                                         <option value="">-- Forma de pagamento --</option>
                                         <option th:each="pagamento : ${formasDePagamento}"
-                                                th:value="${pagamento.id}"
+                                                th:value="${pagamento}"
                                                 th:text="${pagamento.descricao}">Tamanho
                                         </option>
                                     </select>
@@ -128,7 +128,7 @@
                                             th:field="*{centroDeCusto}">
                                         <option value="">-- Centro de custo --</option>
                                         <option th:each="centroDeCusto : ${centrosDeCusto}"
-                                                th:value="${centroDeCusto.id}"
+                                                th:value="${centroDeCusto}"
                                                 th:text="${centroDeCusto.descricao}">Tamanho
                                         </option>
                                     </select>

@@ -33,6 +33,8 @@
         </div>
     </div>
 
+    <div th:replace="fragments/MensagemSucesso :: alert"></div>
+
     <div class="row clearfix">
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" th:each="mesa : ${mesas}">
             <div class="card">
@@ -53,8 +55,8 @@
                                 <li th:if="${mesa.pedidoExistente}">
                                     <a th:href="@{pedidos/{id}(id=${mesa.pedido.id})}">Ver pedidos</a>
                                 </li>
-                                <li>
-                                    <a th:href="@{pedidos/{id}(id=${mesa.pedido.id})}">Fechar pedido</a>
+                                <li th:if="${mesa.pedidoExistente}">
+                                    <a th:href="@{mesas/fechar/mesa/{id}(id=${mesa.id})}">Fechar pedido</a>
                                 </li>
                             </ul>
                         </li>

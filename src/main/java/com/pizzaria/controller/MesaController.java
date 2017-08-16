@@ -83,4 +83,12 @@ public class MesaController {
         return mv;
     }
 
+    @GetMapping("/fechar/mesa/{id}")
+    public ModelAndView fecharPedido(@PathVariable("id") Mesa mesa, RedirectAttributes attributes){
+        ModelAndView mv = new ModelAndView("redirect:/mesas");
+        mesasService.fecharMesa(mesa);
+        attributes.addFlashAttribute("mensagem", "Mesa " + mesa.getId() +" fechada com sucesso");
+        return mv;
+    }
+
 }
