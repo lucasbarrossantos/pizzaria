@@ -80,6 +80,7 @@ Pizzaria.TabelaItensPizzas = (function () {
 
     function onExcluirItemPizzaClick(evento) {
         var codigoPizza = $(evento.target).data('codigo-pizza');
+        console.log('excluir pizza clicado');
 
         var response = $.ajax({
             url: 'itemPizza/' + this.uuid + '/' + codigoPizza,

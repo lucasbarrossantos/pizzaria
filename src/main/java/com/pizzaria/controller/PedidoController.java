@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -68,7 +67,7 @@ public class PedidoController {
 
         mv.addObject("itensProdutos", itemProdutos);
         mv.addObject("itensPizzas", itemPizzas);
-        mv.addObject("valorTotalProdutos",  valorProdutos);
+        mv.addObject("valorTotalProdutos", valorProdutos);
         mv.addObject("valorTotalPizzas", valorPizzas);
         mv.addObject("valorTotal", valorProdutos.add(valorPizzas));
         return mv;
@@ -79,13 +78,15 @@ public class PedidoController {
         Pedido pedido = pedidos.findOne(id);
         setUuid(pedido);
 
-        for (ItemPedido item : pedido.getItens()) {
-            if (item.getProduto() != null)
+        pedido.getItens().forEach(item -> {
+            if (item.getProduto() != null) {
                 tabelaItens.adicionarItem(pedido.getUuid(), item.getProduto(), item.getQuantidade());
+            }
 
-            if (item.getPizza() != null)
+            if (item.getPizza() != null) {
                 tabelaItens.adicionarItemPizza(pedido.getUuid(), item.getPizza(), item.getQuantidade());
-        }
+            }
+        });
 
         ModelAndView mv = novo(pedido);
         mv.addObject(pedido);
