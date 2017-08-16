@@ -11,6 +11,10 @@ Pizzaria.TabelaItensPizzas = (function () {
 
     TabelaItensPizzas.prototype.iniciar = function () {
         this.autocomplete.on('pizza-selecionada', onItemSelecionado.bind(this));
+
+        bindQuantidade.call(this);
+        bindTabelaItem.call(this);
+        onAtualizarValores();
     };
 
     function onItemSelecionado(evento, item) {
@@ -28,6 +32,9 @@ Pizzaria.TabelaItensPizzas = (function () {
 
     function onItemAtualizadoNoServidor(html) {
         this.tabelaProdutosContainer.html(html);
+
+        bindQuantidade.call(this);
+
         var quantidadeItensPizzas = $('.js-tabela-pizza-quantidade-item');
         quantidadeItensPizzas.on('change', onQuantidadeItemPizzaAlterada.bind(this));
         quantidadeItensPizzas.maskMoney({precision: 0, thousands: ''});
@@ -88,6 +95,18 @@ Pizzaria.TabelaItensPizzas = (function () {
         });
 
         response.done(onItemAtualizadoNoServidor.bind(this));
+    }
+
+    function bindTabelaItem() {
+        var tabelaItem = $('.js-tabela-itens-pizzas');
+        $('.js-excluir-item-pizza-btn').on('click', onExcluirItemPizzaClick.bind(this));
+        return tabelaItem;
+    }
+
+    function bindQuantidade() {
+        var quantidadeItemInput = $('.js-tabela-pizza-quantidade-item');
+        quantidadeItemInput.on('change', onQuantidadeItemPizzaAlterada.bind(this));
+        quantidadeItemInput.maskMoney({ precision: 0, thousands: '' });
     }
 
     return TabelaItensPizzas;
