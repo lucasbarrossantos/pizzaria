@@ -2,15 +2,12 @@ package com.pizzaria.service;
 
 import com.pizzaria.model.Pedido;
 import com.pizzaria.model.enumeration.StatusMesa;
-import com.pizzaria.repository.Mesas;
 import com.pizzaria.repository.Pedidos;
 import com.pizzaria.repository.Produtos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Service
 public class PedidosService {

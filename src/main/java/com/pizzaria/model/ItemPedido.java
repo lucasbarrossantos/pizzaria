@@ -29,7 +29,7 @@ public class ItemPedido {
     @ManyToOne
     private Pizza pizza;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne
     private Produto produto;
 
     public Long getId() {
