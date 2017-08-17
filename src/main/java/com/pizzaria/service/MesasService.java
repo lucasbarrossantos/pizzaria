@@ -4,6 +4,7 @@ import com.pizzaria.model.Mesa;
 import com.pizzaria.model.Titulo;
 import com.pizzaria.model.enumeration.*;
 import com.pizzaria.repository.Mesas;
+import com.pizzaria.repository.Pedidos;
 import com.pizzaria.repository.Titulos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class MesasService {
     @Autowired
     private Titulos titulos;
 
+    @Autowired
+    private Pedidos pedidos;
+
     public Mesa salvar(Mesa mesa){
         return mesas.saveAndFlush(mesa);
     }
@@ -27,8 +31,8 @@ public class MesasService {
     public void fecharMesa(Mesa mesa) {
         Titulo titulo = new Titulo();
         mesa.setStatus(StatusMesa.LIVRE);
-        mesa.setPedido(null);
 
+        // Titulo
         titulo.setDataDeEmissao(LocalDate.now());
         titulo.setDataDeValidade(LocalDate.now());
         titulo.setDataDoPagamento(LocalDate.now());
@@ -40,6 +44,11 @@ public class MesasService {
         titulo.setSituacao(Situacao.COMPENSADO);
         titulo.setCentroDeCusto(CentroDeCusto.VENDAS);
         mesa.setValorItens(BigDecimal.ZERO);
+
+        // Pedido
+        mesa.getPedido().setStatus(StatusPedido.CONCLUIDO);
+        pedidos.save(mesa.getPedido());
+        mesa.setPedido(null);
 
         mesas.save(mesa);
         titulos.save(titulo);
