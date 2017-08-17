@@ -24,7 +24,7 @@ public class MesasService {
     @Autowired
     private Pedidos pedidos;
 
-    public Mesa salvar(Mesa mesa){
+    public Mesa salvar(Mesa mesa) {
         return mesas.saveAndFlush(mesa);
     }
 

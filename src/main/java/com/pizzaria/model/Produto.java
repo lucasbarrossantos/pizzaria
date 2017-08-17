@@ -1,6 +1,7 @@
 package com.pizzaria.model;
 
 import com.pizzaria.validation.SKU;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.NumberFormat;
 
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "produto")
+@DynamicUpdate
 public class Produto {
 
     @Id

@@ -29,7 +29,7 @@ public class ItemPedido {
     @ManyToOne
     private Pizza pizza;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private Produto produto;
 
     public Long getId() {
@@ -81,7 +81,7 @@ public class ItemPedido {
     }
 
     @NumberFormat(pattern = "#,##0.00")
-    public BigDecimal getValorTotal(){
+    public BigDecimal getValorTotal() {
         return valorUnitario.multiply(new BigDecimal(quantidade));
     }
 }
