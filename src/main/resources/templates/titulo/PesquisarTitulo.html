@@ -97,10 +97,10 @@
                                     <th>Id</th>
                                     <th>Descrição</th>
                                     <th>Valor</th>
-                                    <th>Valor Orig.</th>
                                     <th>Valor Pago</th>
                                     <th>Validade</th>
                                     <th>Pagamento</th>
+                                    <th>Tipo</th>
                                     <th>F. Pagamento</th>
                                     <th>C. Custo</th>
                                     <th>Fornecedor</th>
@@ -112,10 +112,10 @@
                                     <td th:text="${titulo.id}"></td>
                                     <td th:text="${titulo.descricao}"></td>
                                     <td th:text="|R$ ${{titulo.valor}}|"></td>
-                                    <td th:text="|R$ ${{titulo.valorOriginal}}|"></td>
                                     <td th:text="|R$ ${{titulo.valorPago}}|"></td>
                                     <td th:text="${{titulo.dataDeValidade}}"></td>
                                     <td th:text="${{titulo.dataDoPagamento}}"></td>
+                                    <td th:text="${titulo.tipo.descricao}"></td>
                                     <td th:text="${titulo.formaDePagamento == null ? '' : titulo.formaDePagamento.descricao}"></td>
                                     <td th:text="${titulo.centroDeCusto.descricao}"></td>
                                     <td th:text="${titulo.fornecedor == null ? '' : titulo.fornecedor.nomeFantasia}"></td>

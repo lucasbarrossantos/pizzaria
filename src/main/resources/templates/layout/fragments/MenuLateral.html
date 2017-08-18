@@ -41,7 +41,7 @@
                 </li>
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">save</i>
+                        <i class="material-icons">reorder</i>
                         <span>Cadastros</span>
                     </a>
                     <ul class="ml-menu">
@@ -50,9 +50,6 @@
                                 <span>Básicos</span>
                             </a>
                             <ul class="ml-menu">
-                                <li>
-                                    <a th:href="@{/usuarios}">Usuário</a>
-                                </li>
                                 <li>
                                     <a th:href="@{/fornecedores}">Fornecedor</a>
                                 </li>
@@ -64,7 +61,7 @@
                                 </li>
 
                                 <li>
-                                    <a th:href="@{/mesas}">Mesas</a>
+                                    <a th:href="@{/mesas}">Mesa</a>
                                 </li>
                             </ul>
                         </li>
@@ -87,6 +84,26 @@
                                     <a th:href="@{/titulos}">Contas</a>
                                 </li>
                             </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">settings</i>
+                        <span>Configurações</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a th:href="@{/usuarios}">Usuários</a>
+                        </li>
+                        <li>
+                            <a href="#">Funções</a>
+                        </li>
+                        <li>
+                            <a href="#">Grupos</a>
+                        </li>
+                        <li>
+                            <a href="#">Parâmetros do sistema</a>
                         </li>
                     </ul>
                 </li>
