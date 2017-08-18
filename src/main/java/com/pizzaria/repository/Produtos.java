@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface Produtos extends JpaRepository<Produto, Long>, ProdutosQueries {
 
-    @Query("select new com.pizzaria.service.dto.ProdutoDTO(id, sku, descricao, valorUnitario) " +
+    @Query("select new com.pizzaria.service.dto.ProdutoDTO(id, sku, descricao, valorUnitario, unidade) " +
             "from Produto as p where lower(p.sku) like ?1% or lower(p.descricao) like ?1% ")
     List<ProdutoDTO> porSkuOuNome(String skuOuNome);
 }

@@ -8,12 +8,14 @@ public class ProdutoDTO {
     private String sku;
     private String descricao;
     private BigDecimal valorUnitario;
+    private String unidade;
 
-    public ProdutoDTO(Long id, String sku, String descricao, BigDecimal valorUnitario) {
+    public ProdutoDTO(Long id, String sku, String descricao, BigDecimal valorUnitario, String unidade) {
         this.id = id;
         this.sku = sku;
         this.descricao = descricao;
         this.valorUnitario = valorUnitario;
+        this.unidade = unidade;
     }
 
     public Long getId() {
@@ -46,5 +48,13 @@ public class ProdutoDTO {
 
     public void setValorUnitario(BigDecimal valorUnitario) {
         this.valorUnitario = valorUnitario;
+    }
+
+    public String getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(String unidade) {
+        this.unidade = unidade;
     }
 }
