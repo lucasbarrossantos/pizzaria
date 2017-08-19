@@ -5,7 +5,7 @@
       layout:decorate="~{layout/LayoutPadrao}">
 
 <head>
-    <title>Promoção</title>
+    <title>Permissão</title>
 </head>
 
 <section class="content" layout:fragment="conteudo">
@@ -13,9 +13,9 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-sm-4 text-left">
-                    <a th:href="@{/grupos/new}" class="btn btn-default waves-effect">
+                    <a th:href="@{/permissoes/new}" class="btn btn-default waves-effect">
                         <i class="material-icons">add_circle</i>
-                        <span>Novo</span>
+                        <span>Nova</span>
                     </a>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                         <h2>PESQUISAR</h2>
                     </div>
                     <div class="body">
-                        <form id="form_validation" th:object="${grupo}" th:action="@{/grupos}">
+                        <form id="form_validation" th:object="${permissao}" th:action="@{/permissoes}">
                             <div class="row clearfix">
                                 <div class="col-sm-12">
                                     <div class="form-group form-float">
@@ -53,7 +53,7 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            GRUPOS
+                            PERMISSÕES
                         </h2>
                     </div>
                     <div class="body">
@@ -67,13 +67,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="grupo : ${pagina.conteudo}">
-                                    <td th:text="${grupo.id}"></td>
-                                    <td th:text="${grupo.nome}"></td>
+                                <tr th:each="permissao : ${pagina.conteudo}">
+                                    <td th:text="${permissao.id}"></td>
+                                    <td th:text="${permissao.nome}"></td>
                                     <td>
                                         <div class="demo-google-material-icon">
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"
-                                               th:href="@{grupos/{id}(id=${grupo.id})}"><i class="material-icons">mode_edit</i></a>
+                                               th:href="@{permissoes/{id}(id=${permissao.id})}"><i class="material-icons">mode_edit</i></a>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Excluir"><i class="material-icons">delete</i></a>
                                         </div>
                                     </td>
