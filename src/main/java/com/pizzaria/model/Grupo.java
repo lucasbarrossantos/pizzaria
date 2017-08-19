@@ -1,6 +1,7 @@
 package com.pizzaria.model;
 
-import java.io.Serializable;
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "grupo")
@@ -21,6 +23,8 @@ public class Grupo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Informe o nome")
+    @NotNull(message = "Informe o nome")
     private String nome;
 
     @ManyToMany
