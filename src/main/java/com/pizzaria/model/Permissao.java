@@ -1,5 +1,7 @@
 package com.pizzaria.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -16,6 +18,7 @@ public class Permissao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Informe o nome")
     private String nome;
 
     public Long getId() {
