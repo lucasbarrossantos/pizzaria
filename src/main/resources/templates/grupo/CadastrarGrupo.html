@@ -53,6 +53,21 @@
                                 </div>
                             </div>
 
+                            <div class="row clearfix" th:unless="${#lists.isEmpty(permissoes)}">
+                                <div class="col-sm-12">
+                                    <h2 class="card-inside-title">Permissões</h2>
+                                    <div class="demo-checkbox">
+                                        <th:block th:each="permissao : ${permissoes}">
+                                            <input type="checkbox" class="chk-col-deep-purple"
+                                                   th:value="${permissao.id}" th:field="*{permissoes}"/>
+
+                                            <label th:for="${#ids.prev('permissoes')}"
+                                                   th:text="${permissao.nome}">Cadastrar vendedores</label>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </div>
+
                             <button class="btn bg-red btn-circle waves-effect waves-circle waves-float"
                                     data-toggle="tooltip" data-placement="top" title="" data-original-title="Salvar">
                                 <i class="material-icons">save</i>
@@ -67,7 +82,7 @@
 
 <th:block layout:fragment="javascript-extra">
     <script>
-        $('input[type=hidden][name="_pizzas"]').remove();
+        $('input[type=hidden][name="_permissoes"]').remove();
     </script>
 </th:block>
 
