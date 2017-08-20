@@ -6,6 +6,8 @@ import com.pizzaria.repository.Pizzas;
 import com.pizzaria.repository.Promocoes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.PersistenceException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,28 +21,24 @@ public class PromocoesService {
     private Pizzas pizzas;
 
     public Promocao salvar(Promocao promocao) {
-        List<String> promocaoExistente = pizzas.pizzasEmPromocao().stream()
-                .filter(pizza -> promocao.getPizzas().contains(pizza))
-                .map(Pizza::getSaborPizza)
-                .collect(Collectors.toList());
-
-        if (promocaoExistente.size() > 0 && promocao.getId() == null) {
-            throw new RuntimeException("Já existe promoção para: " + promocaoExistente);
-        }
-
-        removendoPizzasDaPromocao(promocao);
         promocao.getPizzas().forEach(pizza -> pizza.setPromocao(promocao));
         return promocoes.save(promocao);
     }
 
-    private void removendoPizzasDaPromocao(Promocao promocao) {
-        pizzas.pizzasEmPromocao()
-                .stream()
-                .filter(pizza -> pizza.getPromocao().getId().equals(promocao.getId()))
+    public void excluir(Promocao promocao){
+
+        promocao.getPizzas()
                 .forEach(pizza -> {
                     pizza.setPromocao(null);
-                    pizzas.save(pizza);
+                    pizzas.saveAndFlush(pizza);
                 });
+
+        try {
+            promocoes.delete(promocao);
+            promocoes.flush();
+        }catch (RuntimeException e){
+            throw new RuntimeException("Impossível apagar a promoção. " + promocao.getId());
+        }
     }
 
 }

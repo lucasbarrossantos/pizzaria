@@ -74,9 +74,21 @@
                                     <td th:text="|R$ ${{promocao.valor}}|"></td>
                                     <td>
                                         <div class="demo-google-material-icon">
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"
-                                               th:href="@{promocoes/{id}(id=${promocao.id})}"><i class="material-icons">mode_edit</i></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Excluir"><i class="material-icons">delete</i></a>
+                                            <a class="btn  btn-link  btn-xs bg-green"
+                                               data-toggle="tooltip" data-placement="top" title=""
+                                               data-original-title="Editar"
+                                               th:href="@{promocoes/{id}(id=${promocao.id})}">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                            <a class="btn  btn-link  btn-xs bg-red js-exclusao-btn"
+                                               data-toggle="tooltip" data-placement="top" title=""
+                                               href="#"
+                                               th:attr="data-codigo=${promocao.id}
+                                               , data-objeto=${promocao.descricao}
+                                               , data-url=@{/promocoes/{codigo}(codigo=${promocao.id})}"
+                                               data-original-title="Excluir">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -95,5 +107,8 @@
     </div>
 </section>
 
+<th:block layout:fragment="javascript-extra">
+    <script th:src="@{/js/pizzaria.dialogo-exclusao.js}"></script>
+</th:block>
 
 </html>
