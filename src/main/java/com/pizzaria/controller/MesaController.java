@@ -1,11 +1,17 @@
 package com.pizzaria.controller;
 
+import com.pizzaria.controller.page.PageWrapper;
 import com.pizzaria.model.Mesa;
 import com.pizzaria.model.Pedido;
 import com.pizzaria.model.enumeration.StatusMesa;
 import com.pizzaria.repository.Mesas;
 import com.pizzaria.service.MesasService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -69,9 +75,20 @@ public class MesaController {
     }
 
     @GetMapping
-    public ModelAndView pesquisar(Mesa mesa){
+    public ModelAndView pesquisar(Mesa mesa, @PageableDefault(size = 9) Pageable pageable,
+                                  HttpServletRequest httpServletRequest){
         ModelAndView mv = new ModelAndView("mesa/Mesas");
-        mv.addObject("mesas", mesas.findAll());
+        mv.addObject("statusMesa", StatusMesa.values());
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("status", where -> where.exact());
+
+        Page<Mesa> page = mesas.findAll(Example.of(mesa, matcher), pageable);
+
+        PageWrapper<Mesa> paginaWrapper =
+                new PageWrapper<>(page, httpServletRequest);
+
+        mv.addObject("pagina", paginaWrapper);
         return mv;
     }
 

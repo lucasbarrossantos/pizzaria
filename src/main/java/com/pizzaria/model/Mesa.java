@@ -28,10 +28,10 @@ public class Mesa {
     private String numero;
 
     @Enumerated(EnumType.STRING)
-    private StatusMesa status = StatusMesa.LIVRE;
+    private StatusMesa status;
 
     @NumberFormat(pattern = "#,##0.00")
-    private BigDecimal valorItens = BigDecimal.ZERO;
+    private BigDecimal valorItens;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Pedido pedido;

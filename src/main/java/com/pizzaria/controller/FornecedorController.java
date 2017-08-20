@@ -6,6 +6,7 @@ import com.pizzaria.repository.Fornecedores;
 import com.pizzaria.service.FornecedoresService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -46,7 +47,7 @@ public class FornecedorController {
     }
 
     @GetMapping
-    public ModelAndView pesquisar(Fornecedor fornecedor, Pageable pageable,
+    public ModelAndView pesquisar(Fornecedor fornecedor, @PageableDefault(size = 9) Pageable pageable,
                                   HttpServletRequest httpServletRequest){
 
         ModelAndView mv = new ModelAndView("fornecedor/PesquisarFornecedor");
