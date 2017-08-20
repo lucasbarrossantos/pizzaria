@@ -15,4 +15,12 @@ public class UsuariosService {
         usuarios.save(usuario);
     }
 
+    public void excluir(Usuario usuario) {
+        try {
+            usuarios.delete(usuario);
+            usuarios.flush();
+        }catch (RuntimeException e){
+            throw new RuntimeException("Impossível apagar o usuário. " + usuario.getId());
+        }
+    }
 }

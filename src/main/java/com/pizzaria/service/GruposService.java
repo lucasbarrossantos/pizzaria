@@ -15,4 +15,12 @@ public class GruposService {
         return grupos.saveAndFlush(grupo);
     }
 
+    public void excluir(Grupo grupo) {
+        try {
+            grupos.delete(grupo);
+            grupos.flush();
+        }catch (RuntimeException e){
+            throw new RuntimeException("Impossível apagar o grupo. " + grupo.getId());
+        }
+    }
 }
