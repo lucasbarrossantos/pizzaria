@@ -17,7 +17,7 @@ public class PageWrapper<T> {
 
         String httpUrl = httpServletRequest.getRequestURL().append(
                 httpServletRequest.getQueryString() != null ? "?" + httpServletRequest.getQueryString() : "")
-                .toString().replaceAll("\\+", "%20").replaceAll("ecluido", "");
+                .toString().replaceAll("\\+", "%20");
         this.uriBuilder = UriComponentsBuilder.fromHttpUrl(httpUrl);
     }
 

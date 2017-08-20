@@ -20,7 +20,7 @@ public class TitulosImpl implements TitulosQueries {
     private EntityManager manager;
 
     @Override
-    public Page<Titulo> filtrar(TituloFilter filtro, Pageable pageable) {
+    public Page<Titulo> filtrar(Titulo filtro, Pageable pageable) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Titulo> criteriaQuery = builder.createQuery(Titulo.class);
         List<Predicate> predicates = new ArrayList<>();
@@ -37,11 +37,14 @@ public class TitulosImpl implements TitulosQueries {
         return new PageImpl<>(query.getResultList(), pageable, total(filtro));
     }
 
-    private Long total(TituloFilter filtro) {
+    private Long total(Titulo filtro) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Titulo> criteriaQuery = builder.createQuery(Titulo.class);
         List<Predicate> predicates = new ArrayList<>();
         Root<Titulo> tituloRoot = criteriaQuery.from(Titulo.class);
+
+        // Inner Join Para evitar o problema do n + 1
+        tituloRoot.fetch("fornecedor", JoinType.LEFT);
 
         adicionarFiltro(filtro, builder, predicates, tituloRoot);
 
@@ -51,7 +54,7 @@ public class TitulosImpl implements TitulosQueries {
         return (long) query.getResultList().size();
     }
 
-    private void adicionarFiltro(TituloFilter filtro, CriteriaBuilder builder, List<Predicate> predicates, Root<Titulo> tituloRoot) {
+    private void adicionarFiltro(Titulo filtro, CriteriaBuilder builder, List<Predicate> predicates, Root<Titulo> tituloRoot) {
 
         if (filtro != null) {
             if (!StringUtils.isEmpty(filtro.getDescricao())) {

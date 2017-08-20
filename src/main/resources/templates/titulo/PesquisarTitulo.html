@@ -28,7 +28,7 @@
                         <h2>PESQUISAR</h2>
                     </div>
                     <div class="body">
-                        <form id="form_validation" th:object="${filtro}" th:action="@{/titulos}">
+                        <form id="form_validation" th:object="${titulo}" th:action="@{/titulos}">
                             <div class="row clearfix">
                                 <div class="col-sm-12">
                                     <div class="form-group form-float">
@@ -89,7 +89,7 @@
                             TÍTULOS
                         </h2>
                     </div>
-                    <div class="body">
+                    <div class="body text-center">
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
@@ -144,6 +144,7 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <div th:replace="/fragments/Paginacao :: Pagination (${pagina})"></div>
                         </div>
                     </div>
                 </div>
