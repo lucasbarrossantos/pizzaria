@@ -13,6 +13,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -88,6 +89,16 @@ public class PizzaController {
         ModelAndView mv = nova(pizza);
         mv.addObject(pizza);
         return mv;
+    }
+
+    @DeleteMapping("/{id}")
+    public @ResponseBody ResponseEntity<?> excluir(@PathVariable("id") Pizza pizza){
+        try {
+            pizzasService.excluir(pizza);
+        }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.ok().build();
     }
 
 }

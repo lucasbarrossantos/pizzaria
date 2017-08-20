@@ -9,8 +9,18 @@ Pizzaria.DialogoExclusao = (function () {
     DialogoExclusao.prototype.iniciar = function () {
         this.exclusaoBtn.on('click', onExcluirClicado.bind(this));
 
-        if (window.location.search.indexOf('excluido') > -1){
-            swal('Pronto!', 'Excluído com sucesso.', 'success');
+        if (window.location.search.indexOf('excluido') > -1) {
+            swal({
+                title: "Pronto!",
+                text: "Excluído com sucesso.",
+                timer: 1000,
+                type: "success",
+                showConfirmButton: false
+            }, function () {
+                setTimeout(function () {
+                    window.location = document.URL.replace('excluido', '');
+                }, 1000)
+            })
         }
     };
 
@@ -26,7 +36,7 @@ Pizzaria.DialogoExclusao = (function () {
             text: 'Excluir "' + objeto + '" ? Você não poderá recuperar depois',
             showCancelButton: true,
             confirmButtonColor: '#DD5B55',
-            confirmButtonText: 'Sim, excluir agora',
+            confirmButtonText: 'Excluir',
             closeOnConfirm: true,
             showLoaderOnConfirm: true
         }, onExcluirConfirmado.bind(this, url));
@@ -53,7 +63,7 @@ Pizzaria.DialogoExclusao = (function () {
         console.log('erro', e.responseText);
         swal('Algo deu errado :(', e.responseText, 'error');
     }
-    
+
     return DialogoExclusao;
 
 }());

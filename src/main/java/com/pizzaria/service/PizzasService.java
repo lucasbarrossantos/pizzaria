@@ -15,4 +15,13 @@ public class PizzasService {
         Pizza copia = pizzas.saveAndFlush(pizza);
         return copia;
     }
+
+    public void excluir(Pizza pizza) {
+        try {
+            pizzas.delete(pizza);
+            pizzas.flush();
+        }catch (RuntimeException e){
+            throw new RuntimeException("Impossível apagar a pizza. " + pizza.getId());
+        }
+    }
 }
