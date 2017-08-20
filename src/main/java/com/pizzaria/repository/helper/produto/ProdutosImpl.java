@@ -2,6 +2,10 @@ package com.pizzaria.repository.helper.produto;
 
 import com.pizzaria.model.Produto;
 import com.pizzaria.repository.filter.ProdutoFilter;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
+import org.hibernate.jpa.criteria.expression.function.AbsFunction;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +23,7 @@ public class ProdutosImpl implements ProdutosQueries {
     @PersistenceContext
     private EntityManager manager;
 
+    @SuppressWarnings("unchecked")
     @Override
     public Page<Produto> filtrar(ProdutoFilter filtro, Pageable pageable) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
@@ -50,6 +55,7 @@ public class ProdutosImpl implements ProdutosQueries {
         criteriaQuery.select(produtoRoot);
         criteriaQuery.where(predicates.toArray(new Predicate[0]));
         TypedQuery<Produto> query = manager.createQuery(criteriaQuery);
+        int size = query.getResultList().size();
         return (long) query.getResultList().size();
     }
 

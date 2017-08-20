@@ -9,7 +9,11 @@ import com.pizzaria.repository.filter.ProdutoFilter;
 import com.pizzaria.service.ProdutosService;
 import com.pizzaria.service.dto.ProdutoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -57,8 +62,9 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ModelAndView pesquisar(@ModelAttribute("filtro") ProdutoFilter filtro, Pageable pageable,
-                                  HttpServletRequest httpServletRequest, BindingResult result) {
+    public ModelAndView pesquisar(@ModelAttribute("filtro") ProdutoFilter filtro,
+                                  @PageableDefault(size = 2) Pageable pageable,
+                                  HttpServletRequest httpServletRequest) {
         ModelAndView mv = new ModelAndView("produto/PesquisarProduto");
 
         mv.addObject("categorias", categorias.findAll());

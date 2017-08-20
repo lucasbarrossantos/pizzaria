@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface Produtos extends JpaRepository<Produto, Long>, ProdutosQueries {
 
     @Query("select new com.pizzaria.service.dto.ProdutoDTO(id, sku, descricao, valorUnitario, unidade) " +

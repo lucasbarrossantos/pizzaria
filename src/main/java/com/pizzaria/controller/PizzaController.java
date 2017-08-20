@@ -12,6 +12,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -60,7 +61,7 @@ public class PizzaController {
     }
 
     @GetMapping
-    public ModelAndView pesquisar(Pizza pizza, Pageable pageable,
+    public ModelAndView pesquisar(Pizza pizza, @PageableDefault(size = 9) Pageable pageable,
                                   HttpServletRequest httpServletRequest){
 
         ModelAndView mv = new ModelAndView("pizza/PesquisarPizza");
