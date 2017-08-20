@@ -101,13 +101,13 @@ public class Mesa {
         if (this.status != null) {
             switch (this.status) {
                 case LIVRE:
-                    return "bg-green";
+                    return "bg-orange";
                 case RESERVADA:
-                    return "bg-cyan";
+                    return "bg-teal";
                 case MANUTENCAO:
-                    return "bg-red";
+                    return "bg-pink";
                 case OCUPADA:
-                    return "bg-blue-grey";
+                    return "bg-light-green";
             }
         }
         return "";

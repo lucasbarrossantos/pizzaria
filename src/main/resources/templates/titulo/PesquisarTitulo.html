@@ -118,7 +118,7 @@
                                     <td th:text="${titulo.tipo.descricao}"></td>
                                     <td th:text="${titulo.formaDePagamento == null ? '' : titulo.formaDePagamento.descricao}"></td>
                                     <td th:text="${titulo.centroDeCusto.descricao}"></td>
-                                    <td th:text="${titulo.fornecedor == null ? '' : titulo.fornecedor.nomeFantasia}"></td>
+                                    <td th:text="${titulo.fornecedor == null ? 'Cliente' : titulo.fornecedor.nomeFantasia}"></td>
                                     <td>
                                         <div class="demo-google-material-icon">
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"
