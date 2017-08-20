@@ -15,4 +15,13 @@ public class FornecedoresService {
         fornecedores.save(fornecedor);
     }
 
+    public void excluir(Fornecedor fornecedor) {
+        try {
+            fornecedores.delete(fornecedor);
+            fornecedores.flush();
+        }catch (RuntimeException e){
+            throw new RuntimeException("Impossível apagar o fornecedor. " + fornecedor.getId());
+        }
+    }
+
 }

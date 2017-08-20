@@ -15,4 +15,12 @@ public class ProdutosService {
         return produtos.saveAndFlush(produto);
     }
 
+    public void excluir(Produto produto) {
+        try {
+            produtos.delete(produto);
+            produtos.flush();
+        }catch (RuntimeException e){
+            throw new RuntimeException("Impossível apagar o produto. " + produto.getId());
+        }
+    }
 }

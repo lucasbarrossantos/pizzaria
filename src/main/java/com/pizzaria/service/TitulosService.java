@@ -19,4 +19,12 @@ public class TitulosService {
         return titulos.saveAndFlush(titulo);
     }
 
+    public void excluir(Titulo titulo) {
+        try {
+            titulos.delete(titulo);
+            titulos.flush();
+        }catch (RuntimeException e){
+            throw new RuntimeException("Impossível apagar o título. " + titulo.getId());
+        }
+    }
 }

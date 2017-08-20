@@ -12,8 +12,7 @@ public class PizzasService {
     private Pizzas pizzas;
 
     public Pizza salvar(Pizza pizza) {
-        Pizza copia = pizzas.saveAndFlush(pizza);
-        return copia;
+        return pizzas.saveAndFlush(pizza);
     }
 
     public void excluir(Pizza pizza) {

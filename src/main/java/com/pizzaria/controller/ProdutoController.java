@@ -96,4 +96,14 @@ public class ProdutoController {
         return produtos.porSkuOuNome(skuOuNome);
     }
 
+    @DeleteMapping("/{id}")
+    public @ResponseBody ResponseEntity<?> excluir(@PathVariable("id") Produto produto){
+        try {
+            produtosService.excluir(produto);
+        }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.ok().build();
+    }
+
 }

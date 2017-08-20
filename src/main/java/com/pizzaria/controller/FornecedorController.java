@@ -6,6 +6,7 @@ import com.pizzaria.repository.Fornecedores;
 import com.pizzaria.service.FornecedoresService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +69,16 @@ public class FornecedorController {
         ModelAndView mv = novo(fornecedor);
         mv.addObject(fornecedor);
         return mv;
+    }
+
+    @DeleteMapping("/{id}")
+    public @ResponseBody ResponseEntity<?> excluir(@PathVariable("id") Fornecedor fornecedor){
+        try {
+            fornecedoresService.excluir(fornecedor);
+        }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.ok().build();
     }
 
 }

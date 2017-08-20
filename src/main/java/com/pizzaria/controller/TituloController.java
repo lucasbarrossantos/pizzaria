@@ -12,6 +12,7 @@ import com.pizzaria.repository.filter.TituloFilter;
 import com.pizzaria.service.TitulosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -89,6 +90,17 @@ public class TituloController {
         ModelAndView mv = novo(titulo);
         mv.addObject(titulo);
         return mv;
+    }
+
+    @DeleteMapping("/{id}")
+    public @ResponseBody
+    ResponseEntity<?> excluir(@PathVariable("id") Titulo titulo){
+        try {
+            titulosService.excluir(titulo);
+        }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.ok().build();
     }
 
 }
