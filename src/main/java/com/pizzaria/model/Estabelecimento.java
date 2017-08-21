@@ -32,11 +32,9 @@ public class Estabelecimento {
     @Column(length = 20)
     private String cnpj;
 
-    @NotBlank
     @Column(length = 40, name = "inscricao_estadual")
     private String inscricaoEstadual;
 
-    @NotBlank
     @Column(length = 60, name = "inscricao_municipal")
     private String inscricaoMunicipal;
 
@@ -48,6 +46,9 @@ public class Estabelecimento {
     private List<Produto> produtos = new ArrayList<>();
     @OneToMany(mappedBy = "estabelecimento", fetch = FetchType.LAZY)
     private List<Titulo> titulos = new ArrayList<>();
+
+    @Embedded
+    private Endereco endereco;
 
     public Long getId() {
         return id;
@@ -135,6 +136,14 @@ public class Estabelecimento {
 
     public void setTitulos(List<Titulo> titulos) {
         this.titulos = titulos;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     @Override
