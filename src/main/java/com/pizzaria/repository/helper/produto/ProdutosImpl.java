@@ -9,6 +9,7 @@ import org.hibernate.jpa.criteria.expression.function.AbsFunction;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -23,7 +24,6 @@ public class ProdutosImpl implements ProdutosQueries {
     @PersistenceContext
     private EntityManager manager;
 
-    @SuppressWarnings("unchecked")
     @Override
     public Page<Produto> filtrar(ProdutoFilter filtro, Pageable pageable) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
@@ -34,9 +34,25 @@ public class ProdutosImpl implements ProdutosQueries {
 
         adicionarFiltro(filtro, builder, predicates, produtoRoot);
 
+        int paginaAtual = pageable.getPageNumber();
+        int totalRegistrosPorPagina = pageable.getPageSize();
+        int primeiroRegistro = paginaAtual * totalRegistrosPorPagina;
+
+        adicionarFiltro(filtro, builder, predicates, produtoRoot);
+
+        Sort sort = pageable.getSort();
+        if (sort != null) {
+            Sort.Order order = sort.iterator().next();
+            String property = order.getProperty();
+            criteriaQuery.orderBy(order.isAscending() ? builder.asc(produtoRoot.get(property))
+                    : builder.desc(produtoRoot.get(property)));
+        }
+
         criteriaQuery.select(produtoRoot);
         criteriaQuery.where(predicates.toArray(new Predicate[0]));
         TypedQuery<Produto> query = manager.createQuery(criteriaQuery);
+        query.setFirstResult(primeiroRegistro);
+        query.setMaxResults(totalRegistrosPorPagina);
         return new PageImpl<>(query.getResultList(), pageable, total(filtro));
     }
 
@@ -49,6 +65,7 @@ public class ProdutosImpl implements ProdutosQueries {
         CriteriaQuery<Produto> criteriaQuery = builder.createQuery(Produto.class);
         List<Predicate> predicates = new ArrayList<>();
         Root<Produto> produtoRoot = criteriaQuery.from(Produto.class);
+        produtoRoot.fetch("categoria", JoinType.INNER); // Para evitar o problema do n + 1
 
         adicionarFiltro(filtro, builder, predicates, produtoRoot);
 
