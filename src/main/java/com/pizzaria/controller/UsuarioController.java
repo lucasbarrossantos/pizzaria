@@ -10,6 +10,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -55,7 +56,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ModelAndView pesquisar(Usuario usuario, Pageable pageable,
+    public ModelAndView pesquisar(Usuario usuario, @PageableDefault(size = 9) Pageable pageable,
                                   HttpServletRequest httpServletRequest){
 
         ModelAndView mv = new ModelAndView("usuario/PesquisarUsuario");

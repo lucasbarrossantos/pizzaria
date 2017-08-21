@@ -2,10 +2,6 @@ package com.pizzaria.repository.helper.produto;
 
 import com.pizzaria.model.Produto;
 import com.pizzaria.repository.filter.ProdutoFilter;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Projections;
-import org.hibernate.jpa.criteria.expression.function.AbsFunction;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -84,7 +80,7 @@ public class ProdutosImpl implements ProdutosQueries {
             }
 
             if (!StringUtils.isEmpty(filtro.getDescricao())){
-                predicates.add(builder.like(produtoRoot.get("descricao"), "%"+filtro.getDescricao()));
+                predicates.add(builder.like(produtoRoot.get("descricao"), "%"+filtro.getDescricao() + "%"));
             }
 
             if (isCategoriaExistente(filtro)){

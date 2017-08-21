@@ -10,6 +10,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,7 +64,7 @@ public class PromocaoControler {
 
 
     @GetMapping
-    public ModelAndView pesquisar(Promocao promocao, Pageable pageable,
+    public ModelAndView pesquisar(Promocao promocao, @PageableDefault(size = 9) Pageable pageable,
                                   HttpServletRequest httpServletRequest){
 
         ModelAndView mv = new ModelAndView("promocao/PesquisarPromocao");

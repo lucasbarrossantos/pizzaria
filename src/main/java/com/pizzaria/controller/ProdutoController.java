@@ -63,7 +63,7 @@ public class ProdutoController {
 
     @GetMapping
     public ModelAndView pesquisar(@ModelAttribute("filtro") ProdutoFilter filtro,
-                                  @PageableDefault(size = 2) Pageable pageable,
+                                  @PageableDefault(size = 9) Pageable pageable,
                                   HttpServletRequest httpServletRequest) {
         ModelAndView mv = new ModelAndView("produto/PesquisarProduto");
 
