@@ -8,7 +8,6 @@ import com.pizzaria.model.enumeration.Situacao;
 import com.pizzaria.model.enumeration.Tipo;
 import com.pizzaria.repository.Fornecedores;
 import com.pizzaria.repository.Titulos;
-import com.pizzaria.repository.filter.TituloFilter;
 import com.pizzaria.service.TitulosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
