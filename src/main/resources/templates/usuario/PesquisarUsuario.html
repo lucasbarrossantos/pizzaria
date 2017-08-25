@@ -91,9 +91,9 @@
                                     <td th:text="${usuario.cpf}"></td>
                                     <td th:text="${usuario.telefone}"></td>
                                     <td th:text="${usuario.email}"></td>
-                                    <td th:text="${usuario.endereco.endereco}"></td>
-                                    <td th:text="${usuario.endereco.bairro}"></td>
-                                    <td th:text="${usuario.endereco.cidade}"></td>
+                                    <td th:text="${usuario.endereco == null ? '' : usuario.endereco.endereco}"></td>
+                                    <td th:text="${usuario.endereco == null ? '' : usuario.endereco.bairro}"></td>
+                                    <td th:text="${usuario.endereco == null ? '' : usuario.endereco.bairro}"></td>
                                     <td>
                                         <div class="demo-google-material-icon">
                                             <a class="btn  btn-link  btn-xs bg-green"
