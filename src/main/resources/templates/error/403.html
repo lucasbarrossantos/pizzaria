@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>LBSystem</title>
+    <!-- Favicon-->
+    <link rel="icon" th:href="@{/images/image-gallery/favicon.ico}" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link th:href="@{/plugins/bootstrap/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link th:href="@{/plugins/node-waves/waves.css}" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link th:href="@{/plugins/animate-css/animate.css}" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body class="five-zero-zero">
+    <div class="five-zero-zero-container">
+        <div class="error-code">403</div>
+        <div class="error-message">Acesso negado</div>
+        <div class="button-place">
+            <a href="javascript:history.back()" class="btn btn-default btn-lg waves-effect">Voltar</a>
+        </div>
+    </div>
+
+    <!-- Jquery Core Js -->
+    <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script th:src="@{/plugins/node-waves/waves.js}"></script>
+
+    <!-- Validation Plugin Js -->
+    <script th:src="@{/plugins/jquery-validation/jquery.validate.js}"></script>
+</body>
+
+</html>

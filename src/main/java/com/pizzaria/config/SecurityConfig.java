@@ -42,6 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                    .antMatchers("/fornecedores/new").hasAnyAuthority("CADASTRAR_FORNECEDOR")
+                    .antMatchers("/usuarios/**").hasAnyAuthority("CADASTRAR_USUARIO")
+
                     .anyRequest().authenticated() // Para qualquer requisição o usuário deve estar autenticado
                 .and()
                 .formLogin()

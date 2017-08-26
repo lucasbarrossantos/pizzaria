@@ -32,12 +32,10 @@ public class Usuario {
     @Column(length = 14)
     private String cpf;
 
-    @Size(max = 10, message = "Valor máximo é 10 caracteres")
     @NotBlank(message = "Senha obrigatória")
     @Column(length = 100)
     private String senha;
 
-    @Size(max = 10, message = "Valor máximo é 10 caracteres")
     @NotBlank(message = "Confirme a senha")
     @Column(length = 100)
     private String confirmeSenha;
