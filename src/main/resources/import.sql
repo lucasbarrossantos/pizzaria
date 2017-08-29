@@ -22,9 +22,9 @@ INSERT INTO usuario_grupo (codigo_usuario, codigo_grupo) VALUES (2, 2);
 
 --- Inserir permissões
 
-INSERT INTO permissao(nome) VALUES('CADASTRAR_GRUPO');
-INSERT INTO permissao(nome) VALUES('CADASTRAR_MESA');
-INSERT INTO permissao(nome) VALUES('CADASTRAR_PIZZA');
-INSERT INTO permissao(nome) VALUES('CADASTRAR_PRODUTO');
-INSERT INTO permissao(nome) VALUES('CADASTRAR_PROMOCAO');
-INSERT INTO permissao(nome) VALUES('FINANCEIRO');
+INSERT INTO permissao(id, nome) VALUES(3,'CADASTRAR_GRUPO');
+INSERT INTO permissao(id, nome) VALUES(4,'CADASTRAR_MESA');
+INSERT INTO permissao(id, nome) VALUES(5,'CADASTRAR_PIZZA');
+INSERT INTO permissao(id, nome) VALUES(6,'CADASTRAR_PRODUTO');
+INSERT INTO permissao(id, nome) VALUES(7,'CADASTRAR_PROMOCAO');
+INSERT INTO permissao(id, nome) VALUES(8,'FINANCEIRO');
