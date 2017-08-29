@@ -62,16 +62,23 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ModelAndView pesquisar(@ModelAttribute("filtro") ProdutoFilter filtro,
+    public ModelAndView pesquisar(Produto produto,
                                   @PageableDefault(size = 9) Pageable pageable,
                                   HttpServletRequest httpServletRequest) {
         ModelAndView mv = new ModelAndView("produto/PesquisarProduto");
 
         mv.addObject("categorias", categorias.findAll());
 
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("descricao", where -> where.contains().ignoreCase())
+                .withMatcher("categoria", where -> where.exact().exact())
+                .withMatcher("sku",  where -> where.startsWith())
+                .withMatcher("centroDeCusto",  where -> where.exact().ignoreCase());
+
+        Page<Produto> page = produtos.findAll(Example.of(produto, matcher), pageable);
+
         PageWrapper<Produto> paginaWrapper =
-                new PageWrapper<>(produtos.filtrar(filtro, pageable)
-                        , httpServletRequest);
+                new PageWrapper<>(page, httpServletRequest);
 
         mv.addObject("pagina", paginaWrapper);
         return mv;

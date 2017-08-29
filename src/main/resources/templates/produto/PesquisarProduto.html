@@ -28,7 +28,7 @@
                         <h2>PESQUISAR</h2>
                     </div>
                     <div class="body demo-masked-input">
-                        <form id="form_validation" th:object="${filtro}" th:action="@{/produtos}">
+                        <form id="form_validation" th:object="${produto}" th:action="@{/produtos}">
 
                             <div th:replace="fragments/MensagensErroValidacao :: error"></div>
 
@@ -61,24 +61,6 @@
                                             <input class="form-control"
                                                    th:field="*{sku}"/>
                                             <label class="form-label">SKU</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <input class="form-control js-moeda"
-                                                   th:field="*{valorDe}"/>
-                                            <label class="form-label">Valor de</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <input class="form-control js-moeda"
-                                                   th:field="*{valorAte}"/>
-                                            <label class="form-label">Valor até</label>
                                         </div>
                                     </div>
                                 </div>
