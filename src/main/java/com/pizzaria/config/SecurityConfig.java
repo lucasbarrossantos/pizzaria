@@ -42,8 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/fornecedores/new").hasAnyAuthority("CADASTRAR_FORNECEDOR")
-                    .antMatchers("/usuarios/**").hasAnyAuthority("CADASTRAR_USUARIO")
+                    .antMatchers("/fornecedores/new").hasAnyAuthority("CADASTRAR_FORNECEDOR", "ADMINISTRADOR", "VENDEDOR")
+                    .antMatchers("/usuarios/**").hasAnyAuthority("CADASTRAR_USUARIO", "ADMINISTRADOR")
+                    .antMatchers("/grupos/**").hasAnyAuthority("CADASTRAR_GRUPO", "ADMINISTRADOR")
+                    .antMatchers("/mesas/new").hasAnyAuthority("CADASTRAR_MESA", "ADMINISTRADOR")
+                    .antMatchers("/pizzas/new").hasAnyAuthority("CADASTRAR_PIZZA", "ADMINISTRADOR")
+                    .antMatchers("/promocoes/new").hasAnyAuthority("CADASTRAR_PROMOCAO", "ADMINISTRADOR")
+                    .antMatchers("/titulos/new").hasAnyAuthority("FINANCEIRO", "ADMINISTRADOR", "VENDEDOR")
+                    .antMatchers("/produtos/new").hasAnyAuthority("FINANCEIRO", "ADMINISTRADOR", "VENDEDOR")
 
                     .anyRequest().authenticated() // Para qualquer requisição o usuário deve estar autenticado
                 .and()
