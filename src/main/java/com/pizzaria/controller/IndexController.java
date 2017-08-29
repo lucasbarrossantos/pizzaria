@@ -13,7 +13,7 @@ public class IndexController {
     private static final String VIEW = "index";
 
     @GetMapping("/")
-    public String index(){
+    public String index() {
         return VIEW;
     }
 

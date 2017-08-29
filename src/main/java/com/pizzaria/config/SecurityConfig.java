@@ -42,21 +42,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/fornecedores/new").hasAnyAuthority("CADASTRAR_FORNECEDOR", "ADMINISTRADOR", "VENDEDOR")
-                    .antMatchers("/usuarios/**").hasAnyAuthority("CADASTRAR_USUARIO", "ADMINISTRADOR")
-                    .antMatchers("/grupos/**").hasAnyAuthority("CADASTRAR_GRUPO", "ADMINISTRADOR")
-                    .antMatchers("/mesas/new").hasAnyAuthority("CADASTRAR_MESA", "ADMINISTRADOR")
-                    .antMatchers("/pizzas/new").hasAnyAuthority("CADASTRAR_PIZZA", "ADMINISTRADOR")
-                    .antMatchers("/promocoes/new").hasAnyAuthority("CADASTRAR_PROMOCAO", "ADMINISTRADOR")
-                    .antMatchers("/titulos/new").hasAnyAuthority("FINANCEIRO", "ADMINISTRADOR", "VENDEDOR")
-                    .antMatchers("/produtos/new").hasAnyAuthority("FINANCEIRO", "ADMINISTRADOR", "VENDEDOR")
+                .antMatchers("/fornecedores/**").hasAnyAuthority("CADASTRAR_FORNECEDOR", "ADMINISTRADOR", "VENDEDOR")
+                .antMatchers("/usuarios/**").hasAnyAuthority("CADASTRAR_USUARIO", "ADMINISTRADOR")
+                .antMatchers("/grupos/**").hasAnyAuthority("CADASTRAR_GRUPO", "ADMINISTRADOR")
+                .antMatchers("/mesas/**").hasAnyAuthority("CADASTRAR_MESA", "ADMINISTRADOR")
+                .antMatchers("/pizzas/**").hasAnyAuthority("CADASTRAR_PIZZA", "ADMINISTRADOR")
+                .antMatchers("/promocoes/**").hasAnyAuthority("CADASTRAR_PROMOCAO", "ADMINISTRADOR")
+                .antMatchers("/titulos/**").hasAnyAuthority("FINANCEIRO", "ADMINISTRADOR", "VENDEDOR")
+                .antMatchers("/produtos/**").hasAnyAuthority("FINANCEIRO", "ADMINISTRADOR", "VENDEDOR")
 
-                    .anyRequest().authenticated() // Para qualquer requisição o usuário deve estar autenticado
+                .anyRequest().authenticated() // Para qualquer requisição o usuário deve estar autenticado
+
                 .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
-                    .and()
+                .loginPage("/login")
+                .permitAll()
+                .and()
                 .csrf().disable();
     }
 

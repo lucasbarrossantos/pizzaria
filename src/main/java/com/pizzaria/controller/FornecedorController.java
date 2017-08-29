@@ -35,9 +35,9 @@ public class FornecedorController {
     }
 
     @PostMapping("/new")
-    public ModelAndView salvar(@Valid Fornecedor fornecedor, BindingResult result, RedirectAttributes attributes){
+    public ModelAndView salvar(@Valid Fornecedor fornecedor, BindingResult result, RedirectAttributes attributes) {
 
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return novo(fornecedor);
         }
 
@@ -48,13 +48,13 @@ public class FornecedorController {
 
     @GetMapping
     public ModelAndView pesquisar(Fornecedor fornecedor, @PageableDefault(size = 9) Pageable pageable,
-                                  HttpServletRequest httpServletRequest){
+                                  HttpServletRequest httpServletRequest) {
 
         ModelAndView mv = new ModelAndView("fornecedor/PesquisarFornecedor");
 
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("nomeFantasia", where -> where.startsWith().ignoreCase())
-                .withMatcher("razaoSocial",  where -> where.startsWith().ignoreCase());
+                .withMatcher("razaoSocial", where -> where.startsWith().ignoreCase());
 
         Page<Fornecedor> page = fornecedores.findAll(Example.of(fornecedor, matcher), pageable);
 
@@ -66,17 +66,18 @@ public class FornecedorController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView editar(@PathVariable("id") Fornecedor fornecedor){
+    public ModelAndView editar(@PathVariable("id") Fornecedor fornecedor) {
         ModelAndView mv = novo(fornecedor);
         mv.addObject(fornecedor);
         return mv;
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody ResponseEntity<?> excluir(@PathVariable("id") Fornecedor fornecedor){
+    public @ResponseBody
+    ResponseEntity<?> excluir(@PathVariable("id") Fornecedor fornecedor) {
         try {
             fornecedoresService.excluir(fornecedor);
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         return ResponseEntity.ok().build();

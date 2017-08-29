@@ -34,16 +34,16 @@ public class GrupoController {
     private Permissoes permissoes;
 
     @GetMapping("/new")
-    public ModelAndView novo(Grupo grupo){
+    public ModelAndView novo(Grupo grupo) {
         ModelAndView mv = new ModelAndView(CADASTRO);
         mv.addObject("permissoes", permissoes.findAll());
         return mv;
     }
 
     @PostMapping("/new")
-    public ModelAndView salvar(@Valid Grupo grupo, BindingResult result, RedirectAttributes attributes){
+    public ModelAndView salvar(@Valid Grupo grupo, BindingResult result, RedirectAttributes attributes) {
 
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return novo(grupo);
         }
 
@@ -56,12 +56,12 @@ public class GrupoController {
     public ModelAndView pesquisar(Grupo grupo,
                                   @PageableDefault(size = 9, sort = {"nome"},
                                           direction = Sort.Direction.ASC) Pageable pageable,
-                                  HttpServletRequest httpServletRequest){
+                                  HttpServletRequest httpServletRequest) {
 
         ModelAndView mv = new ModelAndView("grupo/PesquisarGrupo");
 
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("nome",  where -> where.contains().ignoreCase());
+                .withMatcher("nome", where -> where.contains().ignoreCase());
 
         Page<Grupo> page = grupos.findAll(Example.of(grupo, matcher), pageable);
 
@@ -74,17 +74,18 @@ public class GrupoController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView editar(@PathVariable("id") Grupo grupo){
+    public ModelAndView editar(@PathVariable("id") Grupo grupo) {
         ModelAndView mv = novo(grupo);
         mv.addObject(grupo);
         return mv;
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody ResponseEntity<?> excluir(@PathVariable("id") Grupo grupo){
+    public @ResponseBody
+    ResponseEntity<?> excluir(@PathVariable("id") Grupo grupo) {
         try {
             gruposService.excluir(grupo);
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         return ResponseEntity.ok().build();
