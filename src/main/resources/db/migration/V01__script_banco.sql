@@ -86,13 +86,14 @@ CREATE TABLE grupo (
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table grupo
---
-
---
--- Table structure for table grupo_permissao
---
+DROP TABLE IF EXISTS permissao;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE permissao (
+  id SERIAL NOT NULL ,
+  nome varchar(255) NOT NULL,
+  PRIMARY KEY (id)
+) ;
 
 DROP TABLE IF EXISTS grupo_permissao;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -106,62 +107,6 @@ CREATE TABLE grupo_permissao (
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table grupo_permissao
---
-
---
--- Table structure for table item_pedido
---
-
-DROP TABLE IF EXISTS item_pedido;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE item_pedido (
-  id SERIAL NOT NULL ,
-  quantidade INT DEFAULT NULL,
-  valor_unitario decimal(19,2) DEFAULT NULL,
-  pedido_id SERIAL DEFAULT NULL,
-  pizza_id SERIAL DEFAULT NULL,
-  produto_id SERIAL DEFAULT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (pizza_id) REFERENCES pizza (id),
-  FOREIGN KEY (pedido_id) REFERENCES pedido (id),
-  FOREIGN KEY (produto_id) REFERENCES produto (id)
-) ;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table item_pedido
---
-
---
--- Table structure for table mesa
---
-
-DROP TABLE IF EXISTS mesa;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE mesa (
-  id SERIAL NOT NULL ,
-  hora_cadastro date DEFAULT NULL,
-  numero varchar(255) NOT NULL,
-  observacao varchar(255) DEFAULT NULL,
-  status varchar(255) DEFAULT NULL,
-  valor_itens decimal(19,2) DEFAULT NULL,
-  pedido_id SERIAL DEFAULT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (pedido_id) REFERENCES pedido (id)
-) ;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table mesa
---
-
---
--- Table structure for table pedido
---
 
 DROP TABLE IF EXISTS pedido;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -178,31 +123,20 @@ CREATE TABLE pedido (
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table pedido
---
-
---
--- Table structure for table permissao
---
-
-DROP TABLE IF EXISTS permissao;
+DROP TABLE IF EXISTS mesa;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE permissao (
+CREATE TABLE mesa (
   id SERIAL NOT NULL ,
-  nome varchar(255) NOT NULL,
-  PRIMARY KEY (id)
+  hora_cadastro date DEFAULT NULL,
+  numero varchar(255) NOT NULL,
+  observacao varchar(255) DEFAULT NULL,
+  status varchar(255) DEFAULT NULL,
+  valor_itens decimal(19,2) DEFAULT NULL,
+  pedido_id SERIAL DEFAULT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (pedido_id) REFERENCES pedido (id)
 ) ;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table permissao
---
-
---
--- Table structure for table pizza
---
 
 DROP TABLE IF EXISTS pizza;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -224,6 +158,14 @@ CREATE TABLE pizza (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
+DROP TABLE IF EXISTS sabor;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE sabor (
+  id SERIAL NOT NULL ,
+  descricao varchar(60) DEFAULT NULL,
+  PRIMARY KEY (id)
+) ;
 
 DROP TABLE IF EXISTS pizza_sabor;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -286,31 +228,6 @@ CREATE TABLE promocao (
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table promocao
---
-
---
--- Table structure for table sabor
---
-
-DROP TABLE IF EXISTS sabor;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE sabor (
-  id SERIAL NOT NULL ,
-  descricao varchar(60) DEFAULT NULL,
-  PRIMARY KEY (id)
-) ;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table sabor
---
-
---
--- Table structure for table tipo_produto
---
 
 DROP TABLE IF EXISTS tipo_produto;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -402,27 +319,19 @@ CREATE TABLE usuario_grupo (
   FOREIGN KEY (codigo_grupo) REFERENCES grupo (id),
   FOREIGN KEY (codigo_usuario) REFERENCES usuario (id)
 ) ;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table usuario_grupo
---
-
---
--- Dumping events for database 'pizzaria'
---
-
---
--- Dumping routines for database 'pizzaria'
---
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2017-08-27 23:01:06
+DROP TABLE IF EXISTS item_pedido;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE item_pedido (
+  id SERIAL NOT NULL ,
+  quantidade INT DEFAULT NULL,
+  valor_unitario decimal(19,2) DEFAULT NULL,
+  pedido_id SERIAL DEFAULT NULL,
+  pizza_id SERIAL DEFAULT NULL,
+  produto_id SERIAL DEFAULT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (pizza_id) REFERENCES pizza (id),
+  FOREIGN KEY (pedido_id) REFERENCES pedido (id),
+  FOREIGN KEY (produto_id) REFERENCES produto (id)
+) ;
