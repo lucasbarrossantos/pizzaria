@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 public class Produto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence")
     private Long id;
 
     @NotBlank(message = "Descrição não pode estar em branco")

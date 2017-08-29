@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class Permissao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence")
     private Long id;
 
     @NotBlank(message = "Informe o nome")

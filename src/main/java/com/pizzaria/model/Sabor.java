@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Sabor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence")
     private Long id;
 
     @Column(length = 60)

@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Categoria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence")
     private Long id;
 
     @NotBlank(message = "Descrição deve ser informada!")

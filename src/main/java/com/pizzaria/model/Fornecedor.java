@@ -17,7 +17,7 @@ import java.util.List;
 public class Fornecedor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence")
     private Long id;
 
     @NotBlank(message = "Nome não pode estar em branco")
