@@ -100,10 +100,9 @@ DROP TABLE IF EXISTS grupo_permissao;
 CREATE TABLE grupo_permissao (
   codigo_grupo INT NOT NULL,
   codigo_permissao INT NOT NULL,
-  KEY FKfp14wb9mt832y4jlw2rx3pf6p (codigo_permissao),
-  KEY FKh1lvrl72de4u5xhr1u3jvo0rq (codigo_grupo),
-  CONSTRAINT FKfp14wb9mt832y4jlw2rx3pf6p FOREIGN KEY (codigo_permissao) REFERENCES permissao (id),
-  CONSTRAINT FKh1lvrl72de4u5xhr1u3jvo0rq FOREIGN KEY (codigo_grupo) REFERENCES grupo (id)
+
+  FOREIGN KEY (codigo_permissao) REFERENCES permissao (id),
+  FOREIGN KEY (codigo_grupo) REFERENCES grupo (id)
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -126,12 +125,9 @@ CREATE TABLE item_pedido (
   pizza_id SERIAL DEFAULT NULL,
   produto_id SERIAL DEFAULT NULL,
   PRIMARY KEY (id),
-  KEY FK60ym08cfoysa17wrn1swyiuda (pedido_id),
-  KEY FK3939rp2uspsqd724arit4kl86 (pizza_id),
-  KEY FKtk55mn6d6bvl5h0no5uagi3sf (produto_id),
-  CONSTRAINT FK3939rp2uspsqd724arit4kl86 FOREIGN KEY (pizza_id) REFERENCES pizza (id),
-  CONSTRAINT FK60ym08cfoysa17wrn1swyiuda FOREIGN KEY (pedido_id) REFERENCES pedido (id),
-  CONSTRAINT FKtk55mn6d6bvl5h0no5uagi3sf FOREIGN KEY (produto_id) REFERENCES produto (id)
+  FOREIGN KEY (pizza_id) REFERENCES pizza (id),
+  FOREIGN KEY (pedido_id) REFERENCES pedido (id),
+  FOREIGN KEY (produto_id) REFERENCES produto (id)
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -155,8 +151,7 @@ CREATE TABLE mesa (
   valor_itens decimal(19,2) DEFAULT NULL,
   pedido_id SERIAL DEFAULT NULL,
   PRIMARY KEY (id),
-  KEY FKp5sleibng9e8a1gmubicsgrd0 (pedido_id),
-  CONSTRAINT FKp5sleibng9e8a1gmubicsgrd0 FOREIGN KEY (pedido_id) REFERENCES pedido (id)
+  FOREIGN KEY (pedido_id) REFERENCES pedido (id)
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -177,10 +172,9 @@ CREATE TABLE pedido (
   observacao varchar(255) DEFAULT NULL,
   status varchar(255) DEFAULT NULL,
   valor_total decimal(19,2) DEFAULT NULL,
-  codigo_usuario bigint(20) DEFAULT NULL,
+  codigo_usuario INT DEFAULT NULL,
   PRIMARY KEY (id),
-  KEY FKmqlda2hhcolmusws35fq3ki6q (codigo_usuario),
-  CONSTRAINT FKmqlda2hhcolmusws35fq3ki6q FOREIGN KEY (codigo_usuario) REFERENCES usuario (id)
+  FOREIGN KEY (codigo_usuario) REFERENCES usuario (id)
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -225,8 +219,7 @@ CREATE TABLE pizza (
   valor_unitario decimal(19,2) NOT NULL,
   promocao_id SERIAL DEFAULT NULL,
   PRIMARY KEY (id),
-  KEY FKcvpvak77xu52tg495n4ndbn97 (promocao_id),
-  CONSTRAINT FKcvpvak77xu52tg495n4ndbn97 FOREIGN KEY (promocao_id) REFERENCES promocao (id)
+  FOREIGN KEY (promocao_id) REFERENCES promocao (id)
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -238,10 +231,8 @@ DROP TABLE IF EXISTS pizza_sabor;
 CREATE TABLE pizza_sabor (
   codigo_pizza INT NOT NULL,
   codigo_sabor INT NOT NULL,
-  KEY FKfc6o83iwklosbviuw969bk9al (codigo_sabor),
-  KEY FKefmg2elscewjc6owo50bevwvk (codigo_pizza),
-  CONSTRAINT FKefmg2elscewjc6owo50bevwvk FOREIGN KEY (codigo_pizza) REFERENCES pizza (id),
-  CONSTRAINT FKfc6o83iwklosbviuw969bk9al FOREIGN KEY (codigo_sabor) REFERENCES sabor (id)
+  FOREIGN KEY (codigo_pizza) REFERENCES pizza (id),
+  FOREIGN KEY (codigo_sabor) REFERENCES sabor (id)
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -257,7 +248,7 @@ DROP TABLE IF EXISTS produto;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE produto (
   id SERIAL NOT NULL ,
-  caracteristicas longtext,
+  caracteristicas VARCHAR(100),
   descricao varchar(100) NOT NULL,
   quantidade_estoque INT NOT NULL,
   sku varchar(20) NOT NULL,
@@ -268,10 +259,8 @@ CREATE TABLE produto (
   estabelecimento_id SERIAL DEFAULT NULL,
   PRIMARY KEY (id),
   UNIQUE (sku),
-  KEY FKgqq1rrte5xp1r7v61wkiptq3x (categoria_id),
-  KEY FKsd4xk0na2qggce5khx0mqujl8 (estabelecimento_id),
-  CONSTRAINT FKgqq1rrte5xp1r7v61wkiptq3x FOREIGN KEY (categoria_id) REFERENCES tipo_produto (id),
-  CONSTRAINT FKsd4xk0na2qggce5khx0mqujl8 FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id)
+  FOREIGN KEY (categoria_id) REFERENCES tipo_produto (id),
+  FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id)
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -293,8 +282,7 @@ CREATE TABLE promocao (
   valor decimal(19,2) NOT NULL,
   estabelecimento_id SERIAL DEFAULT NULL,
   PRIMARY KEY (id),
-  KEY FKbj4dljhk2tx0yhc7ugqhufaal (estabelecimento_id),
-  CONSTRAINT FKbj4dljhk2tx0yhc7ugqhufaal FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id)
+  FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id)
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -360,10 +348,8 @@ CREATE TABLE titulo (
   estabelecimento_id SERIAL DEFAULT NULL,
   fornecedor_id SERIAL DEFAULT NULL,
   PRIMARY KEY (id),
-  KEY FK3hqlxi2alpaqoru1vwsx8l0e6 (estabelecimento_id),
-  KEY FKm4btffwmv6kmpk1l1r32abkfv (fornecedor_id),
-  CONSTRAINT FK3hqlxi2alpaqoru1vwsx8l0e6 FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id),
-  CONSTRAINT FKm4btffwmv6kmpk1l1r32abkfv FOREIGN KEY (fornecedor_id) REFERENCES fornecedor (id)
+  FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id),
+  FOREIGN KEY (fornecedor_id) REFERENCES fornecedor (id)
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -395,8 +381,7 @@ CREATE TABLE usuario (
   telefone varchar(20) DEFAULT NULL,
   estabelecimento_id SERIAL DEFAULT NULL,
   PRIMARY KEY (id),
-  KEY FKpwqxybcq1mx2wkbm1aojirast (estabelecimento_id),
-  CONSTRAINT FKpwqxybcq1mx2wkbm1aojirast FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id)
+  FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id)
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -414,10 +399,8 @@ DROP TABLE IF EXISTS usuario_grupo;
 CREATE TABLE usuario_grupo (
   codigo_usuario INT NOT NULL,
   codigo_grupo INT NOT NULL,
-  KEY FK4yweq9u2sokki6o060mejfw8r (codigo_grupo),
-  KEY FKcx5f61jsftmpnlu4ec8fyndg3 (codigo_usuario),
-  CONSTRAINT FK4yweq9u2sokki6o060mejfw8r FOREIGN KEY (codigo_grupo) REFERENCES grupo (id),
-  CONSTRAINT FKcx5f61jsftmpnlu4ec8fyndg3 FOREIGN KEY (codigo_usuario) REFERENCES usuario (id)
+  FOREIGN KEY (codigo_grupo) REFERENCES grupo (id),
+  FOREIGN KEY (codigo_usuario) REFERENCES usuario (id)
 ) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
