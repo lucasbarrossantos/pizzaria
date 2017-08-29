@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public class ItemPedido {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Long id;
 
     private Integer quantidade;

@@ -15,7 +15,7 @@ import java.util.List;
 public class Estabelecimento {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String descricao;

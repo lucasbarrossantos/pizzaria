@@ -22,7 +22,7 @@ import java.time.LocalDate;
 public class Titulo {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Long id;
 
     @NotBlank(message = "Descrição deve ser informada")

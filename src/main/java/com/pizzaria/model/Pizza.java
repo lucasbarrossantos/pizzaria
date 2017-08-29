@@ -22,7 +22,7 @@ import java.util.List;
 public class Pizza {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Long id;
 
     @NotNull(message = "Selecione o tamanho")
