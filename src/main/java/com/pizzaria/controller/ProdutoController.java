@@ -72,8 +72,7 @@ public class ProdutoController {
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("descricao", where -> where.contains().ignoreCase())
                 .withMatcher("categoria", where -> where.exact().exact())
-                .withMatcher("sku",  where -> where.startsWith())
-                .withMatcher("centroDeCusto",  where -> where.exact().ignoreCase());
+                .withMatcher("sku",  where -> where.startsWith());
 
         Page<Produto> page = produtos.findAll(Example.of(produto, matcher), pageable);
 
