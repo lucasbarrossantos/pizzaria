@@ -21,7 +21,7 @@ import java.util.List;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 60)

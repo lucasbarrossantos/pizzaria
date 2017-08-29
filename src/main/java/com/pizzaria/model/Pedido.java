@@ -22,7 +22,7 @@ import java.util.List;
 public class Pedido {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     private String observacao;

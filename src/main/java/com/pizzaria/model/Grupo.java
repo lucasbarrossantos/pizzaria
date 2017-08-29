@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 public class Grupo {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Informe o nome")
