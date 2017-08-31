@@ -53,6 +53,8 @@
 </head>
 
 <body class="theme-red">
+<input type="hidden" name="_scrf" th:value="${_csrf.token}"/>
+<input type="hidden" name="_scrf_header" th:value="${_csrf.headerName}"/>
 
 <!-- Top Bar -->
 <div th:replace="layout/fragments/Cabecalho :: cabecalho"></div>
