@@ -12,12 +12,6 @@ INSERT INTO usuario (id, version, confirme_senha, senha, cpf, email, nome) VALUE
 --- Inserir permissões
 INSERT INTO permissao VALUES (1, 0, 'ADMINISTRADOR');
 INSERT INTO permissao VALUES (2, 0, 'VENDEDOR');
-INSERT INTO permissao VALUES (3, 0, 'CADASTRAR_GRUPO');
-INSERT INTO permissao VALUES (4, 0,'CADASTRAR_MESA');
-INSERT INTO permissao VALUES (5, 0, 'CADASTRAR_PIZZA');
-INSERT INTO permissao VALUES (6, 0, 'CADASTRAR_PRODUTO');
-INSERT INTO permissao VALUES (7, 0, 'CADASTRAR_PROMOCAO');
-INSERT INTO permissao VALUES (8, 0, 'FINANCEIRO');
 
 INSERT INTO grupo_permissao (codigo_grupo, codigo_permissao) VALUES (1, 1);
 INSERT INTO grupo_permissao (codigo_grupo, codigo_permissao) VALUES (2, 2);
@@ -25,3 +19,10 @@ INSERT INTO grupo_permissao (codigo_grupo, codigo_permissao) VALUES (2, 2);
 INSERT INTO usuario_grupo (codigo_usuario, codigo_grupo) VALUES (1, 1);
 
 INSERT INTO usuario_grupo (codigo_usuario, codigo_grupo) VALUES (2, 2);
+
+INSERT INTO permissao VALUES (3, 0, 'CADASTRAR_GRUPO');
+INSERT INTO permissao VALUES (4, 0,'CADASTRAR_MESA');
+INSERT INTO permissao VALUES (5, 0, 'CADASTRAR_PIZZA');
+INSERT INTO permissao VALUES (6, 0, 'CADASTRAR_PRODUTO');
+INSERT INTO permissao VALUES (7, 0, 'CADASTRAR_PROMOCAO');
+INSERT INTO permissao VALUES (8, 0, 'FINANCEIRO');
