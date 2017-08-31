@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/LayoutPadrao}">
+      layout:decorate="~{layout/LayoutPadrao}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <title>Cadastro de fornecedor</title>
@@ -15,7 +16,7 @@
                 <div class="col-sm-4 text-left">
                     <h2>Cadastro de fornecedor</h2>
                 </div>
-                <div class="col-sm-8 text-right">
+                <div class="col-sm-8 text-right" sec:authorize-url="/fornecedores/new">
                     <a th:href="@{/fornecedores}" class="btn btn-default waves-effect">
                         <i class="material-icons">add_circle</i>
                         <span>Pesquisar</span>

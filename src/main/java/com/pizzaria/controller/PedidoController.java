@@ -7,11 +7,13 @@ import com.pizzaria.model.Produto;
 import com.pizzaria.repository.Pedidos;
 import com.pizzaria.repository.Pizzas;
 import com.pizzaria.repository.Produtos;
+import com.pizzaria.security.UsuarioSistema;
 import com.pizzaria.service.PedidosService;
 import com.pizzaria.session.TabelasItensSession;
 import org.hibernate.StaleObjectStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -152,7 +154,8 @@ public class PedidoController {
     }
 
     @PostMapping("/new")
-    public ModelAndView salvar(@Valid Pedido pedido, RedirectAttributes attributes, Model model) {
+    public ModelAndView salvar(@Valid Pedido pedido, RedirectAttributes attributes,
+                               Model model, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
 
         pedido.setItens(tabelaItens.getItens(pedido.getUuid()));
         pedido.setValorTotal(tabelaItens.getItens(pedido.getUuid())
@@ -162,6 +165,7 @@ public class PedidoController {
                 .orElse(BigDecimal.ZERO));
 
         try {
+            pedido.setVendedor(usuarioSistema.getUsuario());
             pedido = pedidosService.salvar(pedido);
         } catch (ObjectOptimisticLockingFailureException | StaleObjectStateException e) {
             System.out.println(e);

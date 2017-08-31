@@ -29,6 +29,9 @@
         <!-- Thymeleaf - Layout Dialect -->
         <thymeleaf-layout-dialect.version>2.0.1</thymeleaf-layout-dialect.version>
 
+        <!-- Thymeleaf - Extras Spring Security -->
+        <thymeleaf-extras-springsecurity.version>3.0.0.RELEASE</thymeleaf-extras-springsecurity.version>
+
         <!-- Servlet API -->
         <servlet.version>3.1.0</servlet.version>
 
@@ -70,6 +73,14 @@
             <groupId>nz.net.ultraq.thymeleaf</groupId>
             <artifactId>thymeleaf-layout-dialect</artifactId>
             <version>${thymeleaf-layout-dialect.version}</version>
+        </dependency>
+
+        <!-- Thymeleaf - Extras Spring Security -->
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+            <version>${thymeleaf-extras-springsecurity.version}</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- JPA -->
