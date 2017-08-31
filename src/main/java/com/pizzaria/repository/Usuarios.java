@@ -15,4 +15,7 @@ public interface Usuarios extends JpaRepository<Usuario, Long> {
 
     @Query("select distinct p.nome from Usuario as u inner join u.grupos g inner join g.permissoes p where u = ?1")
     List<String> permissoes(Usuario usuario);
+
+    @Query("select u from Usuario u left outer join u.grupos where u.id = ?1")
+    Usuario usuarioComGrupos(Long id);
 }

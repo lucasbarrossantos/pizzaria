@@ -86,7 +86,8 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView editar(@PathVariable("id") Usuario usuario) {
+    public ModelAndView editar(@PathVariable("id") Long id) {
+        Usuario usuario = usuarios.usuarioComGrupos(id);
         ModelAndView mv = novo(usuario);
         mv.addObject(usuario);
         return mv;

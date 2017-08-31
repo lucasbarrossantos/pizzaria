@@ -83,7 +83,8 @@ public class GrupoController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView editar(@PathVariable("id") Grupo grupo) {
+    public ModelAndView editar(@PathVariable("id") Long id) {
+        Grupo grupo = grupos.grupoComPermissoes(id);
         ModelAndView mv = novo(grupo);
         mv.addObject(grupo);
         return mv;
