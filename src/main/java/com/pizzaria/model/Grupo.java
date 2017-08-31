@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "grupo")
-public class Grupo {
+public class Grupo extends Versao {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

@@ -19,7 +19,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "titulo")
-public class Titulo {
+public class Titulo extends Versao {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

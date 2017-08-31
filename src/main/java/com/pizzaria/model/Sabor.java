@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sabor")
 @DynamicUpdate
-public class Sabor {
+public class Sabor extends Versao {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

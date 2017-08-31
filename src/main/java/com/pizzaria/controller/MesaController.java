@@ -6,12 +6,14 @@ import com.pizzaria.model.Pedido;
 import com.pizzaria.model.enumeration.StatusMesa;
 import com.pizzaria.repository.Mesas;
 import com.pizzaria.service.MesasService;
+import org.hibernate.StaleObjectStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -69,7 +71,13 @@ public class MesaController {
             return nova(mesa);
         }
 
-        mesa = mesasService.salvar(mesa);
+        try {
+            mesa = mesasService.salvar(mesa);
+        }catch (ObjectOptimisticLockingFailureException | StaleObjectStateException e){
+            System.out.println(e);
+            model.addAttribute("mensagemErro", "Não foi possível atualizar a Mesa, talvez já tenha sido alterado por outro usuário! Atualize e tente novamente");
+            return nova(mesa);
+        }
         attributes.addFlashAttribute("mensagem", "Mesa " + mesa.getId() +" salva com sucesso");
         return new ModelAndView("redirect:/mesas/new");
     }

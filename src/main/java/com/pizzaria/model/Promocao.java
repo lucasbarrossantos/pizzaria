@@ -18,7 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "promocao")
 @DynamicUpdate
-public class Promocao {
+public class Promocao extends Versao {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

@@ -1,10 +1,8 @@
 package com.pizzaria.controller;
 
 import com.pizzaria.controller.page.PageWrapper;
-import com.pizzaria.model.Promocao;
-import com.pizzaria.repository.Pizzas;
-import com.pizzaria.repository.Promocoes;
-import com.pizzaria.service.PromocoesService;
+import com.pizzaria.model.Sabor;
+import com.pizzaria.repository.Sabores;
 import org.hibernate.StaleObjectStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -25,64 +23,56 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/promocoes")
-public class PromocaoControler {
+@RequestMapping("/sabores")
+public class SaborController {
 
-    private static final String CADASTRO = "promocao/CadastrarPromocao";
-
-    @Autowired
-    private PromocoesService promocoesService;
+    private static final String CADASTRO = "sabor/CadastrarSabor";
 
     @Autowired
-    private Pizzas pizzas;
-
-    @Autowired
-    private Promocoes promocoes;
+    private Sabores sabores;
 
     @GetMapping("/new")
-    public ModelAndView novo(Promocao promocao) {
-        ModelAndView mv = new ModelAndView(CADASTRO);
-        mv.addObject("pizzas", pizzas.findAll());
-        return mv;
+    public ModelAndView novo(Sabor sabor) {
+        return new ModelAndView(CADASTRO);
     }
 
     @PostMapping("/new")
-    public ModelAndView salvar(@Valid Promocao promocao, BindingResult result,
+    public ModelAndView salvar(@Valid Sabor sabor, BindingResult result,
                                RedirectAttributes attributes, Model model) {
 
         if (result.hasErrors()) {
-            return novo(promocao);
+            return novo(sabor);
         }
 
         try {
-            promocao = promocoesService.salvar(promocao);
+            sabor = sabores.save(sabor);
         } catch (ObjectOptimisticLockingFailureException | StaleObjectStateException e) {
             System.out.println(e);
             model.addAttribute("mensagemErro", "Não foi possível atualizar a Promoção, talvez já tenha sido alterado por outro usuário! Atualize e tente novamente");
-            return novo(promocao);
+            return novo(sabor);
         } catch (RuntimeException e) {
             model.addAttribute("mensagem", e.getMessage());
-            return novo(promocao);
+            return novo(sabor);
         }
 
 
-        attributes.addFlashAttribute("mensagem", "Promocao " + promocao.getId() + " salva com sucesso");
-        return new ModelAndView("redirect:/promocoes/new");
+        attributes.addFlashAttribute("mensagem", "Sabor " + sabor.getId() + " salvo com sucesso");
+        return new ModelAndView("redirect:/sabores/new");
     }
 
 
     @GetMapping
-    public ModelAndView pesquisar(Promocao promocao, @PageableDefault(size = 9) Pageable pageable,
+    public ModelAndView pesquisar(Sabor sabor, @PageableDefault(size = 9) Pageable pageable,
                                   HttpServletRequest httpServletRequest) {
 
-        ModelAndView mv = new ModelAndView("promocao/PesquisarPromocao");
+        ModelAndView mv = new ModelAndView("sabor/PesquisarSabor");
 
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("descricao", where -> where.contains().ignoreCase());
 
-        Page<Promocao> page = promocoes.findAll(Example.of(promocao, matcher), pageable);
+        Page<Sabor> page = sabores.findAll(Example.of(sabor, matcher), pageable);
 
-        PageWrapper<Promocao> paginaWrapper =
+        PageWrapper<Sabor> paginaWrapper =
                 new PageWrapper<>(page, httpServletRequest);
 
         mv.addObject("pagina", paginaWrapper);
@@ -91,20 +81,20 @@ public class PromocaoControler {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView editar(@PathVariable("id") Promocao promocao) {
-        ModelAndView mv = novo(promocao);
-        mv.addObject(promocao);
+    public ModelAndView editar(@PathVariable("id") Sabor sabor) {
+        ModelAndView mv = novo(sabor);
+        mv.addObject(sabor);
         return mv;
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody
-    ResponseEntity<?> excluir(@PathVariable("id") Promocao promocao) {
+    public @ResponseBody ResponseEntity<?> excluir(@PathVariable("id") Sabor sabor) {
         try {
-            promocoesService.excluir(promocao);
+            sabores.delete(sabor);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         return ResponseEntity.ok().build();
     }
+
 }

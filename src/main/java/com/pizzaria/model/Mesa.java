@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "mesa")
 @DynamicUpdate
-public class Mesa {
+public class Mesa extends Versao {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

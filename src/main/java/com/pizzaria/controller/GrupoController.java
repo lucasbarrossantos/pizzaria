@@ -5,11 +5,14 @@ import com.pizzaria.model.Grupo;
 import com.pizzaria.repository.Grupos;
 import com.pizzaria.repository.Permissoes;
 import com.pizzaria.service.GruposService;
+import org.hibernate.StaleObjectStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,13 +44,19 @@ public class GrupoController {
     }
 
     @PostMapping("/new")
-    public ModelAndView salvar(@Valid Grupo grupo, BindingResult result, RedirectAttributes attributes) {
+    public ModelAndView salvar(@Valid Grupo grupo, BindingResult result, RedirectAttributes attributes, Model model) {
 
         if (result.hasErrors()) {
             return novo(grupo);
         }
 
-        grupo = gruposService.salvar(grupo);
+        try {
+            grupo = gruposService.salvar(grupo);
+        }catch (ObjectOptimisticLockingFailureException | StaleObjectStateException e){
+            System.out.println(e);
+            model.addAttribute("mensagemErro", "Não foi possível atualizar o Grupo, talvez já tenha sido alterado por outro usuário! Atualize e tente novamente");
+            return novo(grupo);
+        }
         attributes.addFlashAttribute("mensagem", "Grupo: " + grupo.getNome() + " salvo com sucesso!");
         return new ModelAndView("redirect:/grupos/new");
     }

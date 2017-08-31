@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "produto")
 @DynamicUpdate
-public class Produto {
+public class Produto extends Versao {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

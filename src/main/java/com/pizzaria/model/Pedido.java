@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @Table(name = "pedido")
 @DynamicUpdate
-public class Pedido {
+public class Pedido extends Versao {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

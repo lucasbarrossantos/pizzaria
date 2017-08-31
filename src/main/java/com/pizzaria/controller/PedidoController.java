@@ -9,7 +9,9 @@ import com.pizzaria.repository.Pizzas;
 import com.pizzaria.repository.Produtos;
 import com.pizzaria.service.PedidosService;
 import com.pizzaria.session.TabelasItensSession;
+import org.hibernate.StaleObjectStateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -161,10 +163,16 @@ public class PedidoController {
 
         try {
             pedido = pedidosService.salvar(pedido);
+        } catch (ObjectOptimisticLockingFailureException | StaleObjectStateException e) {
+            System.out.println(e);
+            model.addAttribute("mensagemErro", "Não foi possível atualizar o Pedido, talvez já tenha sido alterado por outro usuário! Atualize e tente novamente");
+            return novo(pedido);
         } catch (RuntimeException e) {
             model.addAttribute("mensagemErro", e.getMessage());
             return novo(pedido);
         }
+
+
         attributes.addFlashAttribute("mensagem", "Pedido: " + pedido.getId() + " salvo com sucesso!");
         return new ModelAndView("redirect:/mesas");
     }

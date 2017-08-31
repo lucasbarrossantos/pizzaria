@@ -18,7 +18,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario extends Versao {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

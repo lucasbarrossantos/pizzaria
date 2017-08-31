@@ -8,6 +8,7 @@ import com.pizzaria.repository.Produtos;
 import com.pizzaria.repository.filter.ProdutoFilter;
 import com.pizzaria.service.ProdutosService;
 import com.pizzaria.service.dto.ProdutoDTO;
+import org.hibernate.StaleObjectStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -16,7 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,13 +53,20 @@ public class ProdutoController {
     }
 
     @PostMapping("/new")
-    public ModelAndView salvar(@Valid Produto produto, BindingResult result, RedirectAttributes attributes) {
+    public ModelAndView salvar(@Valid Produto produto, BindingResult result, RedirectAttributes attributes, Model model) {
 
         if (result.hasErrors()) {
             return novo(produto);
         }
 
-        produto = produtosService.salvar(produto);
+        try {
+            produto = produtosService.salvar(produto);
+        }
+        catch (ObjectOptimisticLockingFailureException | StaleObjectStateException e) {
+            System.out.println(e);
+            model.addAttribute("mensagemErro", "Não foi possível atualizar o Produto, talvez já tenha sido alterado por outro usuário! Atualize e tente novamente");
+            return novo(produto);
+        }
         attributes.addFlashAttribute("mensagem", "Produto: " + produto.getDescricao() + " salvo com sucesso!");
         return new ModelAndView("redirect:/produtos/new");
     }

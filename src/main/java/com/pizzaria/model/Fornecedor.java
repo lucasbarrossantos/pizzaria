@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "fornecedor")
-public class Fornecedor {
+public class Fornecedor extends Versao {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

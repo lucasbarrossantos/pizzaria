@@ -4,11 +4,14 @@ import com.pizzaria.controller.page.PageWrapper;
 import com.pizzaria.model.Fornecedor;
 import com.pizzaria.repository.Fornecedores;
 import com.pizzaria.service.FornecedoresService;
+import org.hibernate.StaleObjectStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,13 +38,19 @@ public class FornecedorController {
     }
 
     @PostMapping("/new")
-    public ModelAndView salvar(@Valid Fornecedor fornecedor, BindingResult result, RedirectAttributes attributes) {
+    public ModelAndView salvar(@Valid Fornecedor fornecedor, BindingResult result, RedirectAttributes attributes, Model model) {
 
         if (result.hasErrors()) {
             return novo(fornecedor);
         }
 
-        fornecedoresService.salvar(fornecedor);
+        try {
+            fornecedoresService.salvar(fornecedor);
+        } catch (ObjectOptimisticLockingFailureException | StaleObjectStateException e) {
+            System.out.println(e);
+            model.addAttribute("mensagemErro", "Não foi possível atualizar o Fornecedor, talvez já tenha sido alterado por outro usuário! Atualize e tente novamente");
+            return novo(fornecedor);
+        }
         attributes.addFlashAttribute("mensagem", "Fornecedor salvo com sucesso!");
         return new ModelAndView("redirect:/fornecedores/new");
     }

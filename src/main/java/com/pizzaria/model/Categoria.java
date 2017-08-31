@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tipo_produto")
-public class Categoria {
+public class Categoria extends Versao {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

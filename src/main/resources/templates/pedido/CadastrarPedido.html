@@ -36,6 +36,8 @@
             <div th:replace="fragments/MensagemSucesso :: alert"></div>
             <div th:replace="fragments/MensagemErro :: danger"></div>
 
+            <input type="hidden" th:field="*{version}"/>
+
             <div class="alert bg-red alert-dismissible" role="alert" th:if="${pedido.mesa eq null}"
                  th:unless="${not #strings.isEmpty(mensagemErro)}"
                  th:fragment="danger">

@@ -33,8 +33,10 @@
 
                             <div th:replace="fragments/MensagensErroValidacao :: error"></div>
                             <div th:replace="fragments/MensagemSucesso :: alert"></div>
+                            <div th:replace="fragments/MensagemErro :: danger"></div>
 
                             <input type="hidden" th:field="*{id}"/>
+                            <input type="hidden" th:field="*{version}"/>
 
                             <h2 class="card-inside-title">Nova conta</h2>
                             <div class="row clearfix">
