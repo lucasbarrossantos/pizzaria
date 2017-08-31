@@ -12,7 +12,7 @@ public class GruposService {
     private Grupos grupos;
 
     public Grupo salvar(Grupo grupo){
-        return grupos.saveAndFlush(grupo);
+        return grupos.save(grupo);
     }
 
     public void excluir(Grupo grupo) {

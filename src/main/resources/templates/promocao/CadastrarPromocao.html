@@ -77,7 +77,7 @@
                                                    th:value="${pizza.id}" th:field="*{pizzas}"/>
 
                                             <label th:for="${#ids.prev('pizzas')}"
-                                                   th:text="${pizza.saborPizza}">Queijo</label>
+                                                   th:text="${pizza.saborPizza + ' - ' + #strings.abbreviate(pizza.tamanho, 4)}">Queijo</label>
                                         </th:block>
                                     </div>
                                 </div>
