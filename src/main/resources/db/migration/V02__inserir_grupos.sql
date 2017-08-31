@@ -1,2 +1,2 @@
-INSERT INTO grupo (id, nome) VALUES (1, 'Administrador');
-INSERT INTO grupo (id, nome) VALUES (2, 'Vendedor');
+INSERT INTO grupo (id, version, nome) VALUES (1, 0, 'Administrador');
+INSERT INTO grupo (id, version, nome) VALUES (2, 0, 'Vendedor');

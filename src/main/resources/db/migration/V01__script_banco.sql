@@ -1,325 +1,317 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
---
--- Host: localhost    Database: pizzaria
--- ------------------------------------------------------
--- Server version	5.7.18
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table estabelecimento
---
-
-DROP TABLE IF EXISTS estabelecimento;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE estabelecimento (
-  id SERIAL NOT NULL,
-  cnpj varchar(20) NOT NULL,
-  descricao varchar(255) DEFAULT NULL,
-  bairro varchar(60) DEFAULT NULL,
-  cep varchar(10) DEFAULT NULL,
-  cidade varchar(60) DEFAULT NULL,
-  complemento varchar(40) DEFAULT NULL,
-  endereco varchar(60) DEFAULT NULL,
-  estado varchar(60) DEFAULT NULL,
-  inscricao_estadual varchar(40) DEFAULT NULL,
-  inscricao_municipal varchar(60) DEFAULT NULL,
-  nome_fantasia varchar(90) NOT NULL,
-  razao_social varchar(90) NOT NULL,
-  PRIMARY KEY (id)
-) 
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table estabelecimento
---
-
---
--- Table structure for table fornecedor
---
-
-DROP TABLE IF EXISTS fornecedor;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE fornecedor (
-  id SERIAL NOT NULL ,
-  cnpj varchar(20) NOT NULL,
-  bairro varchar(60) DEFAULT NULL,
-  cep varchar(10) DEFAULT NULL,
-  cidade varchar(60) DEFAULT NULL,
-  complemento varchar(40) DEFAULT NULL,
-  endereco varchar(60) DEFAULT NULL,
-  estado varchar(60) DEFAULT NULL,
-  inscricao_estadual varchar(60) DEFAULT NULL,
-  inscricao_municipal varchar(60) DEFAULT NULL,
-  nome_fantasia varchar(60) NOT NULL,
-  razao_social varchar(60) NOT NULL,
-  PRIMARY KEY (id)
-) ;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table fornecedor
---
-
---
--- Table structure for table grupo
---
-
-DROP TABLE IF EXISTS grupo;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE grupo (
-  id SERIAL NOT NULL ,
-  nome varchar(255) NOT NULL,
-  PRIMARY KEY (id)
+CREATE TABLE estabelecimento
+(
+  id                  BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  version             INT          NULL,
+  cnpj                VARCHAR(20)  NOT NULL,
+  descricao           VARCHAR(255) NULL,
+  bairro              VARCHAR(60)  NULL,
+  cep                 VARCHAR(10)  NULL,
+  cidade              VARCHAR(60)  NULL,
+  complemento         VARCHAR(40)  NULL,
+  endereco            VARCHAR(60)  NULL,
+  estado              VARCHAR(60)  NULL,
+  inscricao_estadual  VARCHAR(40)  NULL,
+  inscricao_municipal VARCHAR(60)  NULL,
+  nome_fantasia       VARCHAR(90)  NOT NULL,
+  razao_social        VARCHAR(90)  NOT NULL
 );
-/*!40101 SET character_set_client = @saved_cs_client */;
 
-DROP TABLE IF EXISTS permissao;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE permissao (
-  id SERIAL NOT NULL ,
-  nome varchar(255) NOT NULL,
-  PRIMARY KEY (id)
-) ;
+CREATE TABLE fornecedor
+(
+  id                  BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  version             INT         NULL,
+  cnpj                VARCHAR(20) NOT NULL,
+  bairro              VARCHAR(60) NULL,
+  cep                 VARCHAR(10) NULL,
+  cidade              VARCHAR(60) NULL,
+  complemento         VARCHAR(40) NULL,
+  endereco            VARCHAR(60) NULL,
+  estado              VARCHAR(60) NULL,
+  inscricao_estadual  VARCHAR(60) NULL,
+  inscricao_municipal VARCHAR(60) NULL,
+  nome_fantasia       VARCHAR(60) NOT NULL,
+  razao_social        VARCHAR(60) NOT NULL
+);
 
-DROP TABLE IF EXISTS grupo_permissao;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE grupo_permissao (
-  codigo_grupo INT NOT NULL,
-  codigo_permissao INT NOT NULL,
+CREATE TABLE grupo
+(
+  id      BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  version INT          NULL,
+  nome    VARCHAR(255) NOT NULL
+);
 
-  FOREIGN KEY (codigo_permissao) REFERENCES permissao (id),
+CREATE TABLE grupo_permissao
+(
+  codigo_grupo     BIGINT NOT NULL,
+  codigo_permissao BIGINT NOT NULL,
+  CONSTRAINT FKh1lvrl72de4u5xhr1u3jvo0rq
   FOREIGN KEY (codigo_grupo) REFERENCES grupo (id)
-) ;
+);
 
-DROP TABLE IF EXISTS mesa;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE mesa (
-  id SERIAL NOT NULL ,
-  hora_cadastro date DEFAULT NULL,
-  numero varchar(255) NOT NULL,
-  observacao varchar(255) DEFAULT NULL,
-  status varchar(255) DEFAULT NULL,
-  valor_itens decimal(19,2) DEFAULT NULL,
-  pedido_id SERIAL DEFAULT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (pedido_id) REFERENCES pedido (id)
-) ;
+CREATE INDEX FKfp14wb9mt832y4jlw2rx3pf6p
+  ON grupo_permissao (codigo_permissao);
 
-DROP TABLE IF EXISTS pizza;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE pizza (
-  id SERIAL NOT NULL ,
-  adicional varchar(255) DEFAULT NULL,
-  borda varchar(255) DEFAULT NULL,
-  content_type varchar(255) DEFAULT NULL,
-  descricao varchar(60) NOT NULL,
-  foto varchar(255) DEFAULT NULL,
-  sabor_pizza varchar(90) DEFAULT NULL,
-  tamanho varchar(255) NOT NULL,
-  valor_unitario decimal(19,2) NOT NULL,
-  promocao_id SERIAL DEFAULT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (promocao_id) REFERENCES promocao (id)
-) ;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE INDEX FKh1lvrl72de4u5xhr1u3jvo0rq
+  ON grupo_permissao (codigo_grupo);
 
+CREATE TABLE item_pedido
+(
+  id             BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  version        INT            NULL,
+  quantidade     INT            NULL,
+  valor_unitario DECIMAL(19, 2) NULL,
+  pedido_id      BIGINT         NULL,
+  pizza_id       BIGINT         NULL,
+  produto_id     BIGINT         NULL
+);
 
-DROP TABLE IF EXISTS sabor;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE sabor (
-  id SERIAL NOT NULL ,
-  descricao varchar(60) DEFAULT NULL,
-  PRIMARY KEY (id)
-) ;
+CREATE INDEX FK3939rp2uspsqd724arit4kl86
+  ON item_pedido (pizza_id);
 
-DROP TABLE IF EXISTS pizza_sabor;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE pizza_sabor (
-  codigo_pizza INT NOT NULL,
-  codigo_sabor INT NOT NULL,
-  FOREIGN KEY (codigo_pizza) REFERENCES pizza (id),
-  FOREIGN KEY (codigo_sabor) REFERENCES sabor (id)
-) ;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE INDEX FK60ym08cfoysa17wrn1swyiuda
+  ON item_pedido (pedido_id);
 
---
--- Dumping data for table pizza_sabor
---
---
--- Table structure for table produto
---
+CREATE INDEX FKtk55mn6d6bvl5h0no5uagi3sf
+  ON item_pedido (produto_id);
 
-DROP TABLE IF EXISTS produto;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE produto (
-  id SERIAL NOT NULL ,
-  caracteristicas VARCHAR(100),
-  descricao varchar(100) NOT NULL,
-  quantidade_estoque INT NOT NULL,
-  sku varchar(20) NOT NULL,
-  unidade varchar(60) DEFAULT NULL,
-  valor_compra decimal(19,2) NOT NULL,
-  valor_unitario decimal(19,2) NOT NULL,
-  categoria_id SERIAL NOT NULL,
-  estabelecimento_id SERIAL DEFAULT NULL,
-  PRIMARY KEY (id),
+CREATE TABLE mesa
+(
+  id            BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  version       INT            NULL,
+  hora_cadastro DATE           NULL,
+  numero        VARCHAR(255)   NOT NULL,
+  observacao    VARCHAR(255)   NULL,
+  status        VARCHAR(255)   NULL,
+  valor_itens   DECIMAL(19, 2) NULL,
+  pedido_id     BIGINT         NULL
+);
+
+CREATE INDEX FKp5sleibng9e8a1gmubicsgrd0
+  ON mesa (pedido_id);
+
+CREATE TABLE pedido
+(
+  id             BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  version        INT            NULL,
+  data_pedido    DATE           NULL,
+  observacao     VARCHAR(255)   NULL,
+  status         VARCHAR(255)   NULL,
+  valor_total    DECIMAL(19, 2) NULL,
+  codigo_usuario BIGINT         NULL
+);
+
+CREATE INDEX FKmqlda2hhcolmusws35fq3ki6q
+  ON pedido (codigo_usuario);
+
+ALTER TABLE item_pedido
+  ADD CONSTRAINT FK60ym08cfoysa17wrn1swyiuda
+FOREIGN KEY (pedido_id) REFERENCES pedido (id);
+
+ALTER TABLE mesa
+  ADD CONSTRAINT FKp5sleibng9e8a1gmubicsgrd0
+FOREIGN KEY (pedido_id) REFERENCES pedido (id);
+
+CREATE TABLE permissao
+(
+  id      BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  version INT          NULL,
+  nome    VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE grupo_permissao
+  ADD CONSTRAINT FKfp14wb9mt832y4jlw2rx3pf6p
+FOREIGN KEY (codigo_permissao) REFERENCES permissao (id);
+
+CREATE TABLE pizza
+(
+  id             BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  version        INT            NULL,
+  adicional      VARCHAR(255)   NULL,
+  borda          VARCHAR(255)   NULL,
+  content_type   VARCHAR(255)   NULL,
+  descricao      VARCHAR(60)    NOT NULL,
+  foto           VARCHAR(255)   NULL,
+  sabor_pizza    VARCHAR(90)    NULL,
+  tamanho        VARCHAR(255)   NOT NULL,
+  valor_unitario DECIMAL(19, 2) NOT NULL,
+  promocao_id    BIGINT         NULL
+);
+
+CREATE INDEX FKcvpvak77xu52tg495n4ndbn97
+  ON pizza (promocao_id);
+
+ALTER TABLE item_pedido
+  ADD CONSTRAINT FK3939rp2uspsqd724arit4kl86
+FOREIGN KEY (pizza_id) REFERENCES pizza (id);
+
+CREATE TABLE pizza_sabor
+(
+  codigo_pizza BIGINT NOT NULL,
+  codigo_sabor BIGINT NOT NULL,
+  CONSTRAINT FKefmg2elscewjc6owo50bevwvk
+  FOREIGN KEY (codigo_pizza) REFERENCES pizza (id)
+);
+
+CREATE INDEX FKefmg2elscewjc6owo50bevwvk
+  ON pizza_sabor (codigo_pizza);
+
+CREATE INDEX FKfc6o83iwklosbviuw969bk9al
+  ON pizza_sabor (codigo_sabor);
+
+CREATE TABLE produto
+(
+  id                 BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  version            INT            NULL,
+  caracteristicas    LONGTEXT       NULL,
+  descricao          VARCHAR(100)   NOT NULL,
+  quantidade_estoque INT            NOT NULL,
+  sku                VARCHAR(20)    NOT NULL,
+  unidade            VARCHAR(60)    NULL,
+  valor_compra       DECIMAL(19, 2) NOT NULL,
+  valor_unitario     DECIMAL(19, 2) NOT NULL,
+  categoria_id       BIGINT         NOT NULL,
+  estabelecimento_id BIGINT         NULL,
+  CONSTRAINT UK_j6npst3feop938l4x5h675kyv
   UNIQUE (sku),
-  FOREIGN KEY (categoria_id) REFERENCES tipo_produto (id),
-  FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id)
-) ;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table produto
---
-
-
---
--- Table structure for table promocao
---
-
-DROP TABLE IF EXISTS promocao;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE promocao (
-  id SERIAL NOT NULL ,
-  descricao varchar(90) NOT NULL,
-  valor decimal(19,2) NOT NULL,
-  estabelecimento_id SERIAL DEFAULT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id)
-) ;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-
-DROP TABLE IF EXISTS tipo_produto;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE tipo_produto (
-  id SERIAL NOT NULL ,
-  descricao varchar(100) NOT NULL,
-  PRIMARY KEY (id)
-) ;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table tipo_produto
---
---
--- Table structure for table titulo
---
-
-DROP TABLE IF EXISTS titulo;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE titulo (
-  id SERIAL NOT NULL ,
-  centro_de_custo varchar(255) NOT NULL,
-  data_de_emissao date DEFAULT NULL,
-  data_de_validade date DEFAULT NULL,
-  data_do_pagamento date DEFAULT NULL,
-  descricao varchar(255) NOT NULL,
-  forma_de_pagamento varchar(255) DEFAULT NULL,
-  situacao varchar(40) NOT NULL,
-  tipo varchar(40) NOT NULL,
-  valor decimal(19,2) NOT NULL,
-  valor_original decimal(19,2) DEFAULT NULL,
-  valor_pago decimal(19,2) DEFAULT NULL,
-  estabelecimento_id SERIAL DEFAULT NULL,
-  fornecedor_id SERIAL DEFAULT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id),
-  FOREIGN KEY (fornecedor_id) REFERENCES fornecedor (id)
-) ;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table titulo
---
-
---
--- Table structure for table usuario
---
-
-DROP TABLE IF EXISTS usuario;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE usuario (
-  id SERIAL NOT NULL ,
-  confirme_senha varchar(100) NOT NULL,
-  cpf varchar(14) NOT NULL,
-  data_nascimento date DEFAULT NULL,
-  email varchar(60) DEFAULT NULL,
-  bairro varchar(60) DEFAULT NULL,
-  cep varchar(10) DEFAULT NULL,
-  cidade varchar(60) DEFAULT NULL,
-  complemento varchar(40) DEFAULT NULL,
-  endereco varchar(60) DEFAULT NULL,
-  estado varchar(60) DEFAULT NULL,
-  nome varchar(60) DEFAULT NULL,
-  senha varchar(100) NOT NULL,
-  telefone varchar(20) DEFAULT NULL,
-  estabelecimento_id SERIAL DEFAULT NULL,
-  PRIMARY KEY (id),
+  CONSTRAINT FKsd4xk0na2qggce5khx0mqujl8
   FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id)
 );
 
-DROP TABLE IF EXISTS pedido;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE pedido (
-  id SERIAL NOT NULL ,
-  data_pedido date DEFAULT NULL,
-  observacao varchar(255) DEFAULT NULL,
-  status varchar(255) DEFAULT NULL,
-  valor_total decimal(19,2) DEFAULT NULL,
-  codigo_usuario INT DEFAULT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (codigo_usuario) REFERENCES usuario (id)
-) ;
+CREATE INDEX FKgqq1rrte5xp1r7v61wkiptq3x
+  ON produto (categoria_id);
 
-DROP TABLE IF EXISTS usuario_grupo;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE usuario_grupo (
-  codigo_usuario INT NOT NULL,
-  codigo_grupo INT NOT NULL,
-  FOREIGN KEY (codigo_grupo) REFERENCES grupo (id),
-  FOREIGN KEY (codigo_usuario) REFERENCES usuario (id)
-) ;
+CREATE INDEX FKsd4xk0na2qggce5khx0mqujl8
+  ON produto (estabelecimento_id);
 
-DROP TABLE IF EXISTS item_pedido;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE item_pedido (
-  id SERIAL NOT NULL ,
-  quantidade INT DEFAULT NULL,
-  valor_unitario decimal(19,2) DEFAULT NULL,
-  pedido_id SERIAL DEFAULT NULL,
-  pizza_id SERIAL DEFAULT NULL,
-  produto_id SERIAL DEFAULT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (pizza_id) REFERENCES pizza (id),
-  FOREIGN KEY (pedido_id) REFERENCES pedido (id),
-  FOREIGN KEY (produto_id) REFERENCES produto (id)
-) ;
+ALTER TABLE item_pedido
+  ADD CONSTRAINT FKtk55mn6d6bvl5h0no5uagi3sf
+FOREIGN KEY (produto_id) REFERENCES produto (id);
+
+CREATE TABLE promocao
+(
+  id                 BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  version            INT            NULL,
+  descricao          VARCHAR(90)    NOT NULL,
+  valor              DECIMAL(19, 2) NOT NULL,
+  estabelecimento_id BIGINT         NULL,
+  CONSTRAINT FKbj4dljhk2tx0yhc7ugqhufaal
+  FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id)
+);
+
+CREATE INDEX FKbj4dljhk2tx0yhc7ugqhufaal
+  ON promocao (estabelecimento_id);
+
+ALTER TABLE pizza
+  ADD CONSTRAINT FKcvpvak77xu52tg495n4ndbn97
+FOREIGN KEY (promocao_id) REFERENCES promocao (id);
+
+CREATE TABLE sabor
+(
+  id        BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  version   INT         NULL,
+  descricao VARCHAR(60) NULL
+);
+
+ALTER TABLE pizza_sabor
+  ADD CONSTRAINT FKfc6o83iwklosbviuw969bk9al
+FOREIGN KEY (codigo_sabor) REFERENCES sabor (id);
+
+CREATE TABLE tipo_produto
+(
+  id        BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  version   INT          NULL,
+  descricao VARCHAR(100) NOT NULL
+);
+
+ALTER TABLE produto
+  ADD CONSTRAINT FKgqq1rrte5xp1r7v61wkiptq3x
+FOREIGN KEY (categoria_id) REFERENCES tipo_produto (id);
+
+CREATE TABLE titulo
+(
+  id                 BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  version            INT            NULL,
+  centro_de_custo    VARCHAR(255)   NOT NULL,
+  data_de_emissao    DATE           NULL,
+  data_de_validade   DATE           NULL,
+  data_do_pagamento  DATE           NULL,
+  descricao          VARCHAR(255)   NOT NULL,
+  forma_de_pagamento VARCHAR(255)   NULL,
+  situacao           VARCHAR(40)    NOT NULL,
+  tipo               VARCHAR(40)    NOT NULL,
+  valor              DECIMAL(19, 2) NOT NULL,
+  valor_original     DECIMAL(19, 2) NULL,
+  valor_pago         DECIMAL(19, 2) NULL,
+  estabelecimento_id BIGINT         NULL,
+  fornecedor_id      BIGINT         NULL,
+  CONSTRAINT FK3hqlxi2alpaqoru1vwsx8l0e6
+  FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id),
+  CONSTRAINT FKm4btffwmv6kmpk1l1r32abkfv
+  FOREIGN KEY (fornecedor_id) REFERENCES fornecedor (id)
+);
+
+CREATE INDEX FK3hqlxi2alpaqoru1vwsx8l0e6
+  ON titulo (estabelecimento_id);
+
+CREATE INDEX FKm4btffwmv6kmpk1l1r32abkfv
+  ON titulo (fornecedor_id);
+
+CREATE TABLE usuario
+(
+  id                 BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  version            INT          NULL,
+  confirme_senha     VARCHAR(100) NOT NULL,
+  cpf                VARCHAR(14)  NOT NULL,
+  data_nascimento    DATE         NULL,
+  email              VARCHAR(60)  NULL,
+  bairro             VARCHAR(60)  NULL,
+  cep                VARCHAR(10)  NULL,
+  cidade             VARCHAR(60)  NULL,
+  complemento        VARCHAR(40)  NULL,
+  endereco           VARCHAR(60)  NULL,
+  estado             VARCHAR(60)  NULL,
+  nome               VARCHAR(60)  NULL,
+  senha              VARCHAR(100) NOT NULL,
+  telefone           VARCHAR(20)  NULL,
+  estabelecimento_id BIGINT       NULL,
+  CONSTRAINT FKpwqxybcq1mx2wkbm1aojirast
+  FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento (id)
+);
+
+CREATE INDEX FKpwqxybcq1mx2wkbm1aojirast
+  ON usuario (estabelecimento_id);
+
+ALTER TABLE pedido
+  ADD CONSTRAINT FKmqlda2hhcolmusws35fq3ki6q
+FOREIGN KEY (codigo_usuario) REFERENCES usuario (id);
+
+CREATE TABLE usuario_grupo
+(
+  codigo_usuario BIGINT NOT NULL,
+  codigo_grupo   BIGINT NOT NULL,
+  CONSTRAINT FKcx5f61jsftmpnlu4ec8fyndg3
+  FOREIGN KEY (codigo_usuario) REFERENCES usuario (id),
+  CONSTRAINT FK4yweq9u2sokki6o060mejfw8r
+  FOREIGN KEY (codigo_grupo) REFERENCES grupo (id)
+);
+
+CREATE INDEX FK4yweq9u2sokki6o060mejfw8r
+  ON usuario_grupo (codigo_grupo);
+
+CREATE INDEX FKcx5f61jsftmpnlu4ec8fyndg3
+  ON usuario_grupo (codigo_usuario);
+

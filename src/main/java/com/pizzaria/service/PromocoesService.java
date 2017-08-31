@@ -1,15 +1,10 @@
 package com.pizzaria.service;
 
-import com.pizzaria.model.Pizza;
 import com.pizzaria.model.Promocao;
 import com.pizzaria.repository.Pizzas;
 import com.pizzaria.repository.Promocoes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.PersistenceException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PromocoesService {
@@ -21,6 +16,7 @@ public class PromocoesService {
     private Pizzas pizzas;
 
     public Promocao salvar(Promocao promocao) {
+        removendoPizzasDaPromocao(promocao);
         promocao.getPizzas().forEach(pizza -> pizza.setPromocao(promocao));
         return promocoes.save(promocao);
     }
@@ -39,6 +35,16 @@ public class PromocoesService {
         }catch (RuntimeException e){
             throw new RuntimeException("Impossível apagar a promoção. " + promocao.getId());
         }
+    }
+
+    private void removendoPizzasDaPromocao(Promocao promocao) {
+        pizzas.pizzasEmPromocao()
+                .stream()
+                .filter(pizza -> pizza.getPromocao().getId().equals(promocao.getId()))
+                .forEach(pizza -> {
+                    pizza.setPromocao(null);
+                    pizzas.save(pizza);
+                });
     }
 
 }

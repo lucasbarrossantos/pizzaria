@@ -1,5 +1,5 @@
-INSERT INTO permissao VALUES (1, 'ADMINISTRADOR');
-INSERT INTO permissao VALUES (2, 'VENDEDOR');
+INSERT INTO permissao VALUES (1, 0, 'ADMINISTRADOR');
+INSERT INTO permissao VALUES (2, 0, 'VENDEDOR');
 
 INSERT INTO grupo_permissao (codigo_grupo, codigo_permissao) VALUES (1, 1);
 INSERT INTO grupo_permissao (codigo_grupo, codigo_permissao) VALUES (2, 2);
