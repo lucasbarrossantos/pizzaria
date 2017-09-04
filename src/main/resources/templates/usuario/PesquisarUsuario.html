@@ -103,6 +103,7 @@
                                                 <i class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                             <a class="btn  btn-link  btn-xs bg-red js-exclusao-btn"
+                                               th:if="${#authentication.principal.usuario.id != usuario.id}"
                                                data-toggle="tooltip" data-placement="top" title=""
                                                href="#"
                                                th:attr="data-codigo=${usuario.id}

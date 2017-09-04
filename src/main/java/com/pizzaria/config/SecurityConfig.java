@@ -60,10 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                     .and()
                 .logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .and()
-                .exceptionHandling()
-                    .accessDeniedPage("/403");
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
                     /*.and()
                 .sessionManagement()
                     .maximumSessions(1) // Duas sessões do mesmo usuário

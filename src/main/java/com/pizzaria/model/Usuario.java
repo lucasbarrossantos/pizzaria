@@ -175,4 +175,8 @@ public class Usuario extends Versao {
                 ", dataDeNascimento=" + dataDeNascimento +
                 '}';
     }
+
+    public boolean isNovo() {
+        return this.id == null;
+    }
 }
