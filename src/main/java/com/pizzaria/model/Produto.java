@@ -49,7 +49,6 @@ public class Produto extends Versao {
     @SKU
     private String sku;
 
-    @Lob
     @Column
     private String caracteristicas;
 
