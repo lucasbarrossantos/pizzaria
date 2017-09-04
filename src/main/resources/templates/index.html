@@ -22,8 +22,9 @@
                         <i class="material-icons">playlist_add_check</i>
                     </div>
                     <div class="content">
-                        <div class="text">NEW TASKS</div>
-                        <div class="number count-to" data-from="0" data-to="125" data-speed="15"
+                        <div class="text">PRODUTOS</div>
+                        <div class="number count-to" data-from="0" th:attr="data-to=${fornecedores.size()}"
+                             data-speed="15"
                              data-fresh-interval="20"></div>
                     </div>
                 </div>
@@ -34,8 +35,8 @@
                         <i class="material-icons">help</i>
                     </div>
                     <div class="content">
-                        <div class="text">NEW TICKETS</div>
-                        <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
+                        <div class="text">MESAS</div>
+                        <div class="number count-to" data-from="0" th:attr="data-to=${mesas.size()}" data-speed="1000"
                              data-fresh-interval="20"></div>
                     </div>
                 </div>
@@ -43,12 +44,11 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box bg-light-green hover-expand-effect">
                     <div class="icon">
-                        <i class="material-icons">forum</i>
+                        <i class="material-icons">monetization_on</i>
                     </div>
                     <div class="content">
-                        <div class="text">NEW COMMENTS</div>
-                        <div class="number count-to" data-from="0" data-to="243" data-speed="1000"
-                             data-fresh-interval="20"></div>
+                        <div class="text">VENDAS DO MÊS</div>
+                        <div class="number js-valor-formatado">[[${{vendasNoMes}}]]</div>
                     </div>
                 </div>
             </div>
@@ -58,8 +58,9 @@
                         <i class="material-icons">person_add</i>
                     </div>
                     <div class="content">
-                        <div class="text">NEW VISITORS</div>
-                        <div class="number count-to" data-from="0" data-to="1225" data-speed="1000"
+                        <div class="text">FORNECEDORES</div>
+                        <div class="number count-to" data-from="0" th:attr="data-to=${fornecedores.size()}"
+                             data-speed="1000"
                              data-fresh-interval="20"></div>
                     </div>
                 </div>
@@ -68,5 +69,10 @@
 
     </div>
 </section>
-
+<th:block layout:fragment="javascript-extra">
+    <script>
+        var valor = $('.js-valor-formatado').text();
+        $('.js-valor-formatado').html(Pizzaria.formatarMoeda(parseFloat(valor)));
+    </script>
+</th:block>
 </html>
