@@ -23,6 +23,11 @@ public class UsuariosService {
             usuario.setConfirmeSenha(usuario.getSenha());
         }
 
+        if (!StringUtils.isEmpty(usuario.getSenha())){
+            usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
+            usuario.setConfirmeSenha(usuario.getSenha());
+        }
+
         if (usuario.isNovo() && StringUtils.isEmpty(usuario.getSenha())) {
             throw new RuntimeException("Senha é obrigatória para novo usuário");
         }
