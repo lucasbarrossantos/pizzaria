@@ -41,6 +41,7 @@ public class IndexController {
         mv.addObject("produtos", produtos.findAll());
         mv.addObject("mesas", mesas.findAll());
         mv.addObject("vendasNoMes", titulos.valorTotalNoMes(MonthDay.now().getMonthValue()).orElse(BigDecimal.ZERO));
+        mv.addObject("vendasNoDia", titulos.valoresDoDia().orElse(BigDecimal.ZERO));
         return mv;
     }
 

@@ -47,8 +47,8 @@
                         <i class="material-icons">monetization_on</i>
                     </div>
                     <div class="content">
-                        <div class="text">VENDAS DO MÊS</div>
-                        <div class="number js-valor-formatado">[[${{vendasNoMes}}]]</div>
+                        <div class="text">VENDAS DO DIA</div>
+                        <div class="number js-valor-formatado">[[${{vendasNoDia}}]]</div>
                     </div>
                 </div>
             </div>
@@ -67,12 +67,29 @@
             </div>
         </div>
 
+        <div class="row clearfix">
+            <!-- Task Info -->
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="card">
+                    <div class="header">
+                        <h2>GRÁFICO POR MÊS</h2>
+                    </div>
+                    <div class="body">
+                        <canvas id="graficoPorMes" height="150"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Task Info -->
+        </div>
+
     </div>
 </section>
 <th:block layout:fragment="javascript-extra">
     <script>
         var valor = $('.js-valor-formatado').text();
-        $('.js-valor-formatado').html(Pizzaria.formatarMoeda(parseFloat(valor)));
+        $('.js-valor-formatado').html('R$ ' + Pizzaria.formatarMoeda(parseFloat(valor)));
     </script>
+    <script th:src="@{/plugins/chartjs/Chart.min.js}"></script>
+    <script th:src="@{/js/dashboard.js}"></script>
 </th:block>
 </html>

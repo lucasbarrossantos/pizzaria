@@ -4,6 +4,7 @@ import com.pizzaria.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -16,5 +17,4 @@ public interface Usuarios extends JpaRepository<Usuario, Long> {
 
     @Query("select u from Usuario u left outer join u.grupos where u.id = ?1")
     Usuario usuarioComGrupos(Long id);
-
 }

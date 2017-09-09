@@ -14,4 +14,8 @@ public interface Titulos extends JpaRepository<Titulo, Long> {
     @Query("select sum (t.valorPago) from Titulo as t where month(t.dataDeEmissao) = ?1")
     Optional<BigDecimal> valorTotalNoMes(int monthValue);
 
+    @Query("select sum (t.valorPago) from Titulo as t " +
+            "where day(cast(t.dataDoPagamento as date)) = day(cast(curdate() as date))")
+    Optional<BigDecimal> valoresDoDia();
+
 }
