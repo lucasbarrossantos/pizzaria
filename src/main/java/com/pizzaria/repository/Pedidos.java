@@ -13,11 +13,11 @@ import java.util.List;
 @Repository
 public interface Pedidos extends JpaRepository<Pedido, Long> {
 
-    @Query("SELECT new com.pizzaria.service.dto.PedidoDTO(to_char(p.dataPedido, '%m/%Y')  as mes,   sum(p.valorTotal) as total) " +
+    @Query("SELECT new com.pizzaria.service.dto.PedidoDTO(to_char(p.dataPedido, 'MM/YYYY')  as mes,   sum(p.valorTotal) as total) " +
             " FROM Pedido AS p " +
             " where p.status = 'CONCLUIDO' \n" +
             " and p.dataPedido BETWEEN ?1 AND ?2 \n " +
-            " group by to_char(p.dataPedido, '%m/%Y') \n" +
-            " order by to_char(p.dataPedido, '%m/%Y') ASC ")
+            " group by to_char(p.dataPedido, 'MM/YYYY') \n" +
+            " order by to_char(p.dataPedido, 'MM/YYYY') ASC ")
     List<PedidoDTO> totalPorMes(LocalDate seisMesesAtras, LocalDate hoje);
 }
