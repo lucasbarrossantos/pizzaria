@@ -9,6 +9,7 @@ import com.pizzaria.repository.Pizzas;
 import com.pizzaria.repository.Produtos;
 import com.pizzaria.security.UsuarioSistema;
 import com.pizzaria.service.PedidosService;
+import com.pizzaria.service.dto.PedidoDTO;
 import com.pizzaria.session.TabelasItensSession;
 import org.hibernate.StaleObjectStateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -95,6 +97,13 @@ public class PedidoController {
         ModelAndView mv = novo(pedido);
         mv.addObject(pedido);
         return mv;
+    }
+
+    @GetMapping("/totalPorMes")
+    public @ResponseBody List<PedidoDTO> listarOTotalDeVendasPorMes() {
+        LocalDate hoje = LocalDate.now();
+        LocalDate seisMesesAtras = hoje.minusMonths(6);
+        return pedidos.totalPorMes(seisMesesAtras, hoje);
     }
 
     @PostMapping("/item")

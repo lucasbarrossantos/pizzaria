@@ -22,7 +22,7 @@
                         <i class="material-icons">playlist_add_check</i>
                     </div>
                     <div class="content">
-                        <div class="text">PRODUTOS</div>
+                        <div class="text">TOTAL DE PRODUTOS</div>
                         <div class="number count-to" data-from="0" th:attr="data-to=${produtos.size()}"
                              data-speed="15"
                              data-fresh-interval="20"></div>
@@ -35,7 +35,7 @@
                         <i class="material-icons">help</i>
                     </div>
                     <div class="content">
-                        <div class="text">MESAS</div>
+                        <div class="text">TOTAL DE MESAS</div>
                         <div class="number count-to" data-from="0" th:attr="data-to=${mesas.size()}" data-speed="1000"
                              data-fresh-interval="20"></div>
                     </div>
@@ -58,7 +58,7 @@
                         <i class="material-icons">person_add</i>
                     </div>
                     <div class="content">
-                        <div class="text">FORNECEDORES</div>
+                        <div class="text">TOTAL DE FORNECEDORES</div>
                         <div class="number count-to" data-from="0" th:attr="data-to=${fornecedores.size()}"
                              data-speed="1000"
                              data-fresh-interval="20"></div>
@@ -72,7 +72,7 @@
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                 <div class="card">
                     <div class="header">
-                        <h2>GRÁFICO POR MÊS</h2>
+                        <h2>ÚLTIMOS SEIS MESES</h2>
                     </div>
                     <div class="body">
                         <canvas id="graficoPorMes" height="150"></canvas>

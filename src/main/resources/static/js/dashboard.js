@@ -7,20 +7,55 @@ Pizzaria.GraficoPorMes = (function () {
     }
 
     GraficoPorMes.prototype.iniciar = function () {
+        $.ajax({
+            url: 'pedidos/totalPorMes',
+            method: 'GET',
+            success: onDadosRenderizados.bind(this)
+        })
+    };
+
+    function onDadosRenderizados(data) {
+        var meses = [];
+        var valores = [];
+
+        data.forEach(function (pedido) {
+            meses.unshift(pedido.mes); // inseri no início
+            valores.unshift(pedido.valor);
+        });
+
+        var options = {
+            animation: false,
+            scaleLabel:
+                function (label) {
+                    return '$' + label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                },
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        callback: function (value) {
+                            return numeral(value).format('$ 0,0')
+                        }
+                    }
+                }]
+            }
+        };
+
         var graficoPorMes = new Chart(this.ctx, {
             type: 'line',
             data: {
-                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Jun'],
+                labels: meses,
                 datasets: [{
-                    label: 'Vendas por mês',
-                    backgroundColor:"rgba(26, 179, 148, 0.5)",
+                    label: 'R$',
+                    backgroundColor: "rgba(26, 179, 148, 0.5)",
                     pointBorderColor: "rgba(26, 179, 148, 1)",
                     pointBackgroundColor: "#fff",
-                    data: [10, 5, 7, 2, 9]
+                    data: valores
                 }]
-            }
+            },
+            options: options
         });
-    };
+    }
 
     return GraficoPorMes;
 

@@ -2,6 +2,8 @@ package com.pizzaria.model;
 
 import com.pizzaria.model.enumeration.StatusPedido;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -30,6 +32,7 @@ public class Pedido extends Versao {
     @Column(name = "data_pedido")
     private LocalDate dataPedido;
 
+    @NumberFormat(pattern = "#,##0.00") // Formato Americano
     @Column(name = "valor_total")
     private BigDecimal valorTotal = BigDecimal.ZERO;
 
