@@ -12,7 +12,9 @@
                 <img th:src="@{/images/user.png}" width="48" height="48" alt="User"/>
             </div>
             <div class="info-container">
-                <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${#authentication.principal.usuario.nome}">Lucas</div>
+                <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                     th:text="${#authentication.principal.usuario.nome}">Lucas
+                </div>
                 <div class="email" th:text="${#authentication.principal.usuario.email}">lucas-barros28@hotmail.com</div>
                 <div class="btn-group user-helper-dropdown">
                     <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
@@ -104,6 +106,29 @@
                         </li>
                     </ul>
                 </li>
+
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">picture_as_pdf</i>
+                        <span>Relatórios</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a th:href="@{/}">Usuários</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/}">Clientes</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/}">Contas à pagar</a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/}">Contas à receber</a>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
         </div>
         <!-- #Menu -->

@@ -12,7 +12,7 @@ public class SegurancaController {
     public String login(@AuthenticationPrincipal User user){
 
         if (user != null){
-            return "redirect:/mesas";
+            return "redirect:/";
         }
 
         return "Login";

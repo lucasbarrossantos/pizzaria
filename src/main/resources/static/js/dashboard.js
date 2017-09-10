@@ -17,10 +17,12 @@ Pizzaria.GraficoPorMes = (function () {
     function onDadosRenderizados(data) {
         var meses = [];
         var valores = [];
+        var total = 0;
 
         data.forEach(function (pedido) {
             meses.unshift(pedido.mes); // inseri no início
             valores.unshift(pedido.valor);
+            total = total + pedido.valor;
         });
 
         var options = {
@@ -38,6 +40,10 @@ Pizzaria.GraficoPorMes = (function () {
                         }
                     }
                 }]
+            },
+            title: {
+                display: true,
+                text: 'Últimos seis meses'
             }
         };
 
@@ -46,7 +52,7 @@ Pizzaria.GraficoPorMes = (function () {
             data: {
                 labels: meses,
                 datasets: [{
-                    label: 'R$',
+                    label: 'R$ ' + Pizzaria.formatarMoeda(total),
                     backgroundColor: "rgba(26, 179, 148, 0.5)",
                     pointBorderColor: "rgba(26, 179, 148, 1)",
                     pointBackgroundColor: "#fff",
