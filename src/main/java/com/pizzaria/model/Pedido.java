@@ -28,7 +28,6 @@ public class Pedido extends Versao {
     @Column(name = "data_pedido")
     private LocalDate dataPedido;
 
-    @NumberFormat(pattern = "#,##0.00") // Formato Americano
     @Column(name = "valor_total")
     private BigDecimal valorTotal = BigDecimal.ZERO;
 
