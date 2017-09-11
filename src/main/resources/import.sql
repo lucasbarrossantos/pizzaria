@@ -16,3 +16,13 @@ INSERT INTO usuario (version,  confirme_senha, senha, cpf, email, nome) VALUES (
 -- Usuario, Grupo e Permissao
 INSERT INTO usuario_grupo (codigo_usuario, codigo_grupo) VALUES (1, 1);
 INSERT INTO grupo_permissao (codigo_grupo, codigo_permissao) VALUES (1, 1);
+
+
+-- Pedidos
+
+INSERT INTO pedido(version, data_pedido, status, valor_total, codigo_usuario) VALUES (0, '2017-03-29',  'CONCLUIDO', 600.00, 1)
+INSERT INTO pedido(version, data_pedido, status, valor_total, codigo_usuario) VALUES (0, '2017-04-28',  'CONCLUIDO', 1200.00, 1)
+INSERT INTO pedido(version, data_pedido, status, valor_total, codigo_usuario) VALUES (0, '2017-05-20',  'CONCLUIDO', 900.00, 1)
+INSERT INTO pedido(version, data_pedido, status, valor_total, codigo_usuario) VALUES (0, '2017-06-15',  'CONCLUIDO', 400.00, 1)
+INSERT INTO pedido(version, data_pedido, status, valor_total, codigo_usuario) VALUES (0, '2017-07-20',  'CONCLUIDO', 700.00, 1)
+INSERT INTO pedido(version, data_pedido, status, valor_total, codigo_usuario) VALUES (0, '2017-09-25',  'CONCLUIDO', 300.00, 1)
