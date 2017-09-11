@@ -18,6 +18,6 @@ public interface Pedidos extends JpaRepository<Pedido, Long> {
             " where p.status = 'CONCLUIDO' \n" +
             " and p.dataPedido BETWEEN ?1 AND ?2 \n " +
             " group by to_char(p.dataPedido, 'MM/YYYY') \n" +
-            " order by to_char(p.dataPedido, 'MM/YYYY') ASC ")
+            " order by to_char(p.dataPedido, 'MM/YYYY') DESC ")
     List<PedidoDTO> totalPorMes(LocalDate seisMesesAtras, LocalDate hoje);
 }
